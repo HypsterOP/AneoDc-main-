@@ -63,6 +63,7 @@ module.exports = {
     .addField(`wasted`, `A canvas command which puts the users avatar in a wasted picture`)
     .addField(`kiss`, `kisses the mentioned user`)
     .addField(`hug`, `hugs the mentioned user`)
+    .addField(`clyde`, `image manupilation of clyde`)
     .setTimestamp()
     .setColor('BLUE')
 
