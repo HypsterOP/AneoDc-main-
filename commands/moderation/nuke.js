@@ -16,7 +16,11 @@ module.exports = {
         ch.setPosition(message.channel.position);
         message.channel.delete()
 
-        ch.send('This channel has been nuked! https://tenor.com/view/explosion-mushroom-cloud-atomic-bomb-bomb-boom-gif-4464831')
+        ch.send(
+          new MessageEmbed()
+          .setDescription(`This channel has been nuked`)
+          .setImage(`http://www.coogfans.com/uploads/db5902/original/3X/1/8/1871b689d8487f292c079b619bac2a8a570f8a1f.gif`)
+        )
     })
   }
 }

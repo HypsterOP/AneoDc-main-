@@ -4,9 +4,11 @@ const blacklist = require('../models/blacklist');
 const mongoose = require('mongoose');
 const schema = require('../models/custom-commands');
 const db = require('../reconDB');
+const db2 = require('quick.db')
 
 
 client.on('message', async message =>{
+
     const p = await client.prefix(message)
     if(message.mentions.users.first()) {
         if(message.mentions.users.first().id === '811265195186978828') return message.channel.send(`The prefix in ${message.guild.name} is ${p}`)
@@ -32,3 +34,4 @@ client.on('message', async message =>{
         }
     })
   })
+  

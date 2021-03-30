@@ -64,13 +64,14 @@ module.exports = {
     .addField(`kiss`, `kisses the mentioned user`)
     .addField(`hug`, `hugs the mentioned user`)
     .addField(`clyde`, `image manupilation of clyde`)
+    .addField(`spotify`, `shows what song the user is listening to!`)
+    .addField(`hack`, `hacks the mentioned user **__but fake xd__**`)
     .setTimestamp()
     .setColor('BLUE')
 
     const help = new Discord.MessageEmbed()
     .setTitle("Info <:info:824495373359775744>")
     .addField(`badges`, `Shows the badges of a user.`)
-    .addField(`bot-guilds`, `Shows the guilds which the bot is in with the most members.`)
     .addField(`docs`, `shows the docs of discord.js - example h!docs message.author`)
     .addField(`firstmessage`, `Shows the first message in a channel`)
     .addField(`help`, `shows this command`)
@@ -147,6 +148,7 @@ module.exports = {
     .addField(`random-avatar`, `shows a random avatar`)
     .addField(`serverinfo`, `shows the server info`)
     .addField(`steal`, `add an emoji you can add upto 100emojis at a time`)
+    .addField(`worldclock`, `World clock simple and neat.`)
     .setColor('BLUE')
     .setTimestamp()
 

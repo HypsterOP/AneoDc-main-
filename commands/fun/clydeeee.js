@@ -4,7 +4,6 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
   name: 'clyde',
   aliases: ['clyde', 'clydebot'],
-  cooldown: 3,
   guildOnly: false,
   async run(client, message, args) {
     const text = args.join(' ');
@@ -16,9 +15,7 @@ module.exports = {
     ).then((res) => res.json());
 
     const embed = new MessageEmbed()
-      .setTitle('Clyde')
       .setImage(data.message)
-      .setFooter(`Sent by ${message.author.username}`)
       .setColor('BLUE');
 
     message.reply(embed);

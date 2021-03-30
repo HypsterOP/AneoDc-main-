@@ -7,11 +7,11 @@ module.exports = {
      * @param {Message} message
      */
     run : async(client, message, args) => {
-        if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('You do not have permissions to use this command <a:warning:818327691052318731>.')
+        if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('You do not have permission to use this command.')
         const user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
-        if(!user) return message.channel.send('User not found or does not exist.')
+        if(!user) return message.channel.send('User not found.')
         const reason = args.slice(1).join(" ")
-        db.findOne({ guildId: message.guild.id, user: user.user.id}, async(err, data) => {
+        db.findOne({ guildid: message.guild.id, user: user.user.id}, async(err, data) => {
             if(err) throw err;
             if(!data) {
                 data = new db({
@@ -35,7 +35,7 @@ module.exports = {
         });
         user.send(new MessageEmbed()
             .setDescription(`You have been warned for ${reason}`)
-            .setColor("RED")
+            .setColor("BLUE")
         )
         message.channel.send(new MessageEmbed()
             .setDescription(`Warned ${user} for ${reason}`).setColor('BLUE')

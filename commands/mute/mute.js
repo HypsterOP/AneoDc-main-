@@ -7,7 +7,7 @@ module.exports = {
      * @param {Message} message
      */
     run : async(client, message, args) => {
-        if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send('You do not have permissions to mute members <a:warning:818327691052318731>')
+        if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send('You do not have permissions to use this command')
         const Member = message.mentions.members.first() || message.guild.members.cache.get(args[0])
         if(!Member) return message.channel.send('Member is not found.')
         const role = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'muted')
@@ -30,12 +30,11 @@ module.exports = {
                 message.channel.send('Muted role has sucessfully been created.')
             } catch (error) {
                 console.log(error)
-                message.channel.send('Hey im getting an error make sure my role is above the member.')
             }
         };
         let role2 = message.guild.roles.cache.find(r => r.name.toLowerCase() === 'muted')
         if(Member.roles.cache.has(role2.id)) return message.channel.send(`${Member.displayName} has already been muted.`)
         await Member.roles.add(role2)
-        message.channel.send(`${Member.displayName} is now muted <a:success:818150856645935155>`)
+        message.channel.send(`${Member.displayName} is now muted.`)
     }
 }

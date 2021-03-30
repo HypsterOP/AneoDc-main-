@@ -11,8 +11,8 @@ module.exports = {
         const Member = message.mentions.members.first() || message.guild.members.cache.get(args[0])
         const time = args[1]
         if(!Member) return message.channel.send('Member is not found.')
-        if(!time) return message.channel.send('Please tell me the amount of time you want to mute the member.')
-                const role = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'muted')
+        if(!time) return message.channel.send('Please specify a time.')
+        const role = message.guild.roles.cache.find(role => role.name.toLowerCase() === 'muted')
         if(!role) {
             try {
                 message.channel.send('Muted role is not found, attempting to create muted role.')
@@ -32,7 +32,6 @@ module.exports = {
                 message.channel.send('Muted role has sucessfully been created.')
             } catch (error) {
                 console.log(error)
-                message.channel.send('Hey there i am getting an error make sure my role is above the member.')
             }
         };
         let role2 = message.guild.roles.cache.find(r => r.name.toLowerCase() === 'muted')
@@ -42,7 +41,7 @@ module.exports = {
 
         setTimeout(async () => {
             await Member.roles.remove(role2)
-            message.channel.send(`${Member.displayName} is now unmuted <a:success:818150856645935155>`)
+            message.channel.send(`${Member.displayName} is now unmuted`)
         }, ms(time))
     }
 }

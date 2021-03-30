@@ -9,7 +9,7 @@ client.on('message', async(message) => {
     for (let i = 0; i < words.length; i++) {
         if(message.content.includes(words[i])) {
             message.delete();
-            message.channel.send(`Do not use bad words.`)
+            message.channel.send(`${message.author} Do not use bad words.`)
                 .then(m => m.delete({ timeout : 3000 }))
         }
     }

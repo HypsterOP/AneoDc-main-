@@ -11,7 +11,7 @@ module.exports = {
     message.channel.send(
         new MessageEmbed()
         .setTitle("Invite Me!")
-        .setDescription(":link: https://dsc.gg/aneo")
+        .setURL("https://dsc.gg/aneo")
     )
   }
 }

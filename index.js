@@ -30,19 +30,6 @@ client.commands = new Collection();
 client.aliases = new Collection();
 client.config = config;
 
-const { GiveawaysManager } = require('discord-giveaways');
-
-client.giveawaysManager = new GiveawaysManager(client, {
-    storage: "./giveaways.json",
-    updateCountdownEvery: 5000,
-    default: {
-        botsCanWin: false,
-        exemptPermissions: ["MANAGE_MESSAGES"],
-        embedColor: "#2F4BDC",
-        reaction: "🎉"
-    }
-});
-
 const blacklistedWords = new Collection();
 client.categories = fs.readdirSync("./commands/");
 ["command"].forEach(handler => {
@@ -71,6 +58,16 @@ client.categories = fs.readdirSync("./commands/");
 
 }); 
 
+client.snipes = new Map()
+client.on('messageDelete', function(message, channel){
+
+  client.snipes.set(message.channel.id, {
+    content: message.content,
+    author:message.author,
+    image:message.attachments.first() ? message.attachments.first().proxyURL: null
+  })
+})
+
 
 module.exports = client;
 
@@ -78,6 +75,9 @@ module.exports = client;
 client.on('guildDelete', async (guild) => {
     prefixSchema.findOneAndDelete({ Guild : guild.id }).then(console.log('i was kicked or banned from a server so deleted data.'))
 })
+
+const keepAlive = require('./server.js');
+keepAlive();
 
 
 client.login(token)

@@ -6,9 +6,15 @@ const Schema = require('../models/member-count')
 client.on('ready', () =>{
     console.log(`${client.user.username} ✅ hype is da best`)
 
-    client.user.setActivity(`h!help || https://aneo-xyz.glitch.me`)
+    client.user.setPresence({
+    status: 'dnd',
+    activity: {
+        name: 'h!help | Aneo',
+        type: 'WATCHING',
+    }
+})
 
-    setInterval(() => {
+        setInterval(() => {
         Schema.find().then((data) => {
             if(!data && data.length) return;
 
