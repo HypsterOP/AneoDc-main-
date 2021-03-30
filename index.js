@@ -76,8 +76,5 @@ client.on('guildDelete', async (guild) => {
     prefixSchema.findOneAndDelete({ Guild : guild.id }).then(console.log('i was kicked or banned from a server so deleted data.'))
 })
 
-const keepAlive = require('./server.js');
-keepAlive();
-
 
 client.login(token)
