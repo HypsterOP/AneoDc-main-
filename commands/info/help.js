@@ -145,7 +145,6 @@ module.exports = {
     .addField(`invite`, `you can invite the bot.`)
     .addField(`member-count-channel`, `creates a member count voice channel which updates every 2mins`)
     .addField(`pull-from-vc`, `pulls a user from a different vc to your vc.`)
-    .addField(`random-avatar`, `shows a random avatar`)
     .addField(`serverinfo`, `shows the server info`)
     .addField(`steal`, `add an emoji you can add upto 100emojis at a time`)
     .addField(`worldclock`, `World clock simple and neat.`)

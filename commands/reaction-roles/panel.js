@@ -30,7 +30,7 @@ module.exports = {
                 data.Message = msg.id;
                 data.save();
 
-                const reactions = Object.values(data.Roles).map((val) => val[1].id ?? val[1].raw)
+                const reactions = Object.values(data.Roles).map((val) => val[1].id ||  val[1].raw)
 
                 reactions.map((emoji) => msg.react(emoji))
             })

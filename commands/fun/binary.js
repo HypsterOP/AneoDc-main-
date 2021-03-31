@@ -21,7 +21,7 @@ module.exports = {
         )}`
         );
 
-        message.channel.send(data.binary ?? 'An error has occured', {
+        message.channel.send(data.binary, {
             code: "",
         });
     } else if(query === 'decode') {
@@ -31,7 +31,7 @@ module.exports = {
         )}`
         );
 
-        message.channel.send(data.text ?? 'An error has occured', {
+        message.channel.send(data.text, {
             code: "",
         });
     } else return message.channel.send('That isn\'t valid!')

@@ -1,6 +1,5 @@
-const {Collection, Client, Discord} = require('discord.js')
+const {Collection, Client, Discord, MessageEmbed} = require('discord.js')
 const fs = require('fs')
-
 const afk = new Collection();
 
 module.exports = afk;
@@ -75,6 +74,15 @@ module.exports = client;
 client.on('guildDelete', async (guild) => {
     prefixSchema.findOneAndDelete({ Guild : guild.id }).then(console.log('i was kicked or banned from a server so deleted data.'))
 })
+
+const distube = require('distube')
+const player = new distube(client)
+
+player.on('playSong', (message, queue) => {
+  message.channel.send(`${song.name}`)
+});
+
+client.player = player;
 
 
 client.login(token)

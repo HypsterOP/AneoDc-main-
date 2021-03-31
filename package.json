@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@discordjs/opus": "^0.5.0",
     "@iamtraction/google-translate": "^1.1.2",
     "@k3rn31p4nic/google-translate-api": "^1.1.1",
     "@reconlx/discord.js": "^1.1.101",
@@ -28,6 +29,7 @@
     "discord.js-pagination": "^1.0.3",
     "distube": "^2.8.11",
     "ejs": "^3.1.6",
+    "erela.js": "^2.3.2",
     "express": "^4.17.1",
     "ffmpeg-static": "^4.2.8",
     "figlet": "^1.5.0",

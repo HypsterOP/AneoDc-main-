@@ -18,10 +18,10 @@ module.exports = {
         let upembed = new discord.MessageEmbed()
         .setColor("GREEN")
         .setTitle(`My Uptime <:down_vote:825940618990583848>`)
-        .addField(`${days}`, `Days`)
-        .addField(`${hours}`, `Hours`)
-        .addField(`${minutes}`, `Minutes`)
-        .addField(`${seconds}`, `Seconds`)
+        .addField(`Days`, `${days}`)
+        .addField(`Hours`, `${hours}`)
+        .addField(`Minutes`, `${minutes}`)
+        .addField(`Seconds`, `${seconds}`)
         message.channel.send(upembed)
     }
 }
