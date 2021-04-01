@@ -1,8 +1,8 @@
 const client = require('../index');
 const { MessageEmbed } = require('discord.js')
-const logsChannel = '822687376375414794';
+const logsChannel = '824894588635840533';
 
-client.on('guildCreate', (guild) => {
+client.on('guildRemove', (guild) => {
     client.channels.cache.get(logsChannel).send(
         new MessageEmbed()
         .setTitle('Removed from a server')

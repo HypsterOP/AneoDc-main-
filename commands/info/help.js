@@ -66,7 +66,13 @@ module.exports = {
     .addField(`clyde`, `image manupilation of clyde`)
     .addField(`spotify`, `shows what song the user is listening to!`)
     .addField(`hack`, `hacks the mentioned user **__but fake xd__**`)
+    .addField(`joke`, `Gives a random dad joke`)
     .setTimestamp()
+    .setColor('BLUE')
+
+    const chatbot = new Discord.MessageEmbed()
+    .setTitle(`Chat Bot`)
+    .addField(`chat-channel`, `sets the mentioned channel as a chat bot channel`)
     .setColor('BLUE')
 
     const help = new Discord.MessageEmbed()
@@ -175,11 +181,12 @@ module.exports = {
       ranks,
       rr,
       util,
+      chatbot,
       welc
 
     ]
 
-    const emojilist = ["⬅", "➡"]
+    const emojilist = ["◀", "▶"]
 
     const timeout = `300000`
 

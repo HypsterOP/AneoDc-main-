@@ -8,10 +8,10 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
-    message.channel.send(
-        new MessageEmbed()
-        .setTitle("Invite Me!")
-        .setURL("https://dsc.gg/aneo")
-    )
+    const inviteemebd = new MessageEmbed()
+    .setTitle('Invite me')
+    .setDescription(`[Click here!](https://dsc.gg/aneo)`)
+    .setColor('RANDOM')
+    message.channel.send(inviteemebd)
   }
 }

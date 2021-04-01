@@ -1,13 +1,26 @@
+const { Client, Message, MessageEmbed } = require('discord.js');
+
 module.exports = {
     name: 'kick',
-    run : async(client, message, args) => {
-        if(!message.member.hasPermission('KICK_MEMBERS')) return message.channel.send('Hello there, i see you do not have the permission to kick members <a:warning:818327691052318731>')
-        if(!message.guild.me.hasPermission('KICK_MEMBERS')) return message.channel.send('Hello there! I see that i do not have the permission to kick members. Try giving it to me and trying again <a:warning:818327691052318731>')
-        const Member = message.mentions.members.first()
-        if(!Member) return message.channel.send('I couldn\'t find that member, or there was no member. <a:warning:818327691052318731>')
+    /** 
+     * @param {Client} client 
+     * @param {Message} message 
+     * @param {String[]} args 
+     */
+    run: async(client, message, args) => {
+        if(!message.member.hasPermission('ADMINISTRATOR')) return;
+        const member = message.mentions.members.first();
+        if(!member) return message.channel.send('Please mention a correct user to kick!');
 
-        await Member.kick({ reason : args.slice(1).join(" ") })
+        if(message.member.roles.highest.position <= member.roles.highest.position) return message.channel.send("You're role is not higher than the member.")
 
-        message.channel.send(`${Member.user.tag} has been kicked out of the server <a:eodTICK:820973048483151883>`)
-    }
-}
+      const reason = args.slice(1).join(" ") || "No reason provided";
+        member.kick({ reason: reason})
+        message.channel.send(
+          new MessageEmbed()
+          .setTitle('Kicked')
+          .setDescription(`Kicked ${member} for ${reason}.`)
+          .setColor('RANDOM')
+        )
+    },
+};
