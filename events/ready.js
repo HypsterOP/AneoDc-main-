@@ -32,22 +32,5 @@ client.on('ready', () =>{
 
 }, ms('2 minutes'));
 
-client.api.interactions(client.user.id).commands.post({
-    data: {
-        name: "stonks",
-        description: "Just a fun test command XD"
-    }
-});
-
-client.ws.on("INTERACTION_CREATE", async interaction => {
-    client.api.interactions(interaction.id, interaction.token).callback.post({
-        data: {
-            type: 4,
-            data: {
-                content: "Stonks are high xD <:Stonks:827542638361575464>"
-            }
-        }
-    })
-});
 
 });
