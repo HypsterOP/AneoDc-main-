@@ -79,7 +79,7 @@ const distube = require('distube')
 const player = new distube(client)
 
 player.on('playSong', (message, queue) => {
-  message.channel.send(`${song.name}`)
+  message.channel.send(`Now playing! ${song.name}`)
 });
 
 client.player = player;
