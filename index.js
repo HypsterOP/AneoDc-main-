@@ -84,5 +84,19 @@ player.on('playSong', (message, queue) => {
 
 client.player = player;
 
+client.api.applications(client.user.id).commands.post({data: {
+    name: 'ping',
+    description: 'ping pong!'
+}})
+
+client.ws.on('INTERACTION_CREATE', async interaction => {
+    client.api.interactions(interaction.id, interaction.token).callback.post({data: {
+        type: 4,
+        data: {
+          content: 'hello world!'
+        }
+      }})
+  })
+
 
 client.login(token)
