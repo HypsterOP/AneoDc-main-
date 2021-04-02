@@ -75,6 +75,8 @@ client.on('guildDelete', async (guild) => {
     prefixSchema.findOneAndDelete({ Guild : guild.id }).then(console.log('i was kicked or banned from a server so deleted data.'))
 })
 
+
+
 const distube = require('distube')
 const player = new distube(client)
 
