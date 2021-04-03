@@ -30,6 +30,7 @@ module.exports = {
     .setTitle("Bot <a:bot:823925462568271943>")
     .addField(`report-bug`,`If there is any bug or issue u can use this command so it sends it to my owner.`)
     .addField(`ping`, `Shows the ping of the bot and api`)
+    .addField(`feedback`, `you can give a valuable feed back about the bot :slight_smile:`)    
     .addField(`uptime`, `Shows the uptime`)
     .addField(`stats`, `shows the stats of the bot`)
     .setTimestamp()
