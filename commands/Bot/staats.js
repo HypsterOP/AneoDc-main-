@@ -28,7 +28,12 @@ module.exports = {
             const embed = new MessageEmbed()
             .addField('Aneo Stats:', `**Total Serers** ${guilds}\n**Total Users**: ${users}\n**Total Channels**: ${channels}\n**Usage**: ${usage}\n**Node Version**: ${node}\nCpu Usage ${CPU}`)
 
-            .addField('Usage Stats', `**CPU**: ${cores} - ${cpuModel}`)
+            .addField('Cpu Stats', `**CPU**: ${cpuModel}\n **Cores**: ${cores}`)
+            .setColor('BLUE')
+            .setFooter(`Stats!`)
+            .setTimestamp()
+
+            message.channel.send(embed)
     }
         )
 
