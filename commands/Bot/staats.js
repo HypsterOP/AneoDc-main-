@@ -33,7 +33,6 @@ module.exports = {
         )
 
         function formatBytes (a, b) {
-            if(0 = a) return "0 Bytes"
             let c = 1024;
             d = b || 2
             e = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"],
