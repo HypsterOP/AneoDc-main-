@@ -31,6 +31,7 @@ module.exports = {
     .addField(`report-bug`,`If there is any bug or issue u can use this command so it sends it to my owner.`)
     .addField(`ping`, `Shows the ping of the bot and api`)
     .addField(`uptime`, `Shows the uptime`)
+    .addField(`stats`, `shows the stats of the bot`)
     .setTimestamp()
     .setColor('BLUE')
 
