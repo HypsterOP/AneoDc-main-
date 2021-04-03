@@ -11,7 +11,7 @@ module.exports = {
     run: async(client, message, args) => {
         message.channel.send(
           new MessageEmbed()
-          .setTitle('Vote for me!')
+          .setTitle('Vote for Aneo!')
           .setDescription(`[Discord Bot lists](https://discordbotlist.com/bots/aneo/upvote)`)
           .setColor('RANDOM')
         )
