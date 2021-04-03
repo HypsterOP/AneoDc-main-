@@ -11,28 +11,6 @@ module.exports = client;
 const mongoose = require('mongoose');
 const coinsSchema = require('./models/currency')
 
-var express = require("express");
-var app = express();
-var path = require("path");
-var bodyParser = require("body-parser")
-
-app.use(bodyParser.urlencoded({extended: true}));
-app.set("views", path.join(__dirname, "/views"));
-app.set("view engine", "ejs")
-app.use(express.static("public"));
-
-app.get("/", function(req, res) {
-  res.render("index", {client: client})
-});
-
-app.get("/stats", function(req, res) {
-  res.render("stats", {client: client})
-});
-
-var listeners = app.listen(3000, function () {
-    console.log('Ready on port 3000')
-})
-
 mongoose.connect('mongodb+srv://hypster:hypster@hype.otry4.mongodb.net/Data', {
     useUnifiedTopology : true,
     useNewUrlParser: true,
