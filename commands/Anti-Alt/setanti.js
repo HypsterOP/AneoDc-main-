@@ -2,7 +2,7 @@ const db2 = require('quick.db')
 const discord = require('discord.js')
 const { Client, Message, MessageEmbed } = require('discord.js');
 module.exports = {
-    name: 'setantialt',
+    name: 'anti-alt',
     /** 
      * @param {Client} client 
      * @param {Message} message 
@@ -14,7 +14,7 @@ module.exports = {
         if(!option) {
             const embed = new discord.MessageEmbed()
             .setAuthor("Options for anti alt system")
-            .setDescription("`on` To turn on the anti-alt system\n`off` To turn off the anti-alt system")
+            .setDescription("`enable` To turn on the anti-alt system\n`disable` To turn off the anti-alt system")
             .setColor('RED')
             return message.channel.send(embed)
         }
@@ -22,7 +22,7 @@ module.exports = {
         let logsChannel = message.mentions.channels.first()
         let database = db2.get(`antialt.${message.guild.id}`)
 
-        if(option.toLowerCase() === 'on') {
+        if(option.toLowerCase() === 'enable') {
             if(database) {
                 return message.channel.send("This server already has anti-alt system enabled.")
             }
@@ -45,7 +45,7 @@ module.exports = {
             .setDescription(`${message.author.tag} has enabled the anti-alt system!`)
             .setTimestamp()
             return message.channel.send(embed)
-        } else if(option.toLowerCase === 'off') {
+        } else if(option.toLowerCase() === 'disable') {
             if(!database) {
                 return message.channel.send("This server does not have the anti-alt system enabled.");
             }
@@ -53,7 +53,7 @@ module.exports = {
             db2.delete(`antialt.${message.guild.id}`)
             db2.delete(`altdays.${message.guild.id}`)
             
-            const embed = MessageEmbed()
+            const embed = new MessageEmbed()
             .setAuthor("Anti Alt System disabled")
             .setColor('RANDOM')
             .setDescription(`${message.author.tag} has disabled anti alt system.`)
