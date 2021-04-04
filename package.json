@@ -24,6 +24,7 @@
     "common-tags": "^1.8.0",
     "covid19-api": "^1.2.1",
     "cpu-stat": "^2.0.1",
+    "discord-anti-alt": "^1.1.0",
     "discord-canvas": "^1.4.1",
     "discord-giveaways": "^4.4.3",
     "discord-jokes": "^3.0.0",

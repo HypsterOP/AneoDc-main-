@@ -1,6 +1,8 @@
 const {Collection, Client, Discord, MessageEmbed} = require('discord.js')
 const fs = require('fs')
 const afk = new Collection();
+const db2 = require("quick.db")
+const alt = require("discord-anti-alt")
 
 module.exports = afk;
 const client = new Client({
@@ -77,7 +79,7 @@ client.on('guildDelete', async (guild) => {
 
 
 
-const distube = require('distube')
+const distube = require('distube');
 const player = new distube(client)
 
 player.on('playSong', (message, queue) => {
@@ -86,5 +88,30 @@ player.on('playSong', (message, queue) => {
 
 client.player = player;
 
+
+client.on('guildMemberAdd', async member => {
+    const altdays = db2.get(`altdays.${member.guild.id}`)
+    const altchannel = db2.get(`antialt.${member.guild.id}`)
+    if(!altdays || !altchannel)return;
+
+
+
+    const account = new alt.config({
+        days:parseInt(altdays),
+        options:'kick'
+    })
+
+    let running = account.run(member);
+    let profile = alt.profile(member);
+    if(running) {
+        const embed = new MessageEmbed()
+        .setAuthor(member.user.tag,member.user.displayAvatarURL({ dynamic: true }))
+        .setColor("RANDOM")
+        .addField("Account's Age: ",profile.userAge,true)
+        .addField("Minimum Age required: ",altdays,true)
+        .addField("Account was created at: ",profile.date.userDateCreated,true)
+        return member.guild.channels.cache.get(altchannel).send(embed)
+    }
+})
 
 client.login(token)
