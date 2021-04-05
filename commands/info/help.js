@@ -33,6 +33,7 @@ module.exports = {
     .addField(`feedback`, `you can give a valuable feed back about the bot :slight_smile:`)    
     .addField(`uptime`, `Shows the uptime`)
     .addField(`stats`, `shows the stats of the bot`)
+    .addField(`donate`, `donate to us :slight_smile:`)
     .setTimestamp()
     .setColor('BLUE')
 
