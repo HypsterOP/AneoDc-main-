@@ -14,5 +14,12 @@ module.exports = {
         )
 
         client.player.stop(message);
+
+        message.channel.send(
+            new MessageEmbed()
+            .setTitle("Stopped Playing!")
+            .setDescription(`Stopped Playing , Leaving the voice channel!`)
+            .setTimestamp()
+        )
     },
 };

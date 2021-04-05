@@ -74,7 +74,7 @@ module.exports = client;
 
 
 client.on('guildDelete', async (guild) => {
-    prefixSchema.findOneAndDelete({ Guild : guild.id }).then(console.log('i was kicked or banned from a server so deleted data.'))
+    prefixSchema.findOneAndDelete({ Guild : guild.id }).then(console.log('okokokokokoko, setting up prefix ... done!'))
 })
 
 
