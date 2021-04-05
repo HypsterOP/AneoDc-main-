@@ -25,25 +25,6 @@ client.on('ready', () =>{
     })
 
 
-
-    client.api.applications(client.user.id).commands.post({
-        data: {
-            name: "Hi",
-            description: "A simple hi command"
-        }
-    })
-
-    client.ws.on("INTERACTION_CREATE", async interaction => {
-        client.api.interactions(interaction.id, interaction.token).callback.post({
-            data: {
-                type: 4,
-                data: {
-                    content: "Hello there!"
-                }
-            }
-        })
-    })
-
     client.user.setActivity("h!help | Aneo", {
   type: "STREAMING",
   url: "https://www.youtube.com/channel/UCjGTZFB1kvFi299j-FlSXaQ"
