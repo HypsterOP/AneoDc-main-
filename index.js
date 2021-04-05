@@ -80,11 +80,24 @@ client.on('guildDelete', async (guild) => {
 
 
 const distube = require('distube');
-const player = new distube(client)
+const player = new distube(client, { leaveOnFinish: false });
 
-player.on('playSong', (message, queue) => {
+player.on("playSong", (message, queue, song) => {
   message.channel.send(`Now playing! ${song.name}`)
-});
+}).on("addList", (message, queue, playlist) => {
+    message.channel.send(
+        `Added ${song.name} - \`${song.formattedDuration}\` to queue, requested by ${song.user}`
+    );
+})
+.on("empty", (message) => {
+    message.channel.send("Channel is empty. Leaving the channel")
+})
+.on("error", (message, err) => {
+    message.channel.send(`An Error occoured: ` + err)
+})
+.on("finish", (message) => message.channel.send("There are no more songs in the queue"))
+.on("noRelated", message => message.channel.send("Can't find related video to play."))
+.on("searchCancel", (message) => message.channel.send(`Searching canceled`))
 
 client.player = player;
 
