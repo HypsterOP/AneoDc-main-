@@ -12,5 +12,7 @@ module.exports = {
         .setTitle("Items available for buying :")
         .setDescription(`Sword`)
         .setFooter(`More items will be added`)
+
+        message.channel.send(embed)
     }
 }
