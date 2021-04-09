@@ -69,6 +69,9 @@ module.exports = {
     .addField(`spotify`, `shows what song the user is listening to!`)
     .addField(`hack`, `hacks the mentioned user **__but fake xd__**`)
     .addField(`joke`, `Gives a random dad joke`)
+    .addField(`shit`, `just a normal canvas command`)
+    .addField(`delete`, `shows ur pfp as trash`)
+    .addField(`gay`, `shows ur pfp as rainbow`)
     .setTimestamp()
     .setColor('BLUE')
 
