@@ -64,7 +64,6 @@ module.exports = {
     .addField(`trivia`, `Starts a trivia game`)
     .addField(`wanted`, `A canvas command which puts the users picture in a wanted picture!`)
     .addField(`wasted`, `A canvas command which puts the users avatar in a wasted picture`)
-    .addField(`kiss`, `kisses the mentioned user`)
     .addField(`hug`, `hugs the mentioned user`)
     .addField(`clyde`, `image manupilation of clyde`)
     .addField(`spotify`, `shows what song the user is listening to!`)
