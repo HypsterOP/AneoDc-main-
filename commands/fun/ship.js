@@ -1,5 +1,4 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
-const { random } = require('mathjs');
 
 module.exports = {
     name: 'ship',

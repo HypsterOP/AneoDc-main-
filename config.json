@@ -3,5 +3,8 @@
     "prefix": "h!",
     "mongo": "mongodb+srv://hypster:hypster@hype.otry4.mongodb.net/Data",
     "everyoneMention": false,
-    "hostedBy": true
+    "hostedBy": true,
+    "secret": "Ozp8rgprif5gMewX71E2F-e2oa5ywt2E",
+    "id": "811265195186978828",
+    "dashboardURL": "http://localhost:3000"
 }
