@@ -4,7 +4,11 @@ html(lang='en')
     include ../includes/header.pug
 
     link(rel='stylesheet', href='/css/index.css')
+    link(rel='stylesheet', href='/css/sidebar.css')
   body
+    include ../includes/sidebar.pug
     include ../includes/navbar.pug
     .jumbotron.text-center.bg-transparent
       h1.display-3 Dashboard
+      hr
+      p.lead Manage servers with the dashboard!
