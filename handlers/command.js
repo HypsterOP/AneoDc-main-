@@ -1,6 +1,7 @@
 const {readdirSync} = require('fs');
 const ascii = require('ascii-table')
 let table = new ascii("Commands");
+const commands = new Map();
 table.setHeading('Command', ' Load status');
 module.exports= (client) => {
     readdirSync('./commands/').forEach(dir => {
@@ -34,3 +35,4 @@ readdirSync("./events/").forEach((file) => {
       }
     }
   });
+  module.exports.commands = commands;

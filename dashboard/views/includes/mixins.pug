@@ -1,3 +1,6 @@
 mixin category(category)
-  ui.list-group.mb-2
-    li.list-group-item #[i(class=category.icon)] #{category.name}
+  li.list-group-item #[i(class=category.icon)] #{category.name}
+
+
+mixin command(command)
+    li.list-group-item #{command.name}

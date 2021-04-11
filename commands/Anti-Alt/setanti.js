@@ -3,6 +3,7 @@ const discord = require('discord.js')
 const { Client, Message, MessageEmbed } = require('discord.js');
 module.exports = {
     name: 'anti-alt',
+    category: "Anti-Alt",
     /** 
      * @param {Client} client 
      * @param {Message} message 
