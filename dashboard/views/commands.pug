@@ -4,7 +4,9 @@ doctype
 html(lang='en')
   head
     include includes/header.pug
-        link(rel='stylesheet', href='/css/commands.css')
+
+    script(src='/js/commands.js', defer)
+    link(rel='stylesheet', href='/css/commands.css')
   body
     include includes/navbar.pug
     .container
@@ -24,7 +26,8 @@ html(lang='en')
             ul.list-group.mb-2
               each category in categories
                 +category(category)
-          .col-sm-9
-            ui.list-group.mb-2
+          .col-sm-9.commands
+            ul.list-group.mb-2
               each command in commands
                 +command(command)
+              p#commandError
