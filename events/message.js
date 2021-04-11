@@ -10,10 +10,10 @@ const db2 = require('quick.db')
 client.on('message', async message =>{
 
     const p = await client.prefix(message)
+    if(message.author.bot) return;
     if(message.mentions.users.first()) {
         if(message.mentions.users.first().id === '811265195186978828') return message.channel.send(`The prefix in ${message.guild.name} is ${p}`)
     }
-    if(message.author.bot) return;
     if(!message.content.startsWith(p)) return;
     if (!message.content.startsWith(p)) return;
     blacklist.findOne({ id : message.author.id }, async(err, data) => {
