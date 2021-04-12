@@ -1,5 +1,5 @@
 const authClient = require("./auth-client")
-const bot = require("../index")
+const client = require("../index")
 
 module.exports.updateGuilds = async (req, res, next) => {
   try {

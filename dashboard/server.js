@@ -22,5 +22,5 @@ middleware.validateUser , middleware.updateGuilds, dashboardRoutes);
 
 app.get('*', (req, res) => res.render('errors/404'));
 
-const port = 3000;
-app.listen(3000, () => console.log(`Server is ready on port ${port}, http://localhost:${port}`));
+const port = 5555;
+app.listen(`${port}`, () => console.log(`Server is ready on port ${port}, http://localhost:${port}`));
