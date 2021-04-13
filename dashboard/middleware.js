@@ -9,6 +9,7 @@ module.exports.updateGuilds = async (req, res, next) => {
     res.locals.guilds = getManageableGuilds(authGuilds);
   } 
   } finally {
+      res.locals.guilds = res.locals.guilds ?? [];
       next();
   }
 };
