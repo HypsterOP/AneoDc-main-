@@ -1,6 +1,6 @@
 const express = require('express')
 const cookies = require("cookies")
-const middleware = require('./middleware')
+const middleware = require('./modules/middleware')
 
 const rootRoutes = require('./routes/root-routes')
 const dashboardRoutes = require('./routes/dashboard-routes')
@@ -22,5 +22,5 @@ middleware.validateUser , middleware.updateGuilds, dashboardRoutes);
 
 app.get('*', (req, res) => res.render('errors/404'));
 
-const port = 3001;
+const port = 1003;
 app.listen(`${port}`, () => console.log(`Server is ready on port ${port}, http://localhost:${port}`));

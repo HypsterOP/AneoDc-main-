@@ -23,6 +23,7 @@
   
   #sidebar {
     padding: 10px;
+    background-color: whitesmoke 
   }
   #sidebar,
   #sidebarExtension {
@@ -35,6 +36,7 @@
     width: 275px;
     transition: .3s;
     opacity: 1;
+    background-color: var(--background-secondary);
   }
   #sidebarExtension .large-icon {
     display: block;
@@ -52,37 +54,44 @@
   #sidebarExtension .abbr {
     padding-top: 25px;
   }
-
+  #sidebarExtension h4 {
+    cursor: pointer;
+  }
+  
   #sidebarExtension.closed {
-      width: 0;
-      padding: 0px 0;
+    width: 0;
+    padding: 0px 0;
   }
   #sidebarExtension.closed {
     opacity: 0;
-}
-
-/* tabs */
-.tabs a {
+  }
+  
+  /* tabs */
+  .tabs a {
     margin: 2px 10px;
     padding: 5px;
     padding-left: 10px !important;
     border-radius: 5px;
-}
-.tabs a:hover {
-    background-color: white;
-}
-
-.tabs .category {
+  
+    text-decoration: none;
+    color: gray
+  }
+  .tabs a.active,
+  .tabs a:hover {
+    background-color: black
+  }
+  
+  .tabs .category {
     padding: 24px 0 4px 24px;
-    font: 12px;
+    font-size: 12px;
     text-transform: uppercase;
     font-weight: 700;
-
+  
     color: gray;
     cursor: pointer;
-
+  
     transition: color .3s ease-in-out;
-}
-.tabs .category:hover {
-    color: black
+  }
+  .tabs .category:hover {
+      color: black;
   }
