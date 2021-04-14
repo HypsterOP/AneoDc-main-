@@ -1,5 +1,5 @@
 const { Client, Message, MessageEmbed } = require("discord.js");
-
+const config = require('../../config.json')
 module.exports = {
   name: 'feedback',
   /**
@@ -25,7 +25,7 @@ module.exports = {
     owner.send(reportEmbed)
     message.channel.send(
       new MessageEmbed()
-      .setDescription('<a:tick_check:821925192166408233> Thanks For the feedback!}')
+      .setDescription(`${config.semoji} Thanks For the feedback!`)
       .setColor('GREEN')
     )
   }
