@@ -1,5 +1,5 @@
 const { Client, Message, MessageEmbed, Util } = require("discord.js");
-
+const config = require("../../config.json")
 module.exports = {
   name: 'steal',
   /**
@@ -8,6 +8,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
+    if(!message.member.hasPermission("MANAGE_GUILD")) return;
     if(!args.length) return message.channel.send('No emoji specified');
 
     for (const rawEmoji of args) {

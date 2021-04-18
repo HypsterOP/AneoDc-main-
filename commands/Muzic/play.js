@@ -1,5 +1,5 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
-
+const config = require("../../config.json")
 module.exports = {
     name: 'play',
     /** 
@@ -16,7 +16,7 @@ module.exports = {
         const qe = args.join(' ')
         if(!qe) return message.channel.send(
           new MessageEmbed()
-          .setDescription(`<:error:826449624013078559> what song should i play?`)
+          .setDescription(`${config.femoji} what song should i play?`)
         )
 
         await client.player.play(message, qe);

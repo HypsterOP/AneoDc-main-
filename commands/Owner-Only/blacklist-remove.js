@@ -4,7 +4,7 @@ const { Message } = require('discord.js')
 module.exports = {
     name : 'blacklist-remove',
     run : async(client, message, args) => {
-        if(message.author.id !== '800331322089537538') return message.channel.send('This is an owner only command. <a:owner:821058038458875934> ')
+        if(message.author.id !== '800331322089537538') return;
         const User = message.guild.members.cache.get(args[0])
         if(!User) return message.channel.send('User is not valid.')
 

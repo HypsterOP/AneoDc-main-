@@ -8,7 +8,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        if(message.author.id !== '800331322089537538') return message.channel.send('are you my owner, wait u are not!')
+        if(message.author.id !== '800331322089537538') return;
         message.channel.send(`Hello Hypster, Im in ${client.guilds.cache.size} servers`)
     },
 };

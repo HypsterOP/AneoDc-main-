@@ -1,5 +1,5 @@
 const { Message } = require('discord.js')
-
+const config = require("../../config.json")
 module.exports = {
     name : 'addrole',
     run : async(client, message, args) => {
@@ -8,10 +8,10 @@ module.exports = {
          * @param {Message} message
          */
         
-        if(!message.member.hasPermission("MANAGE_ROLES")) return message.channel.send('Hello there, i see you do not have the permission to manage roles <a:warning:818327691052318731>')
+        if(!message.member.hasPermission("MANAGE_ROLES")) return message.channel.send(`You do not have permission ${config.femoji}`)
         
         const target = message.mentions.members.first()
-        if(!target) return message.channel.send('I couldn\'t find that member, or there was no member. <a:warning:818327691052318731> ') //when no member is pinged
+        if(!target) return message.channel.send(`I couldn\'t find that member, or there was no member ${config.femoji} `) //when no member is pinged
         const role = message.mentions.roles.first()
         if(!role) return message.channel.send('please mention a role')
         

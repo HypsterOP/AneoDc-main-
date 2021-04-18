@@ -9,7 +9,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
-    if(message.author.id !== '800331322089537538') return message.channel.send('Bot Owner-Only Command.')
+    if(message.author.id !== '800331322089537538') return;
 
     const code = args.join(" ")
     if(!code) return message.reply('Hypster, tell me the code to evaluate');

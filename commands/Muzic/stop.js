@@ -1,5 +1,5 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
-
+const config = require("../../config.json")
 module.exports = {
     name: 'stop',
     /** 
@@ -10,7 +10,7 @@ module.exports = {
     run: async(client, message, args) => {
          if(!message.member.voice.channel) return message.channel.send(
           new MessageEmbed()
-          .setDescription(`<:error:826449624013078559> You need to be in a voice channel before you can use this command!`)
+          .setDescription(`${config.femoji} You need to be in a voice channel before you can use this command!`)
         )
 
         client.player.stop(message);

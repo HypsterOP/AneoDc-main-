@@ -1,7 +1,7 @@
 const { Client, Message, MessageEmbed } = require("discord.js");
 
 module.exports = {
-  name: 'delete',
+  name: 'delete-channel',
   /**
    * @param {Client} client
    * @param {Message} message
