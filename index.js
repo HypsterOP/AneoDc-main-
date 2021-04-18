@@ -126,6 +126,5 @@ client.on('guildMemberAdd', async member => {
         return member.guild.channels.cache.get(altchannel).send(embed)
     }
 })
-require('./dashboard/server')
 
 client.login(token)
