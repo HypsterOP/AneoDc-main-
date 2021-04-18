@@ -12,6 +12,24 @@ module.exports = {
 
   run: async(client, message, args) => {
 
+    const halp = new Discord.MessageEmbed()
+    .setTitle(`:page_facing_up: Pages`)
+    .addField(`:page_facing_up: Page 2`, `Antiswear`)
+    .addField(`:page_facing_up: Page 3`, `Birthday`)
+    .addField(`:page_facing_up: Page 4`, `Bot`)
+    .addField(`:page_facing_up: Page 5`, `Custom Commands`)
+    .addField(`:page_facing_up: Page 6`, `Fun`)
+    .addField(`:page_facing_up: page 7`, `Chat bot`)
+    .addField(`:page_facing_up: Page 8`, `Info`)
+    .addField(`:page_facing_up: Page 9`, `Moderation`)
+    .addField(`:page_facing_up: Page 10`, `Mute`)
+    .addField(`:page_facing_up: page 11`, `Prefix Customization`)
+    .addField(`:page_facing_up: Page 12`, `Ranks`)
+    .addField(`:page_facing_up: Page 13`, `Reaction Roles`)
+    .addField(`:page_facing_up: page 14`, `Utility`)
+    .addField(`:page_facing_up: Page 15`, `Welcome setup`)
+    .setColor(`BLUE`)
+
     const AntiSwear = new Discord.MessageEmbed()
     .setTitle("AntiSwear <:antiswear:824494436640620594>")
     .addField(`antiswear-on`, `Turns on the anti swear so that users messages containing bad words will be deleted`)
@@ -67,7 +85,6 @@ module.exports = {
     .addField(`hug`, `hugs the mentioned user`)
     .addField(`clyde`, `image manupilation of clyde`)
     .addField(`spotify`, `shows what song the user is listening to!`)
-    .addField(`hack`, `hacks the mentioned user **__but fake xd__**`)
     .addField(`joke`, `Gives a random dad joke`)
     .addField(`shit`, `just a normal canvas command`)
     .addField(`delete`, `shows ur pfp as trash`)
@@ -174,6 +191,7 @@ module.exports = {
 
 
     const pages = [
+      halp,
       AntiSwear,
       Birthday,
       Bot,
