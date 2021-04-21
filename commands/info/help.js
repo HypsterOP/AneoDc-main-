@@ -28,7 +28,7 @@ module.exports = {
         .setTitle(`<:member:833699997446570005> | General Commands`)
         .addField(`:cake: Birthday Commands`, `set-birthday, check-birthday`)
         .addField(`:robot: Bot Commands`, `donate, feedback, report-bug, stats, uptime, vote`)
-        .addField(`:robot: Chat Bot`, `chat-channel`)
+        .addField(`:robot: Chat Bot`, `set-chatbot-channel`)
         .setColor('BLUE')
         .setFooter(`You can also find the commands here - https://aneo.ml/commands`)
 
