@@ -1,8 +1,9 @@
 {
-  "name": "commandhandler",
+  "name": "aneo",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "shard.js",
   "scripts": {
+    "start": "node shard.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
