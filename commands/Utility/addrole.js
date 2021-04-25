@@ -8,7 +8,7 @@ module.exports = {
          * @param {Message} message
          */
         
-        if(!message.member.hasPermission("MANAGE_ROLES")) return message.channel.send(`You do not have permission ${config.femoji}`)
+        if(!message.member.hasPermission("MANAGE_ROLES")) return;
         
         const target = message.mentions.members.first()
         if(!target) return message.channel.send(`I couldn\'t find that member, or there was no member ${config.femoji} `) //when no member is pinged

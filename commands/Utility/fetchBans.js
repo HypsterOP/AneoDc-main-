@@ -8,7 +8,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
-    if(!message.member.hasPermission('BAN_MEMBERS')) return message.channel.send('You do not have permisison to view the bans!')
+    if(!message.member.hasPermission('BAN_MEMBERS')) return;
 
     const fetchBans = message.guild.fetchBans();
     const bannedMembers = (await fetchBans)

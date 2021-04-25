@@ -10,7 +10,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
-    if(!message.member.hasPermission('MANAGE_CHANNELS')) return message.channel.send('You cannot change the slow mode as you do not have permissions.')
+    if(!message.member.hasPermission('MANAGE_CHANNELS')) return;
     if(!args[0]) {
         message.channel.setRateLimitPerUser(0);
         message.channel.send('The slow mode has been set to default aka 0s')

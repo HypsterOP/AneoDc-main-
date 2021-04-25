@@ -9,7 +9,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
-    if(!message.member.hasPermission('ADMINISTRATOR')) return message.reply('You do not have permission')
+    if(!message.member.hasPermission('ADMINISTRATOR')) return;
 
     const rankName = args.slice(1).join(" ")
     const role = message.mentions.roles.first()

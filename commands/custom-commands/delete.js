@@ -3,7 +3,7 @@ const schema = require('../../models/custom-commands');
 module.exports = {
     name: 'cc-delete',
     run: async(client, message, args) => {
-        if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('You do not have permissions to use this command');
+        if(!message.member.hasPermission('ADMINISTRATOR')) return;
 
         const name = args[0];
 

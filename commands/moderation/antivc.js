@@ -8,8 +8,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
-    if(!message.member.hasPermission('MANAGE_ROLES')) return message.reply('You Do not have permissions')
-    
+    if(!message.member.hasPermission('MANAGE_ROLES')) return;
     const target = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
     if(!target) return message.reply('Please tell me the member who should be prevented from joining the vc');
 

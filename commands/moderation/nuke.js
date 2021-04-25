@@ -8,7 +8,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
-    if(!message.member.hasPermission('ADMINISTRATOR')) return message.reply('You cannot nuke a channel.')
+    if(!message.member.hasPermission('ADMINISTRATOR')) return;
     if(!message.member.hasPermission('MANAGE_CHANNELS')) return message.reply('I need manage channels permission!')
 
     message.channel.clone().then((ch) => {

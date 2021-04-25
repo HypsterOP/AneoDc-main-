@@ -9,7 +9,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply(`${confing.femoji} Missing permissions!`)
+        if(!message.member.hasPermission("ADMINISTRATOR")) return;
 
         const chatbotchannel = db.fetch(`chatbotchannel_${message.guild.id}`)
         if(chatbotchannel === null) return message.reply(`${message.guild.name} Has\'nt setup the chat bot yet! ;C`)

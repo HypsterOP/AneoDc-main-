@@ -9,7 +9,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
-    if(!message.member.hasPermission('ADMINISTRATOR')) return message.reply('You do not have permissions!')
+    if(!message.member.hasPermission('ADMINISTRATOR')) return;
     const role = message.mentions.roles.first()
 
     let [, emoji] = args;

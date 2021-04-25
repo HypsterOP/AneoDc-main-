@@ -10,7 +10,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply(`${confing.femoji} Missing permissions!`)
+        if(!message.member.hasPermission("ADMINISTRATOR")) return;
         const channel = args[0]
         if(!channel) return message.channel.send(`${confing.femoji} Please tell me a channel!`)
         if(isNaN(parseInt(args[0]))) return message.reply("Channel id must be a number")

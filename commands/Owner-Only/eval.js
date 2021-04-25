@@ -9,8 +9,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-      if (message.author.id !== "800331322089537538") return message.channel.send('Uh you are not my owner.')
-
+      if (message.author.id !== "800331322089537538") return;
       const embed = new MessageEmbed()
       .addField("Input", "```js\n" + args.join(" ") + "```");
 

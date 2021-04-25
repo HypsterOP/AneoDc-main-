@@ -9,7 +9,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
-    if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('You do not have permission.')
+    if(!message.member.hasPermission('ADMINISTRATOR')) return;
 
     Schema.findOne({ Guild: message.guild.id }, async(err,data) => {
         if(data) data.delete();

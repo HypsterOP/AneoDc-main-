@@ -8,7 +8,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
-    if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('You do not have permission.')
+    if(!message.member.hasPermission('ADMINISTRATOR')) return;
     const member = message.mentions.members.first();
 
     if (!member) return message.reply("Please tell me the member");

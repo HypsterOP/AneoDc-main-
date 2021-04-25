@@ -6,7 +6,7 @@ module.exports = {
      * @param {Message} message
      */
     run : async(client, message, args) => {
-        if(!message.member.hasPermission('MANAGE_SERVER')) return message.channel.send('You do not have the permissions to change the prefix ')
+        if(!message.member.hasPermission('MANAGE_SERVER')) return;
         const res = await args.join(" ")
         if(!res) return message.channel.send('Please give me the new prefix for the server.')
         prefixSchema.findOne({ Guild : message.guild.id }, async(err, data) => {

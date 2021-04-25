@@ -8,7 +8,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('You do not have permission to use this command');
+        if(!message.member.hasPermission('MANAGE_MESSAGES')) return;
 
         let mention;
 
