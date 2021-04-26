@@ -3,6 +3,7 @@ const { Message } = require('discord.js')
 
 module.exports = {
     name : 'blacklist-remove',
+    hidden: true,
     run : async(client, message, args) => {
         if(message.author.id !== '800331322089537538') return;
         const User = message.guild.members.cache.get(args[0])

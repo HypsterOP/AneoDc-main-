@@ -1,111 +1,134 @@
-const pagination = require(`discord.js-pagination`);
-const Discord = require('discord.js');
+const { MessageEmbed } = require("discord.js");
+const { readdirSync } = require("fs");
+
+
 module.exports = {
   name: "help",
-  description: "Shows all the commands",
-    /**
-     * @param {Client} client
-     * @param {Message} message
-     * @param {String[]} args
-     */
+  aliases : ['h'],
+  description: "Shows all available bot commands.",
+  run: async (client, message, args) => {
 
-  run: async(client, message, args) => {
-        const firstpage = new Discord.MessageEmbed()
-        .setTitle(`Help page | Aneo`)
-        .addField(`2nd Page | <:member:833699997446570005> | General Commands`, `Commands for everyone`)
-        .addField(`3rd Page | <a:admin_ban:833699001093062696> | Administrator Commands`, `Commands for admins`)
-        .addField(`4th Page | <:aneocoin:828621697174208532> | Economy`, `Economy Commands<:aneocoin:828621697174208532> | Economy`, `Economy Commands`)
-        .addField(`5th Page | 🎵 | Music`, `Music Commands`)
-        .addField(`6th Page | <:lol:833521440711901214> | Fun Commands`, `Fun commands to use`)
-        .addField(`7th Page | ℹ | Info Commands`, `info commands`)
-        .addField(`8th Page | 🎭 | Reaction Roles`, `Reaction Roles for the server`)
-        .addField(`9th Page | 👑 | Ranks`, `Rank commands`)
-        .addField(`10th Page | ♾ | Utility | Utility Commands`, `Utility Commands!`)
-        .setColor('BLUE')
-        .setFooter(`You can also find the commands here - https://aneo.ml/commands`)
+    const p = await client.prefix(message)
+    const roleColor =
+    message.guild.me.displayHexColor === "#000000"
+      ? "#ffffff"
+      : message.guild.me.displayHexColor;
 
-        const GeneralCommands = new Discord.MessageEmbed()
-        .setTitle(`<:member:833699997446570005> | General Commands`)
-        .addField(`:cake: Birthday Commands`, `set-birthday, check-birthday`)
-        .addField(`:robot: Bot Commands`, `donate, feedback, report-bug, stats, uptime, vote`)
-        .addField(`:robot: Chat Bot`, `set-chatbot-channel`)
-        .setColor('BLUE')
-        .setFooter(`You can also find the commands here - https://aneo.ml/commands`)
+  if (!args[0]) {
+    let categories = [];
 
-        const admincommands = new Discord.MessageEmbed()
-        .setTitle(`<a:admin_ban:833699001093062696> | Administrator Commands`)
-        .addField(`Anti-Alt`, `anti-alt`)
-        .addField(`Anti Swear`, `antiswear-on, antiswear-off`)
-        .addField(`Custom Commands`, `cc-create, cc-delete, cc-list`)
-        .addField(`Moderation`, `antivc, unantivc, ban, purge, kick, lockdown, nick, nuke, reset-nick, slowmode, unban, warn, warns, remove-warn, remove-all-warns, mute, tempmute, unmute`)
-        .addField(`Prefix`, `prefix, prefix-reset`)
-        .setColor('BLUE')
-        .setFooter(`You can also find the commands here - https://aneo.ml/commands`)
+    const diremojis = {
+      AntiAlt: "🧱",
+      antiswear: "🎯",
+      birthday :"🎂",
+      Bot :"🤖",
+      Chat: "🧤",
+      customcommands: "🗄",
+      Economy: "💰",
+      fun: "🤣",
+      info: "ℹ",
+      moderation: "⛏",
+      Music: "🎵",
+      mute: "🤐",
+      Prefix: "📑",
+      ranks: "🔰",
+      reactionroles: "🎭",
+      Utility: "⚙",
+      welcomesetup: "🙌"
 
-        const economycommands = new Discord.MessageEmbed()
-        .setTitle(`<:aneocoin:828621697174208532> | Economy`, `Economy Commands`)
-        .addField(`All Economy Commands`, `bal, buy, daily, inventory, shop, work`)
-        .setColor('BLUE')
-        .setFooter(`You can also find the commands here - https://aneo.ml/commands`)
 
-        const musiccommands = new Discord.MessageEmbed()
-        .setTitle(`🎵 | Music`, `Music Commands`)
-        .addField(`Commands for music`, `play, stop`)
-        .setColor('BLUE')
-        .setFooter(`You can also find the commands here - https://aneo.ml/commands`)
+    }
+    const ignored = ["Owner-Only", "Shooting-Game", "Tickets"]
+    readdirSync("./commands/").forEach((dir) => {
+      const editedName = `${diremojis[dir]}  ${dir.toUpperCase()}`
+      if(ignored.includes(dir)) return;
+      const commands = readdirSync(`./commands/${dir}/`).filter((file) =>
+        file.endsWith(".js")
+      );
 
-        const funcommands = new Discord.MessageEmbed()
-        .setTitle(`<:lol:833521440711901214> | Fun Commands`, `Fun commands to use`)
-        .addField(`Commands`, `8ball, anime, binary, changemymind, clyde, comment, trash, emojify, faceplam, hangman, hug, image, meme, gay, rip, hitler, say, ship, shit, spotify, ascii, tictactoe, translate, trivia, wanted, wasted`)
-        .setColor('BLUE')
-        .setFooter(`You can also find the commands here - https://aneo.ml/commands`)
+      const cmds = commands.filter((command) => {
+        let file = require(`../../commands/${dir}/${command}`);
 
-        const infooo = new Discord.MessageEmbed()
-        .setTitle(`ℹ | Info Commands`, `info commands`)
-        .addField(`Commands`, `badges, docs, firstmessage, postition, members, ping, roles`)
-        .setFooter(`You can also find the commands here - https://aneo.ml/commands`)
+        return !file.hidden;
+      }).map((command) => {
+        let file = require(`../../commands/${dir}/${command}`);
 
-        const reactionroles = new Discord.MessageEmbed()
-        .setColor('BLUE')
-        .setTitle(`🎭 | Reaction Roles`, `Reaction Roles for the server`)
-        .addField(`Commands`, `add-role, panel`)
-        .setFooter(`You can also find the commands here - https://aneo.ml/commands`)
+        if (!file.name) return "No command name.";
 
-        const rankcommands = new Discord.MessageEmbed()
-        .setTitle(`👑 | Ranks`, `Rank commands`)
-        .addField(`Ranks`, `addrank, delrank, rank, ranks`)
-        .setColor('BLUE')
-        .setFooter(`You can also find the commands here - https://aneo.ml/commands`)
+        let name = file.name.replace(".js", "");
 
-        const utility = new Discord.MessageEmbed()
-        .setTitle(`♾ | Utility`, `Utility Commands!`)
-        .addField(`Commands`, `addrole, removerole, autorole, autorole-check, serverinfo, announce, avatar, delete-channel, create-channel, bans, invite, member-count-channel, pull-from-vc, steal, userinfo, worldclock`)
-        .setFooter(`You can also find the commands here - https://aneo.ml/commands`)
+        return `\`${name}\``;
+      });
 
-        const welcome =  new Discord.MessageEmbed()
-        .setTitle(`🛡 | Welcome`, `Welcome setup`)
-        .addField(`Commands`, `canvas-welcome-preview, canvas-goodbye-preview, check-channel, set-goodbye-channel, set-channel`)
-        .setColor("BLUE")
-        .setFooter(`You can also find the commands here - https://aneo.ml/commands`)
+      let data = new Object();
 
-        const pages = [
-          firstpage,
-          GeneralCommands,
-          admincommands,
-          economycommands,
-          musiccommands,
-          funcommands,
-          infooo,
-          reactionroles,
-          rankcommands,
-          utility,
-          welcome
-        ]
+      data = {
+        name: editedName,
+        value: cmds.length === 0 ? "In progress." : cmds.join(" "),
+      };
 
-        const emojiList = ["⬅", "➡"]
+      categories.push(data);
+    });
 
-        const timeout = '3000000'
+    const embed = new MessageEmbed()
+      .setTitle("📬 Need help? Here are all of my commands:")
+      .addFields(categories)
+      .setDescription(
+        `Use \`${p}help\` followed by a command name to get more additional information on a command. For example: \`${p}help ban\`.`
+      )
+      .setFooter(
+        `Requested by ${message.author.tag}`,
+        message.author.displayAvatarURL({ dynamic: true })
+      )
+      .setTimestamp()
+      .setColor(roleColor);
+    return message.channel.send(embed);
+  } else {
+    const command =
+      client.commands.get(args[0].toLowerCase()) ||
+      client.commands.find(
+        (c) => c.aliases && c.aliases.includes(args[0].toLowerCase())
+      );
 
-        pagination(message, pages, emojiList, timeout)
-}
-}
+    if (!command) {
+      const embed = new MessageEmbed()
+        .setTitle(`Invalid command! Use \`${p}help\` for all of my commands!`)
+        .setColor("FF0000");
+      return message.channel.send(embed);
+    }
+
+    const embed = new MessageEmbed()
+      .setTitle("Command Details:")
+      .addField("PREFIX:", `\`${p}\``)
+      .addField(
+        "COMMAND:",
+        command.name ? `\`${command.name}\`` : "No name for this command."
+      )
+      .addField(
+        "ALIASES:",
+        command.aliases
+          ? `\`${command.aliases.join("` `")}\``
+          : "No aliases for this command."
+      )
+      .addField(
+        "USAGE:",
+        command.usage
+          ? `\`${p}${command.name} ${command.usage}\``
+          : `\`${p}${command.name}\``
+      )
+      .addField(
+        "DESCRIPTION:",
+        command.description
+          ? command.description
+          : "No description for this command."
+      )
+      .setFooter(
+        `Requested by ${message.author.tag}`,
+        message.author.displayAvatarURL({ dynamic: true })
+      )
+      .setTimestamp()
+      .setColor(roleColor);
+    return message.channel.send(embed);
+  }
+},
+};
