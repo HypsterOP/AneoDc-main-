@@ -128,4 +128,8 @@ client.on('guildMemberAdd', async member => {
     }
 })
 
+console.log(
+    `User : ${message.author.tag} (${message.author.id}) Server : ${message.guild.name} (${message.guild.id}) Command : ${command.name}`
+  );
+
 client.login(token)
