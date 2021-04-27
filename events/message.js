@@ -30,7 +30,7 @@ client.on('message', async message =>{
             if (!command) command = client.commands.get(client.aliases.get(cmd));
             if (command) command.run(client, message, args)
         } else {
-            message.channel.send('You are blacklisted! contact HypsterOP in the support server for more info! https://discord.gg/2EpYd26Q2u')
+            message.channel.send('You are blacklisted! Try contacting the developer')
         }
     })
   })

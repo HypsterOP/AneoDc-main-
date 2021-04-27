@@ -1,23 +1,40 @@
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require("discord.js")
+const pm = require('pretty-ms');
+
+
 module.exports = {
-    name : 'ping',
-    category : 'info',
-    description : 'Returns latency and API ping',
+  name: 'ping',
+  aliases: [],
+  category: ['Info'],
+  inVoiceChannel: false,
+  utilisation: '{prefix}ping',
 
-    /**
-     * @param {Client} client
-     * @param {Message} message
-     * @param {String[]} args
-     */
 
-    run : async(client, message, args) => {
-        const msg = await message.channel.send(`🏓 Pinging...`)
-        const embed = new MessageEmbed()
-            .setTitle('Pong!')
-            .setDescription(`WebSocket ping is ${client.ws.ping}MS\nMessage edit ping is ${Math.floor(msg.createdAt - message.createdAt)}MS!`)
-            .setColor('BLUE')
-            await message.channel.send(embed)
-            msg.delete()
+  run: async(client, message, args) => {
 
-    }
+   const msg = await message.channel.send("Pinging...");
+
+    const botLatency = pm(msg.createdTimestamp - message.createdTimestamp)
+    const shardLatency = pm(message.guild.shard.ping);
+    
+    const embed = new MessageEmbed()
+      .setAuthor('🏓Pong!')
+      .addFields({
+          name: 'Message Latency:',
+          value: `${botLatency}`,
+          inline: true
+        }, {
+          name: `Shard | ${message.guild.shard.id} Latency:`,
+          value: `${shardLatency}`,
+          inline: true
+        }, {
+            name: 'Websocket ping:',
+            value: `${client.ws.ping}`,
+            inline: true
+        })
+    .setColor('RANDOM')
+
+    await msg.delete()
+    message.channel.send(embed)
+  }
 }
