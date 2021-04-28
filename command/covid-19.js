@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js")
 const covid = require("novelcovid")
 module.exports = {
     slash: true,
-    testOnly: true,
+    testOnly: false,
     description: "Global Covid Stats",
     callback: async({  }) => {
         const covidStats = await covid.all()
