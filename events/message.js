@@ -30,7 +30,7 @@ client.on('message', async message =>{
             if (!command) command = client.commands.get(client.aliases.get(cmd));
             if (command) command.run(client, message, args)
         } else {
-            message.channel.send('You are blacklisted! Try contacting the developer')
+            message.channel.send('You are blacklisted! Try contacting the developer in support server you will find the link of server here - https://aneo.ml')
         }
     })
   })
