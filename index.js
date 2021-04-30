@@ -60,9 +60,9 @@ client.categories = fs.readdirSync("./commands/");
 }); 
 
 client.bal = (id) => new Promise(async ful => {
-   const data = await coinsSchemaa.findOne({ id });
-   if(!data) return ful(0);
-   ful(coinsSchemaa.coins);
+    const data = await coinsSchemaa.findOne({ id });
+    if(!data) return ful(0);
+    ful(data.coins)
 })
 
 client.add = (id, coins) => {
