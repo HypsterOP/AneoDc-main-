@@ -3,7 +3,7 @@ const fs = require('fs')
 const afk = new Collection();
 const db2 = require("quick.db")
 const alt = require("discord-anti-alt")
-
+const coinsSchemaa = require("./models/Economy")
 module.exports = afk;
 const client = new Client({
     disableEveryone: true,
@@ -12,7 +12,6 @@ const client = new Client({
 require('discord-buttons')
 module.exports = client;
 const mongoose = require('mongoose');
-const coinsSchema = require('./models/currency')
 
 mongoose.connect('mongodb+srv://hypster:hypster@hype.otry4.mongodb.net/Data', {
     useUnifiedTopology : true,
@@ -59,6 +58,36 @@ client.categories = fs.readdirSync("./commands/");
 
 
 }); 
+
+client.bal = (id) => new Promise(async ful => {
+   const data = await coinsSchemaa.findOne({ id });
+   if(!data) return ful(0);
+   ful(coinsSchemaa.coins);
+})
+
+client.add = (id, coins) => {
+    coinsSchemaa.findOne({ id }, async (err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.coins += coins;
+        } else {
+            data = new coinsSchemaa({ id, coins })
+        }
+        data.save();
+    })
+}
+
+client.rmv = (id, coins) => {
+    coinsSchemaa.findOne({ id }, async (err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.coins -= coins;
+        } else {
+            data = new coinsSchemaa({ id, coins })
+        }
+        data.save();
+    })
+}
 
 client.snipes = new Map()
 client.on('messageDelete', function(message, channel){
