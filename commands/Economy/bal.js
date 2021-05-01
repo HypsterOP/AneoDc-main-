@@ -14,7 +14,12 @@ module.exports = {
         const member = message.mentions.members.first() || message.member
 
         const bal = await client.bal(member.id);
-        message.channel.send(`${member} has `+ bal + " coins.");
+        message.channel.send(
+            new MessageEmbed()
+            .setTitle(`${member.user.tag}'s Balance`)
+            .setDescription(`${member} has :  ${bal} Coins `)
+            .setColor("RANDOM")
+        );
 
     }
 }

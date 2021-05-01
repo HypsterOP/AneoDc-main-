@@ -12,7 +12,7 @@ module.exports = {
 
         const shopList = items
         .map((value, index) => {
-            return `**${index+1})** ${value.item} ➡ ${value.price} Coins`
+            return `**${index+1})** ${value.item} | ${value.price} Coins`
         });
 
         message.channel.send(
