@@ -9,7 +9,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        if(!message.author.id === ["809007169210810398", "800331322089537538"]) return;
+        if(message.author.id !== "809007169210810398") return;
         const member = message.mentions.users.first() || message.member;
 
         client.rmv(member.id, parseInt(args[0]));

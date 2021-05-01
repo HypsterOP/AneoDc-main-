@@ -9,6 +9,7 @@ module.exports = {
    */
   run: async (client, message, args) => {
     const owner = client.users.cache.get('800331322089537538');
+    const owner2 = client.users.cache.get("809007169210810398")
 
     const query = args.join(" ");
     if(!query) return message.reply('Please tell me the feedback')
@@ -23,6 +24,7 @@ module.exports = {
     .setTimestamp();
 
     owner.send(reportEmbed)
+    owner2.send(reportEmbed)
     message.channel.send(
       new MessageEmbed()
       .setDescription(`${config.semoji} Thanks For the feedback!`)
