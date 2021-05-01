@@ -9,6 +9,7 @@ const client = new Client({
     disableEveryone: true,
     partials: ["CHANNEL", "MESSAGE", "GUILD_MEMBER", "REACTION"],
 })
+require('discord-reply');
 require('discord-buttons')
 module.exports = client;
 const mongoose = require('mongoose');
