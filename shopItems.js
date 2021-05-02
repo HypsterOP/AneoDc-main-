@@ -1,14 +1,14 @@
 module.exports = [
     {
-        item: ':crossed_swords: Sword',
+        item: 'Sword',
         price: 100
     },
     {
-        item: '<:GapplE:838019936277626920> Fruits',
+        item: 'Fruits',
         price: 1000
     },
     {
-        item: "<:gold:838019345807835168> Gold",
+        item: "Gold",
         price: 10000
     }
 ]
