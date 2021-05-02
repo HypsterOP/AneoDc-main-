@@ -18,5 +18,9 @@ module.exports = {
         //now the code!
         await target.roles.remove(role) // adding the role to the user
         message.channel.send(`${target.user.username}\'s role has been removed <:Hype_Role:821003023835987998>`)
+
+        .catch(error => {
+            message.channel.send(`An Error Occured Make sure my roles is above the role which you want to give!`)
+        })
     }
 }

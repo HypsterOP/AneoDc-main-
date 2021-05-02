@@ -1,4 +1,4 @@
-const { Message } = require('discord.js')
+const { Message, MessageEmbed } = require('discord.js')
 const config = require("../../config.json")
 module.exports = {
     name : 'addrole',
@@ -16,6 +16,9 @@ module.exports = {
         if(!role) return message.channel.send('please mention a role')
         
         await target.roles.add(role)
-        message.channel.send(`${target.user.username} has got a role! <:Hype_Role:821003023835987998>`)
+        message.channel.send(new MessageEmbed().setDescription(`${config.semoji} Added roles to ${target.user.username}`))
+        .catch(error => {
+            message.channel.send(`An Error Occured Make sure my roles is above the role which you want to give!`)
+        })
     }
 }
