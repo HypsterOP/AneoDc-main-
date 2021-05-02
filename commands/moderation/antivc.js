@@ -12,6 +12,8 @@ module.exports = {
     const target = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
     if(!target) return message.reply('Please tell me the member who should be prevented from joining the vc');
 
+    if(message.member.roles.highest.position <= target.roles.highest.position) return message.channel.send("You're role is not higher than the member.")
+
     let role = message.guild.roles.cache.find((role) => role.name.toLowerCase() === 'antivc');
     if(!role) {
         try {
@@ -33,7 +35,7 @@ module.exports = {
 
             message.channel.send('Role Has been Created!')
         } catch (error) {
-            console.log(error)
+            return message.channel.send(`Error Occured : \`${error.message}\``);
         }
     }
     await target.roles.add(role.id);

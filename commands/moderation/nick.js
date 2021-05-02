@@ -17,6 +17,8 @@ module.exports = {
 
     if (!arguments) return message.reply("Please specify a new nickname!");
 
+    if(message.member.roles.highest.position <= member.roles.highest.position) return message.channel.send("You're role is not higher than the member.")
+
     try {
       member.setNickname(arguments);
       message.channel.send('I have changed the nickname!')

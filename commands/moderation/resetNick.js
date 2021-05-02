@@ -13,6 +13,8 @@ module.exports = {
 
     if (!member) return message.reply("Please tell me the member");
 
+    if(message.member.roles.highest.position <= member.roles.highest.position) return message.channel.send("You're role is not higher than the member.")
+
     try {
       member.setNickname(null);
     } catch (err) {

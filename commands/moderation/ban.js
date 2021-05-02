@@ -18,7 +18,7 @@ module.exports = {
         member.ban({ reason })
          message.channel.send(
           new MessageEmbed()
-          .setTitle('Kicked')
+          .setTitle('User Banned')
           .setDescription(`Banned ${member} for ${reason}.`)
           .setColor('RANDOM')
         )
