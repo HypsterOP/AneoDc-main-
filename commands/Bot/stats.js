@@ -4,6 +4,7 @@ let m = require('moment-duration-format'),
     cpuStat = require('cpu-stat'),
     ms = require('ms'),
     moment = require('moment')
+    const version1 = require("discord.js").version
 module.exports = {
     name: 'stats',
     /** 
@@ -26,8 +27,8 @@ module.exports = {
             const CPU = percent.toFixed(2)
 
             const embed = new MessageEmbed()
-            .addField('Aneo Stats:', `**<:Server_Owner:838109754098188329> Total Serers** ${guilds}\n**<:bfdverifieduser:838109624183816232> Total Users**: ${users}\n**<:CH_IconGreyTextChannel:838109379898376193> Total Channels**: ${channels}\n**<a:Success:821621580215877644> Usage**: ${usage}\n**<:nodejs:838108744092876810> Node Version**: ${node}\n**<:cpu:838108865287028756> Cpu Usage** ${CPU}`)
-            .addField('<:cpu:838108865287028756> **Cpu Stats**', `**CPU**: ${cpuModel}\n **Cores**: ${cores}`)
+            .addField('Aneo Stats:', `**<:Server_Owner:838109754098188329> Total Servers** ${guilds}\n\n**<:bfdverifieduser:838109624183816232> Total Users**: ${users}\n\n**<:CH_IconGreyTextChannel:838109379898376193> Total Channels**: ${channels}\n\n**<a:Success:821621580215877644> Usage**: ${usage}\n\n**<:nodejs:838108744092876810> Node Version**: ${node}\n\n**<:discordjs:838285692676735007> Discord.js Version**: v${version1}\n\n**<:cpu:838108865287028756> Cpu Usage** ${CPU}`)
+            .addField('**Cpu Stats**', `**CPU**: ${cpuModel}\n\n **Cores**: ${cores}`)
             .setColor('BLUE')
             .setTimestamp()
 
