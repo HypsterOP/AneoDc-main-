@@ -1,5 +1,5 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
-
+const cooldown = new Set();
 module.exports = {
     name: 'beg',
     /** 
@@ -8,6 +8,11 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
+
+      if(cooldown.has(message.author.id)) {
+        message.reply(`You are on a 20 seconds cooldown!`)
+      } else {
+
         const muni = Math.floor(Math.random() * 300) + 60;
         const persons = [
             `**Thanos**`,
@@ -75,5 +80,10 @@ module.exports = {
     } else if (num != 0){
       message.reply(`${person}${okk}`)
     }
+      cooldown.add(message.author.id)
+      setTimeout(() => {
+        cooldown.delete(message.author.id)
+      }, 20000)
+      }
     }
 }
