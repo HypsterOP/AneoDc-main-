@@ -31,7 +31,7 @@ module.exports = {
                 } else {
                     data.Inventory[itemToBuy]++
                 }
-                console.log(data)
+                // console.log(data)
                 await inventory.findOneAndUpdate(params, data);
             } else {
                 new inventory({

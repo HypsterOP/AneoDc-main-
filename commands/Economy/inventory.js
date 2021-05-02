@@ -18,6 +18,7 @@ module.exports = {
                 new MessageEmbed()
                 .setTitle(`Inventory`)
                 .setDescription(mappedData)
+                .setColor("RANDOM")
             )
         });
     }
