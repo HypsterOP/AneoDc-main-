@@ -31,16 +31,7 @@ client.on('message', async message =>{
             if(data) message.channel.send(data.Response)
             let command = client.commands.get(cmd)
             if (!command) command = client.commands.get(client.aliases.get(cmd));
-            if (command) {
-                if(command.timeout) {
-                    if(Timeout.has(`${command.name}${message.author.id}`)) return message.channel.send(`You are on a \`${ms(Timeout.get(`${command.name}${message.author.id}`) - Date.now())}\` Cooldown`)
-                    command.run(client, message, args)
-                    Timeout.set(`${command.name}${message.author.id}`, Date.now() + command.timeout)
-                    setTimeout(() => {
-                        Timeout.delete(`${command.name}${message.author.id}`)
-                    }, command.timeout)
-                }
-            }
+            if (command) command.run(client, message, args)
         } else {
             message.channel.send('You are blacklisted! Try contacting the developer in support server you will find the link of server here - https://aneo.ml')
         }
