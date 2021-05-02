@@ -13,7 +13,7 @@ module.exports = {
         const [word, color] = args
 
         embed.setDescription(word)
-        embed.setColor(color || "RANDOM")
+        embed.setColor("RANDOM")
 
         return embed
     }
