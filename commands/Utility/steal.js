@@ -8,7 +8,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
-    if(!message.member.hasPermission("MANAGE_GUILD")) return;
+    if(!message.member.hasPermission("MANAGE_EMOJIS")) return;
     if(!args.length) return message.channel.send('No emoji specified');
 
     for (const rawEmoji of args) {
