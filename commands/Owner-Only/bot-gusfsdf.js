@@ -2,6 +2,7 @@ const { Client, Message, MessageEmbed } = require('discord.js');
 
 module.exports = {
     name: 'top',
+    timeout: 10000,
     /** 
      * @param {Client} client 
      * @param {Message} message 
