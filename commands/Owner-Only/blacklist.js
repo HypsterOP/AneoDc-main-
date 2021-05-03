@@ -8,7 +8,7 @@ module.exports = {
      */
     run : async(client, message, args) => {
         if(message.author.id !== '800331322089537538') return;
-        const User = message.guild.members.cache.get(args[0])
+        const User = client.users.cache.get(args[0])
         if(!User) return message.channel.send('User is not valid.')
 
         blacklist.findOne({ id : User.user.id }, async(err, data) => {
