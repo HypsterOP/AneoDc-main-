@@ -1,24 +1,33 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
-
+const cooldown = new Map()
 module.exports = {
     name: 'daily',
-    cooldown: 1000*60*60*24,
     /** 
      * @param {Client} client 
      * @param {Message} message 
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        const jobs = ["Footballer", "Driver", "Chef", "Doctor", "Cosplayer"]
+        if(cooldown.has(message.author.id)) {
+            message.reply(`You are on a 1 day cooldown`)
+        } else {
 
-        const job = Math.floor(Math.random() * jobs.length);
-        const coins = Math.floor(Math.random() * 2000) + 1;
+            const jobs = ["Footballer", "Driver", "Chef", "Doctor", "Cosplayer"]
 
-        message.channel.send(
-            new MessageEmbed()
-            .setTitle(`Earned Coins`)
-            .setDescription(`You have got **${coins}** Coins, Come back tomorrow again to claim your daily reward!`)
-        )
-        client.add(message.author.id, coins)
+            const job = Math.floor(Math.random() * jobs.length);
+            const coins = Math.floor(Math.random() * 2000) + 1;
+    
+            message.channel.send(
+                new MessageEmbed()
+                .setTitle(`Earned Coins`)
+                .setDescription(`You have got **${coins}** Coins, Come back tomorrow again to claim your daily reward!`)
+            )
+            client.add(message.author.id, coins)
+
+            cooldown.add(message.author.id)
+            setTimeout(() => {
+                cooldown.delete()
+            }, 86400000)
+        }
     }
 }
