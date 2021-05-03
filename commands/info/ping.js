@@ -1,5 +1,6 @@
 const { MessageEmbed } = require("discord.js")
 const pm = require('pretty-ms');
+const mongoose = require("mongoose")
 const cooldown = new Set();
 
 module.exports = {
@@ -33,7 +34,7 @@ module.exports = {
             inline: true
           }, {
               name: 'Websocket ping:',
-              value: `${client.ws.ping}`,
+              value: `${client.ws.ping}Ms`,
               inline: true
           })
       .setColor('RANDOM')
