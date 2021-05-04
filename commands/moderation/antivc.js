@@ -12,6 +12,8 @@ module.exports = {
     const target = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
     if(!target) return message.reply('Please tell me the member who should be prevented from joining the vc');
 
+    if(target.id === message.author.id) return message.reply('You cannot anti-vc yourself!')
+
     if(message.member.roles.highest.position <= target.roles.highest.position) return message.channel.send("You're role is not higher than the member.")
 
     let role = message.guild.roles.cache.find((role) => role.name.toLowerCase() === 'antivc');
