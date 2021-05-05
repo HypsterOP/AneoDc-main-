@@ -20,7 +20,7 @@ module.exports = {
 
         const username = user1.user.username;
 
-        memer.tweet(avatar, text, username).then(image => {
+        memer.tweet(avatar, username, text).then(image => {
             const attachment = new MessageAttachment(image, "tweet.png")
             message.channel.send(attachment)
         })
