@@ -12,7 +12,8 @@ module.exports = {
         message.channel.send(
           new MessageEmbed()
           .setTitle('Vote for Aneo!')
-          .setDescription(`[Discord Bot lists](https://discordbotlist.com/bots/aneo/upvote)`)
+          .addField(`Discord Bots List`, `[Click Here](https://discordbotlist.com/bots/aneo/upvote)`)
+          .addField(`Void Bots`, `[Click Here](https://voidbots.net/bot/811265195186978828/vote)`)
           .setColor('RANDOM')
         )
     },
