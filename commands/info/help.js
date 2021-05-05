@@ -20,6 +20,7 @@ module.exports = {
     const diremojis = {
       AntiAlt: "🧱",
       antiswear: "🎯",
+      Audio: "🎶",
       birthday :"🎂",
       Bot :"🤖",
       Chat: "🧤",
