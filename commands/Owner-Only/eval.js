@@ -13,7 +13,7 @@ module.exports = {
         if (message.content === `eval 9+10`)
             return message.channel.send('21, You stupid');
         if (message.author.id !== '800331322089537538')
-            return message.channel.send('This is owner only command');
+            return message.channel.send('Error 404 | Access Denied | Owner Only Command');
 
         if (!code) {
             return message.reply(
