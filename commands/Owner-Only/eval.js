@@ -1,46 +1,53 @@
-const { Client, Message, MessageEmbed } = require('discord.js');
+const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
+const util = require('util');
 
 module.exports = {
     name: 'eval',
-    aliases: [''],
-    /** 
-     * @param {Client} client 
-     * @param {Message} message 
-     * @param {String[]} args 
-     */
-    run: async(client, message, args) => {
-      if (message.author.id !== '800331322089537538') return;
-      const embed = new MessageEmbed()
-          .setTitle('Evaluating...')
-      const msg = await message.channel.send(embed);
-      try {
-          const data = eval(args.join(' ').replace(/```/g, ''));
-          const embed = new MessageEmbed()
-              .setTitle('Output: ')
-              .setDescription(await data)
-              .setColor('RANDOM')
-          await msg.edit(embed)
-          await msg.react('✅')
-          await msg.react('❌')
-          const filter = (reaction, user) => (reaction.emoji.name === '❌' || reaction.emoji.name === '✅') && (user.id === message.author.id);
-          msg.awaitReactions(filter, { max: 1 })
-              .then((collected) => {
-                  collected.map((emoji) => {
-                      switch (emoji._emoji.name) {
-                          case '✅':
-                              msg.reactions.removeAll();
-                              break;
-                          case '❌':
-                              msg.delete()
-                              break;
-                      }
-                  })
-              })
-      } catch (e) {
-          const embed = new MessageEmbed()
-              .setTitle('An Error has occured')
-          return await msg.edit(embed);
+    aliases: ['e'],
+    category: 'Developers',
+    description: 'Runs javascript as the discord bot client.',
+    run: async (client, message, args) => {
+        let code = args.join(' ');
+        const embed = new Discord.MessageEmbed();
+        if (message.content === `eval 9+10`)
+            return message.channel.send('21, You stupid');
+        if (message.author.id !== '800331322089537538')
+            return message.channel.send('This is owner only command');
 
-      }
+        if (!code) {
+            return message.reply(
+                new MessageEmbed()
+                    .setTitle('Error Usage')
+                    .setDescription(`Usage: eval <code>`)
+            );
+        }
+
+        try {
+            let evaled = await eval(code),
+                output;
+            if (evaled.constructor.name === `Promise`) {
+                output = `📤 Output (Promise)`;
+            } else {
+                output = `📤 Output`;
+            }
+            if (evaled.length > 800) {
+                evaled = evaled.substring(0, 800) + `...`;
+            }
+            embed
+                .addField(`📥 Input`, `\`\`\`\n${code}\n\`\`\``)
+                .addField(output, `\`\`\`js\n${evaled}\n\`\`\``)
+                .setColor(client.color)
+                .addField(`Status`, `Success`);
+            return message.channel.send(embed);
+        } catch (e) {
+            console.log(e.stack);
+            embed
+                .addField(`📥 Input`, `\`\`\`\n${code}\n\`\`\``)
+                .addField(`📤 Output`, `\`\`\`js\n${e}\n\`\`\``)
+                .addField(`Status`, `Failed`)
+                .setColor(client.color);
+            return message.channel.send(embed);
+        }
     }
-}
+};
