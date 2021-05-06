@@ -1,5 +1,5 @@
-const { Collection } = require("discord.js");
+const { Collection } = require("discord.js")
 
-const afk = new Collection();
+const BlacklistedWords = new Collection()
 
-module.exports = {afk};
+module.exports = { BlacklistedWords }
