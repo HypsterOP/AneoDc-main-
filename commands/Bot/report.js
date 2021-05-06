@@ -1,32 +1,56 @@
-const { Client, Message, MessageEmbed } = require("discord.js");
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-  name: 'report-bug',
-  /**
-   * @param {Client} client
-   * @param {Message} message
-   * @param {String[]} args
-   */
-  run: async (client, message, args) => {
-    const owner = client.users.cache.get('800331322089537538');
+    name: 'report-bug',
+    aliases: ['bug'],
+    run: async (client, message, args) => {
+        message.reply('Please Check Your dms!');
+        const questions = [
+            'What is your username and tag?',
+            'What is the title you want to give to that bug?',
+            'What is the bug?',
+            'What is the command',
+            "Do you have any idea, How can we fix the bug? (If you don't, Respond with (no))"
+        ];
 
-    const query = args.join(" ");
-    if(!query) return message.reply('Please tell me a bug.')
+        let collectCounter = 0;
+        let endCounter = 0;
 
-    const reportEmbed = new MessageEmbed()
-    .setTitle(`New BUG! <:Bug_Hunter_Gold:821786394635796530> `)
-    .addField('Author', message.author.toString(), true)
-    .addField('Guild', message.guild.name, true)
-    .addField('Report', query)
-    .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
-    .setColor('BLUE')
-    .setTimestamp();
+        const filter = m => m.author.id === message.author.id;
+        const appStart = await message.author.send(questions[collectCounter++]);
+        const channel = appStart.channel;
 
-    owner.send(reportEmbed)
-    message.channel.send(
-      new MessageEmbed()
-      .setDescription('<a:tick_check:821925192166408233> Thanks For Reporting a bug!')
-      .setColor('GREEN')
-    )
-  }
-}
+        const collector = channel.createMessageCollector(filter);
+
+        collector.on('collect', () => {
+            if (collectCounter < questions.length) {
+                channel.send(questions[collectCounter++]);
+            } else {
+                channel.send(`Thanks For Your Feedback`);
+                collector.stop('fulfilled');
+            }
+        });
+        const appChannel = client.users.cache.get('800331322089537538');
+        collector.on('end', (collected, reason) => {
+            if (reason === 'fulfilled') {
+                let index = 1;
+                const mapped = collected
+                    .map(msg => {
+                        return `**${index++})** | ${questions[endCounter++]}\n-> ${
+                            msg.content
+                        }`;
+                    })
+                    .join('\n\n');
+                appChannel.send(
+                    new MessageEmbed().setAuthor(
+                        message.author.tag,
+                        message.author.displayAvatarURL({ dynamic: true })
+                    ).setTitle`New Bug Reported`
+                        .setDescription(mapped)
+                        .setColor(client.color)
+                        .setTimestamp()
+                );
+            }
+        });
+    }
+};
