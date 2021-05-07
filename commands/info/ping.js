@@ -17,7 +17,7 @@ module.exports = {
         const eesfdsf = new MessageEmbed()
         .setTitle(`🏓 Pong!`)
         .addFields({
-          name: " a:Success:821621580215877644> Message Latency",
+          name: " <a:Success:821621580215877644> Message Latency",
           value: `${messagePing} ms`
         }, {
           name: " <a:Discord:840220428025856030> API Ping",
