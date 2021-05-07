@@ -27,6 +27,7 @@ module.exports = {
       customcommands: "🗄",
       Economy: "💰",
       fun: "🤣",
+      Giveaway: "🎉",
       info: "ℹ",
       moderation: "⛏",
       Music: "🎵",
