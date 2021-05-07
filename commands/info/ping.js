@@ -11,7 +11,7 @@ module.exports = {
     run: async(client, message, args) => {
       const ClusterPing = Math.floor((Math.random() * 35) + 1);
       const shardPing = Math.floor((Math.random() * 30) + 1);
-      message.reply("Please wait pinging the servers...").then(resultMessage => {
+      message.lineReply("Please wait pinging the servers...").then(resultMessage => {
         const messagePing = resultMessage.createdTimestamp - message.createdTimestamp
 
         const eesfdsf = new MessageEmbed()
