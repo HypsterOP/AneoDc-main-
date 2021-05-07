@@ -32,6 +32,17 @@ client.commands = new Collection();
 client.aliases = new Collection();
 client.config = config;
 
+const { GiveawaysManager } = require("discord-giveaways")
+client.giveawaysManager = new GiveawaysManager(client, {
+    storage: "./give.json",
+    updateCountdownEvery: 5000,
+    default: {
+        botsCanWin: false,
+        embedColor: "#ADD8E6",
+        reaction: "🎉"
+    }
+});
+
 const blacklistedWords = new Collection();
 client.categories = fs.readdirSync("./commands/");
 ["command"].forEach(handler => {
