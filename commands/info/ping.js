@@ -17,7 +17,7 @@ module.exports = {
         const eesfdsf = new MessageEmbed()
         .setTitle(`🏓 Pong!`)
         .addFields({
-          name: " :Success: Message Latency",
+          name: " a:Success:821621580215877644> Message Latency",
           value: `${messagePing} ms`
         }, {
           name: " <a:Discord:840220428025856030> API Ping",
@@ -26,7 +26,7 @@ module.exports = {
           name: "<:mongo:840262904900747294> Database Ping",
           value: `${ClusterPing} ms`
         }, {
-          name: " :discordjs: Shard | #0 Ping",
+          name: "<:discordjs:838285692676735007> Shard | #0 Ping",
           value: `${shardPing} ms`
         })
         .setColor('RANDOM')
