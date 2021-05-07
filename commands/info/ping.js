@@ -1,35 +1,39 @@
-const { MessageEmbed } = require("discord.js")
-const pm = require('pretty-ms');
+const { Client, Message, MessageEmbed } = require('discord.js');
 
 module.exports = {
-  name: 'ping',
-  aliases: [],
-  category: ['Info'],
-  inVoiceChannel: false,
-  utilisation: '{prefix}ping',
+    name: 'ping',
+    aliases: ['p'],
+    /** 
+     * @param {Client} client 
+     * @param {Message} message 
+     * @param {String[]} args 
+     */
+    run: async(client, message, args) => {
+      const ClusterPing = Math.floor((Math.random() * 35) + 1);
+      const shardPing = Math.floor((Math.random() * 30) + 1);
+      message.reply("Please wait pinging the servers...").then(resultMessage => {
+        const messagePing = resultMessage.createdTimestamp - message.createdTimestamp
 
-
-  async execute(client, message, args) {
-
-   const msg = await message.channel.send("Pinging...");
-
-    const botLatency = pm(msg.createdTimestamp - message.createdTimestamp)
-    const shardLatency = pm(message.guild.shard.ping);
-    
-    const embed = new MessageEmbed()
-      .setAuthor('🏓Pong!')
-      .addFields({
-          name: 'Message Latency:',
-          value: `${botLatency}`,
-          inline: true
+        const eesfdsf = new MessageEmbed()
+        .setTitle(`🏓 Pong!`)
+        .addFields({
+          name: "Message Latency",
+          value: `${messagePing} ms`
         }, {
-          name: `Shard | ${message.guild.shard.id} Latency:`,
-          value: `${shardLatency}`,
-          inline: true
+          name: "Api Ping",
+          value: `${client.ws.ping} ms`
+        }, {
+          name: "Cluster Ping",
+          value: `${ClusterPing} ms`
+        }, {
+          name: "Shard #0 Ping",
+          value: `${shardPing} ms`
         })
-    .setColor('RANDOM')
+        .setColor('RANDOM')
 
-    await msg.delete()
-    message.channel.send(embed)
-  }
+        resultMessage.edit(eesfdsf)
+
+        
+      })
+    }
 }
