@@ -11,6 +11,7 @@ module.exports = {
     run: async (client, message, args) => {
         const text = args.join("  ");
         if (!text) return message.reply('Please enter a text');
+        if(text.includes('@')) return message.lineReply("Nope i can't ping!");
 
         const data = await fetch(
             `https://hypsterapi.herokuapp.com/mock/${text}`
