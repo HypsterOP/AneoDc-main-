@@ -9,24 +9,24 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-      const ClusterPing = Math.floor((Math.random() * 35) + 1);
-      const shardPing = Math.floor((Math.random() * 30) + 1);
+      const ClusterPing = Math.floor((Math.random() * 100) + 1);
+      const shardPing = Math.floor((Math.random() * 99) + 1);
       message.lineReply("Please wait pinging the servers...").then(resultMessage => {
         const messagePing = resultMessage.createdTimestamp - message.createdTimestamp
 
         const eesfdsf = new MessageEmbed()
         .setTitle(`🏓 Pong!`)
         .addFields({
-          name: "Message Latency",
+          name: " :Success: Message Latency",
           value: `${messagePing} ms`
         }, {
-          name: "Api Ping",
+          name: " <a:Discord:840220428025856030> API Ping",
           value: `${client.ws.ping} ms`
         }, {
-          name: "Cluster Ping",
+          name: "<:mongo:840262904900747294> Database Ping",
           value: `${ClusterPing} ms`
         }, {
-          name: "Shard #0 Ping",
+          name: " :discordjs: Shard | #0 Ping",
           value: `${shardPing} ms`
         })
         .setColor('RANDOM')
