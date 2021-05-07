@@ -12,6 +12,10 @@ module.exports = {
         const check = await db.has(`autorole-${message.guild.id}`);
         if(check === false) return message.reply('There is no autorole set for this guild!');
         const role = await db.get(`autorole-${message.guild.id}`);
-        message.reply(`The autorole id for ${message.guild.name} is ${role}`);
+        message.channel.send(
+            new MessageEmbed()
+            .setTitle(`Autorole for ${message.guild.name}`)
+            .setDescription(`<@&${role}> is the autorole!`)
+        )
     }
 }
