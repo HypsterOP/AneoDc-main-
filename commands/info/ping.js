@@ -1,5 +1,5 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
-
+const pm = require("pretty-ms")
 module.exports = {
     name: 'ping',
     aliases: ['p'],
@@ -9,8 +9,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-      const ClusterPing = Math.floor((Math.random() * 100) + 1);
-      const shardPing = Math.floor((Math.random() * 99) + 1);
+      const shardPing = pm(message.guild.shard.ping)
       message.lineReply("Please wait pinging the servers...").then(resultMessage => {
         const messagePing = resultMessage.createdTimestamp - message.createdTimestamp
 
@@ -22,9 +21,6 @@ module.exports = {
         }, {
           name: " <a:Discord:840220428025856030> API Ping",
           value: `${client.ws.ping} ms`
-        }, {
-          name: "<:mongo:840262904900747294> Database Ping",
-          value: `${ClusterPing} ms`
         }, {
           name: "<:discordjs:838285692676735007> Shard | #0 Ping",
           value: `${shardPing} ms`
