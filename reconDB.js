@@ -1,8 +1,9 @@
 const { reconDB } = require('reconlx')
 const client = require('./index')
+require("dotenv").config()
 const db = new reconDB(client, {
     uri:
-        "mongodb+srv://hypster:hypster@hype.otry4.mongodb.net/Data"
+        process.env.MONGO_BOT
 });
 
 module.exports = db;

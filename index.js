@@ -9,12 +9,13 @@ const client = new Client({
     disableEveryone: true,
     partials: ["CHANNEL", "MESSAGE", "GUILD_MEMBER", "REACTION"],
 })
+require("dotenv").config()
 require('discord-reply');
 require('discord-buttons')
 module.exports = client;
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://hypster:hypster@hype.otry4.mongodb.net/Data', {
+mongoose.connect(process.env.MONGO_BOT, {
     useUnifiedTopology : true,
     useNewUrlParser: true,
 }).then(console.log('Connected to mongo db'))
@@ -27,7 +28,6 @@ const config = require('./config.json')
 const prefix = config.prefix
 const reconDB = require('./reconDB');
 const db = require('./reconDB');
-const token = config.token
 client.commands = new Collection();
 client.aliases = new Collection();
 client.config = config;
@@ -169,4 +169,4 @@ client.on('guildMemberAdd', async member => {
     }
 })
 
-client.login(token)
+client.login(process.env.TOKEN)
