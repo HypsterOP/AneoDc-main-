@@ -4,7 +4,7 @@
 
 1. Clone the github repository
 ```cmd
-git clone https://github.com/HypsterOP/Aneo
+git clone https://github.com/Aneo-Development/Aneo
 ```
 2. Change the .env.example file to a .env file
 
