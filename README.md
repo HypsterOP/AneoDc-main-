@@ -1,4 +1,3 @@
-#Aneo
 [Aneo](https://dsc.gg/aneo) is a discord bot with many features such as Anti-Alt, AntiSwear, fun commands and many more!
 
 # Make your own bot!
