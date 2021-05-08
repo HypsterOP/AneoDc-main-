@@ -23,7 +23,7 @@ module.exports = {
           value: `${client.ws.ping} ms`
         }, {
           name: "<:discordjs:838285692676735007> Shard | #0 Ping",
-          value: `${shardPing} ms`
+          value: `${shardPing}`
         })
         .setColor('RANDOM')
 
