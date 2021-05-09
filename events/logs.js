@@ -61,3 +61,24 @@ client.on("channelCreate", async(channel) => {
     channe.send(channelCreateEmbed)
     })
 })
+
+client.on("messageUpdate", async(oldMessage, newMessage) => {
+    db.findOne({ guild: oldMessage.guild.id }, async(err ,data) => {
+        if(!data) return;
+        const ch = data.channel;
+        const channel = oldMessage.guild.channels.cache.get(ch);
+
+    let oldMsg= oldMessage.content;
+    let newMsg = newMessage.content;
+
+    const messageUpdateEvent = new MessageEmbed()
+    .setAuthor(`${oldMessage.author.tag}`)
+    .setDescription(`A message was edited!`)
+    .addField(`Old Message:`, `${oldMsg}`)
+    .addField(`New Message`, `${newMsg}`)
+    .addField(`User:`, `${oldMessage.author.tag}`)
+    .setColor("RANDOM")
+
+    channel.send(messageUpdateEvent)
+    })
+})
