@@ -54,7 +54,7 @@ client.on("channelCreate", async(channel) => {
         const channe = channel.guild.channels.cache.get(ch);
 
     const channelCreateEmbed = new MessageEmbed()
-    .setTitle(`A new channel was create`)
+    .setTitle(`A new channel was created`)
     .setDescription(`Channel: ${channel.name}`)
     .setColor('RANDOM')
 
