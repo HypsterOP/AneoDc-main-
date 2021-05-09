@@ -82,3 +82,20 @@ client.on("messageUpdate", async(oldMessage, newMessage) => {
     channel.send(messageUpdateEvent)
     })
 })
+
+client.on("messageDelete", async(message) => {
+    db.findOne({ guild: message.guild.id }, async(err ,data) => {
+        if(!data) return;
+        const ch = data.channel;
+        const channel = message.guild.channels.cache.get(ch);
+    
+
+    const messageDeleteEvent = new MessageEmbed()
+    .setTitle(`A message was deleted`)
+    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
+    .setDescription(`Message: ${message.content}\nChannel: ${message.channel}`)
+    .setColor('RANDOM')
+
+    channel.send(messageDeleteEvent)
+})
+})
