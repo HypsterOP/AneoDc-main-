@@ -102,7 +102,6 @@ client.on("messageDelete", async message => {
         const embed = new MessageEmbed()
         .setTitle(`A message was deleted`)
         .setDescription(`Member: ${message.author.tag}\nMessage: ${message.content}\nChannel: ${message.channel}`)
-        .addField(`Deleted By:`, `${executor.tag}`, true)
         .setColor(`RANDOM`)
 
         channel.send(embed)
