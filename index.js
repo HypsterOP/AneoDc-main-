@@ -20,6 +20,8 @@ mongoose.connect(process.env.MONGO_BOT, {
     useNewUrlParser: true,
 }).then(console.log('Connected to mongo db'))
 
+require("./logger")(client);
+
 const blacklist = require('./models/blacklist')
 const prefixSchema = require('./models/prefix')
 
