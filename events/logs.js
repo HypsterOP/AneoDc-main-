@@ -83,19 +83,28 @@ client.on("messageUpdate", async(oldMessage, newMessage) => {
     })
 })
 
-client.on("messageDelete", async(message) => {
+client.on("messageDelete", async message => {
     db.findOne({ guild: message.guild.id }, async(err ,data) => {
         if(!data) return;
         const ch = data.channel;
         const channel = message.guild.channels.cache.get(ch);
+
+    if(!message.guild) return;
     
+    const fectchedLogs = await message.guild.fetchAuditLogs({
+        limit: 1,
+        type: "MESSAGE_DELETE"
+    });
 
-    const messageDeleteEvent = new MessageEmbed()
-    .setTitle(`A message was deleted`)
-    .setAuthor(message.author.username, message.author.displayAvatarURL({ dynamic: true }))
-    .setDescription(`Message: ${message.content}\nChannel: ${message.channel}`)
-    .setColor('RANDOM')
+    const deletetionlog = fectchedLogs.entries.first();
 
-    channel.send(messageDeleteEvent)
-})
+    const { executor, target } = deletetionlog;
+        const embed = new MessageEmbed()
+        .setTitle(`A message was deleted`)
+        .setDescription(`Member: ${message.author.tag}\nMessage: ${message.content}\nChannel: ${message.channel}`)
+        .addField(`Deleted By:`, `${executor.tag}`, true)
+        .setColor(`RANDOM`)
+
+        channel.send(embed)
+    })
 })
