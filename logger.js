@@ -219,7 +219,6 @@ module.exports = c => {
     });
 
     c.on("messageDelete", function(message) {
-      if (message.author.bot) return;
 
       if (message.channel.type !== "text") return;
 
