@@ -14,7 +14,7 @@ module.exports = {
         const fackEmbed = new  MessageEmbed()
         .setTitle(`Oldest member in ${message.guild.name}`)
         .setColor("RANDOM")
-        .setFooter("Date Format is MM/DD/YY")
+        .setFooter("Date Format is mm/dd/yy")
         .setDescription(`${member.user} is the oldest member in this server!\nAccount created at ${formatDate(member.user.createdAt)}`)
         message.channel.send(fackEmbed)
     }
