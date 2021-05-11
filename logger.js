@@ -31,7 +31,7 @@ module.exports = c => {
         "YELLOW",
         "Channel PINS UPDATE",
         `Channel Name: \`${channel.name}\`\nChannelID: \`${channel.id}\`\nPinned at \`${time}\``,
-        "https://imgur.com/eG2Kpk3"
+        "https://i.stack.imgur.com/d1JEp.png"
       );
     });
     c.on("channelUpdate", function(oldChannel, newChannel) {
