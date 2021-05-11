@@ -12,7 +12,7 @@ module.exports = c => {
         channel.guild,
         "GREEN",
         "Channel CREATED",
-        `Channel Name: \`${channel.name}\`\nChannelID: \`${channel.id}\`\nChannelTYPE: \`${channel.type}\``
+        `Channel Name: \`${channel.name}\`\nChannel Id: \`${channel.id}\`\nChannelTYPE: \`${channel.type}\``
       );
     });
     c.on("channelDelete", function(channel) {
@@ -21,7 +21,7 @@ module.exports = c => {
         channel.guild,
         "RED",
         "Channel DELETED",
-        `Channel Name: \`${channel.name}\`\nChannelID: \`${channel.id}\`\nChannelTYPE: \`${channel.type}\``
+        `Channel Name: \`${channel.name}\`\nChannel Id: \`${channel.id}\`\nChannelTYPE: \`${channel.type}\``
       );
     });
     c.on("channelPinsUpdate", function(channel, time) {
@@ -30,7 +30,7 @@ module.exports = c => {
         channel.guild,
         "YELLOW",
         "Channel PINS UPDATE",
-        `Channel Name: \`${channel.name}\`\nChannelID: \`${channel.id}\`\nPinned at \`${time}\``,
+        `Channel Name: \`${channel.name}\`\nChannel Id: \`${channel.id}\`\nPinned at \`${time}\``,
         "https://i.stack.imgur.com/d1JEp.png"
       );
     });
@@ -54,8 +54,8 @@ module.exports = c => {
           oldChannel.guild,
           "YELLOW",
           "Channel Updated - Name",
-          `Channel Name: \`${oldChannel.name}\`\nChannelID: \`${oldChannel.id}\`\n\n` +
-            `Channel Name: \`${newChannel.name}\`\nChannelID: \`${newChannel.id}\``
+          `Channel Name: \`${oldChannel.name}\`\nChannel Id: \`${oldChannel.id}\`\n\n` +
+            `Channel Name: \`${newChannel.name}\`\nChannel Id: \`${newChannel.id}\``
         );
       } else if (oldChannel.type != newChannel.type) {
         send_log(
@@ -63,10 +63,10 @@ module.exports = c => {
           oldChannel.guild,
           "YELLOW",
           "Channel Updated - Type",
-          `Channel Name: \`${oldChannel.name}\`\nChannelID: \`${
+          `Channel Name: \`${oldChannel.name}\`\nChannel Id: \`${
             oldChannel.id
           }\`\nChannelTYPE: \`${types[oldChannel.type]}\`\n\n` +
-            `Channel Name: \`${newChannel.name}\`\nChannelID: \`${
+            `Channel Name: \`${newChannel.name}\`\nChannel Id: \`${
               newChannel.id
             }\`\nChannelTYPE: \`${types[newChannel.type]}\``
         );
@@ -76,8 +76,8 @@ module.exports = c => {
           oldChannel.guild,
           "YELLOW",
           "Channel UPDATED - TOPIC",
-          `Channel Name: \`${oldChannel.name}\`\nChannelID: \`${oldChannel.id}\`\nChannelTOPIC: \`${oldChannel.topic}\`\n\n` +
-            `Channel Name: \`${newChannel.name}\`\nChannelID: \`${newChannel.id}\`\nChannelTOPIC: \`${newChannel.topic}\``
+          `Channel Name: \`${oldChannel.name}\`\nChannel Id: \`${oldChannel.id}\`\nChannelTOPIC: \`${oldChannel.topic}\`\n\n` +
+            `Channel Name: \`${newChannel.name}\`\nChannel Id: \`${newChannel.id}\`\nChannelTOPIC: \`${newChannel.topic}\``
         );
       }
     });
