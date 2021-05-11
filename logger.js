@@ -12,7 +12,7 @@ module.exports = c => {
         channel.guild,
         "GREEN",
         "Channel CREATED",
-        `ChannelNAME: \`${channel.name}\`\nChannelID: \`${channel.id}\`\nChannelTYPE: \`${channel.type}\``
+        `Channel Name: \`${channel.name}\`\nChannelID: \`${channel.id}\`\nChannelTYPE: \`${channel.type}\``
       );
     });
     c.on("channelDelete", function(channel) {
@@ -21,7 +21,7 @@ module.exports = c => {
         channel.guild,
         "RED",
         "Channel DELETED",
-        `ChannelNAME: \`${channel.name}\`\nChannelID: \`${channel.id}\`\nChannelTYPE: \`${channel.type}\``
+        `Channel Name: \`${channel.name}\`\nChannelID: \`${channel.id}\`\nChannelTYPE: \`${channel.type}\``
       );
     });
     c.on("channelPinsUpdate", function(channel, time) {
@@ -30,7 +30,7 @@ module.exports = c => {
         channel.guild,
         "YELLOW",
         "Channel PINS UPDATE",
-        `ChannelNAME: \`${channel.name}\`\nChannelID: \`${channel.id}\`\nPinned at \`${time}\``,
+        `Channel Name: \`${channel.name}\`\nChannelID: \`${channel.id}\`\nPinned at \`${time}\``,
         "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/samsung/265/pushpin_1f4cc.png"
       );
     });
@@ -53,20 +53,20 @@ module.exports = c => {
           c,
           oldChannel.guild,
           "YELLOW",
-          "Channel UPDATED - NAME",
-          `ChannelNAME: \`${oldChannel.name}\`\nChannelID: \`${oldChannel.id}\`\n\n` +
-            `ChannelNAME: \`${newChannel.name}\`\nChannelID: \`${newChannel.id}\``
+          "Channel Updated - Name",
+          `Channel Name: \`${oldChannel.name}\`\nChannelID: \`${oldChannel.id}\`\n\n` +
+            `Channel Name: \`${newChannel.name}\`\nChannelID: \`${newChannel.id}\``
         );
       } else if (oldChannel.type != newChannel.type) {
         send_log(
           c,
           oldChannel.guild,
           "YELLOW",
-          "Channel UPDATED - TYPE",
-          `ChannelNAME: \`${oldChannel.name}\`\nChannelID: \`${
+          "Channel Updated - Type",
+          `Channel Name: \`${oldChannel.name}\`\nChannelID: \`${
             oldChannel.id
           }\`\nChannelTYPE: \`${types[oldChannel.type]}\`\n\n` +
-            `ChannelNAME: \`${newChannel.name}\`\nChannelID: \`${
+            `Channel Name: \`${newChannel.name}\`\nChannelID: \`${
               newChannel.id
             }\`\nChannelTYPE: \`${types[newChannel.type]}\``
         );
@@ -76,8 +76,8 @@ module.exports = c => {
           oldChannel.guild,
           "YELLOW",
           "Channel UPDATED - TOPIC",
-          `ChannelNAME: \`${oldChannel.name}\`\nChannelID: \`${oldChannel.id}\`\nChannelTOPIC: \`${oldChannel.topic}\`\n\n` +
-            `ChannelNAME: \`${newChannel.name}\`\nChannelID: \`${newChannel.id}\`\nChannelTOPIC: \`${newChannel.topic}\``
+          `Channel Name: \`${oldChannel.name}\`\nChannelID: \`${oldChannel.id}\`\nChannelTOPIC: \`${oldChannel.topic}\`\n\n` +
+            `Channel Name: \`${newChannel.name}\`\nChannelID: \`${newChannel.id}\`\nChannelTOPIC: \`${newChannel.topic}\``
         );
       }
     });
@@ -212,7 +212,7 @@ module.exports = c => {
           c,
           oldMember.guild,
           `${roleadded ? "GREEN" : "RED"}`,
-          "Member ROLES Changed",
+          "Member Roles Changed",
           `Member: ${newMember.user}\nUser: \`${oldMember.user.tag}\`\n\n${text}`
         );
       }
@@ -263,7 +263,7 @@ ${message.attachments.map(x => x.proxyURL)}
         c,
         oldMessage.guild,
         "YELLOW",
-        "Message UPDATED",
+        "Message Updated",
         `
 **Author : ** <@${newMessage.member.user.id}> - *${newMessage.member.user.tag}*
 **Date : ** ${newMessage.createdAt}
