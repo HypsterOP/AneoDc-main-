@@ -36,6 +36,7 @@
     "discord-jokes": "^3.0.0",
     "discord-paginationembed": "^2.1.0",
     "discord-reply": "^0.1.2",
+    "discord-together": "^1.1.1",
     "discord.js": "^12.5.3",
     "discord.js-pagination": "^1.0.3",
     "distube": "^2.8.11",

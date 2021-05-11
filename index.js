@@ -45,6 +45,10 @@ client.giveawaysManager = new GiveawaysManager(client, {
     }
 });
 
+const { DiscordTogether } = require('discord-together');
+
+client.discordTogether = new DiscordTogether(client)
+
 const blacklistedWords = new Collection();
 client.categories = fs.readdirSync("./commands/");
 ["command"].forEach(handler => {
