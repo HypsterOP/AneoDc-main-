@@ -12,8 +12,11 @@ module.exports = {
         const embed = new Discord.MessageEmbed();
         if (message.content === `eval 9+10`)
             return message.channel.send('21, You stupid');
-        if (message.author.id !== '800331322089537538')
-            return message.channel.send('Error 404 | Access Denied | Owner Only Command');
+        if (!require("../../config.json").owners.includes(
+            message.author.id
+        )
+        )
+        return message.reply(`Heyyo! dont try to break me! this is owner only command!`)
 
         if (!code) {
             return message.reply(
