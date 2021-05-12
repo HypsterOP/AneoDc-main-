@@ -165,7 +165,7 @@ client.on('guildMemberAdd', async member => {
     let running = account.run(member);
     let profile = alt.profile(member);
     if(running) {
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
         .setAuthor(member.user.tag,member.user.displayAvatarURL({ dynamic: true }))
         .setColor("RANDOM")
         .addField("Account's Age: ",profile.userAge,true)
