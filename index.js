@@ -172,7 +172,7 @@ client.on('guildMemberAdd', async member => {
       .addField("Account Created",profile.date.userDateCreated,true)
       .setTimestamp()
       
-     return member.guild.channels.cache.get(altChannel).send(embed)
+     member.guild.channels.cache.get(altChannel).send(embed)
     }
     
   })
