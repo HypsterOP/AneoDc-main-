@@ -151,28 +151,28 @@ client.player = player;
 
 
 client.on('guildMemberAdd', async member => {
-    const altdays = db2.get(`altdays.${member.guild.id}`)
-    const altchannel = db2.get(`antialt.${member.guild.id}`)
+    const altdays = db2.get(`altdays.${member.guild.id}`);
+    const altchannel = db2.get(`antialt.${member.guild.id}`);
     if(!altdays || !altchannel)return;
-
-
-
+    
     const account = new alt.config({
-        days:parseInt(altdays),
-        options:'kick'
-    })
-
+      days:parseInt(altdays),
+      options:'kick'
+    }); //so if alt account user join your server, the user will got kick
+    
     let running = account.run(member);
     let profile = alt.profile(member);
-    if(running) {
-        const embed = new MessageEmbed()
-        .setAuthor(member.user.tag,member.user.displayAvatarURL({ dynamic: true }))
-        .setColor("RANDOM")
-        .addField("Account's Age: ",profile.userAge,true)
-        .addField("Minimum Age required: ",altdays,true)
-        .addField("Account was created at: ",profile.date.userDateCreated,true)
-        return member.guild.channels.cache.get(altchannel).send(embed)
+    if(running){
+      const embed = new discord.MessageEmbed()
+      .setAuthor(member.user.tag,member.user.displayAvatarURL())
+      .setColor("RANDOM")
+      .addField("Account Age: ",profile.userAge,true)
+      .addField("Age Requirement: ",altdays,true)
+      .addField("Account Created",profile.date.userDateCreated,true)
+      .setTimestamp()
+      return member.guild.channels.cache.get(altchannel).send(embed);
     }
-})
+    
+  })
 
 client.login(process.env.TOKEN)
