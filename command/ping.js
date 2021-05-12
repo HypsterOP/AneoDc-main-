@@ -3,7 +3,7 @@ const pm = require("pretty-ms")
 const client = require("../index")
 module.exports = {
     slash: true,
-    testOnly: true,
+    testOnly: false,
     description: "Shows the bots ping!",
     callback: ({  }) => {
         const eesfdsf = new MessageEmbed()
