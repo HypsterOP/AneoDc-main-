@@ -22,9 +22,14 @@ client.on('ready', () =>{
       })
     })
 
-    client.user.setActivity("h!help | Waiting!", {
-      type: "STREAMING",
-      url: "https://www.twitch.tv/discord"
-    });
+    client.user.setPresence({
+      status: 'online',
+      activity: {
+          name: "h!help | Waiting!",
+          type: 'WATCHING',    
+      }
+
+    
+  })
 
 });
