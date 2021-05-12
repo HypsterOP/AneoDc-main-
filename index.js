@@ -149,6 +149,7 @@ player.on("playSong", (message, queue, song) => {
 
 client.player = player;
 
+const discord = require("discord.js")
 
 client.on('guildMemberAdd', async member => {
     const altdays = db2.get(`altdays.${member.guild.id}`);
