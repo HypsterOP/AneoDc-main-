@@ -153,7 +153,7 @@ const discord = require("discord.js")
 
 client.on('guildMemberAdd', async member => {
     const altdays = db2.get(`altdays.${member.guild.id}`);
-    const altchannel = db2.get(`antialt.${member.guild.id}`);
+    const altChannel = await db2.get(`antialt.${message.guild.id}`)
     if(!altdays || !altchannel)return;
     
     const account = new alt.config({
@@ -164,7 +164,7 @@ client.on('guildMemberAdd', async member => {
     let running = account.run(member);
     let profile = alt.profile(member);
     if(running){
-      var embed = new discord.MessageEmbed()
+      let embed = new discord.MessageEmbed()
       .setAuthor(member.user.tag,member.user.displayAvatarURL())
       .setColor("RANDOM")
       .addField("Account Age: ",profile.userAge,true)
@@ -172,8 +172,8 @@ client.on('guildMemberAdd', async member => {
       .addField("Account Created",profile.date.userDateCreated,true)
       .setTimestamp()
       
+     return member.guild.channels.cache.get(altChannel).send(embed)
     }
-    return member.guild.channels.cache.get(altchannel).send(embed)
     
   })
 
