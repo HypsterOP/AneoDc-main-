@@ -164,15 +164,16 @@ client.on('guildMemberAdd', async member => {
     let running = account.run(member);
     let profile = alt.profile(member);
     if(running){
-      const embed = new discord.MessageEmbed()
+      var embed = new discord.MessageEmbed()
       .setAuthor(member.user.tag,member.user.displayAvatarURL())
       .setColor("RANDOM")
       .addField("Account Age: ",profile.userAge,true)
       .addField("Age Requirement: ",altdays,true)
       .addField("Account Created",profile.date.userDateCreated,true)
       .setTimestamp()
-      return client.channels.cache.get(altchannel).send(embed)
+      
     }
+    return member.guild.channels.cache.get(altchannel).send(embed)
     
   })
 
