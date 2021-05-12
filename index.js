@@ -153,7 +153,7 @@ const discord = require("discord.js")
 
 client.on('guildMemberAdd', async member => {
     const altdays = db2.get(`altdays.${member.guild.id}`);
-    const altChannel = await db2.get(`antialt.${message.guild.id}`)
+    const altChannel = await db2.get(`antialt.${member.guild.id}`)
     if(!altdays || !altchannel)return;
     
     const account = new alt.config({
