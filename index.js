@@ -159,7 +159,7 @@ client.on('guildMemberAdd', async member => {
     const account = new alt.config({
       days:parseInt(altdays),
       options:'kick'
-    }); //so if alt account user join your server, the user will got kick
+    });
     
     let running = account.run(member);
     let profile = alt.profile(member);
@@ -171,7 +171,7 @@ client.on('guildMemberAdd', async member => {
       .addField("Age Requirement: ",altdays,true)
       .addField("Account Created",profile.date.userDateCreated,true)
       .setTimestamp()
-      return member.guild.channels.cache.get(altchannel).send(embed);
+      return client.channels.cache.get(altchannel).send(embed)
     }
     
   })
