@@ -25,7 +25,7 @@ client.on('ready', () =>{
     client.user.setPresence({
       status: 'online',
       activity: {
-          name: "h!help | Happy Birthday Discord And Tech Infinty(CEO)",
+          name: "h!help",
           type: 'WATCHING',    
       }
 
