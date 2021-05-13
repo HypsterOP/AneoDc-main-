@@ -1,5 +1,5 @@
 const client = require('../index');
-const { Collection } = require('discord.js');
+const { Collection, MessageEmbed } = require('discord.js');
 const blacklist = require('../models/blacklist');
 const mongoose = require('mongoose');
 const schema = require('../models/custom-commands');
@@ -12,11 +12,26 @@ const Timeout = new Collection()
 
 client.on('message', async message =>{
 
+
+    if(message.author.bot) return;
+    if(db2.has(`afk-${message.author.id}+${message.guild.id}`)) {
+        const info = db.get(`afk-${message.author.id}+${message.guild.id}`)
+        await db2.delete(`afk-${message.author.id}+${message.guild.id}`)
+        message.reply(`Welcome back, i have removed your afk`)
+    }
+    if(message.mentions.members.first()) {
+        if(db2.has(`afk-${message.mentions.members.first().id}+${message.guild.id}`)) {
+            message.channel.send(message.mentions.members.first().user.tag + " is afk, reason:" + db2.get(`afk-${message.mentions.members.first().id}+${message.guild.id}`))
+        }else return;
+    }else;
     const p = await client.prefix(message)
     if(message.mentions.users.first()) {
-        if(message.mentions.users.first().id === '811265195186978828') return message.channel.send(`The prefix in ${message.guild.name} is ${p}`)
+        if(message.mentions.users.first().id === '811265195186978828') return message.channel.send(
+            new MessageEmbed()
+            .setTitle(`Hello!`)
+            .setDescription(`My prefx in ${message.guild.name} is ${p}`)
+        )
     }
-    if(message.author.bot) return;
     if(!message.content.startsWith(p)) return;
     if (!message.content.startsWith(p)) return;
     blacklist.findOne({ id : message.author.id }, async(err, data) => {

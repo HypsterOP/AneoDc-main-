@@ -1,25 +1,24 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
-
+const db = require("quick.db")
 module.exports = {
-    name: 'bal',
-    aliases: ['balance','cash','money','coin','coins'],
-    description: 'Check your balance',
-    category: 'money',
+    name: 'balance',
+    aliases: ['bal'],
     /** 
      * @param {Client} client 
      * @param {Message} message 
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        const member = message.mentions.members.first() || message.member
+        const profiles = new db.table(`profiles`)
 
-        const bal = await client.bal(member.id);
-        message.channel.send(
-            new MessageEmbed()
-            .setTitle(`${member.user.tag}'s Balance`)
-            .setDescription(`${member} has :  ${bal} Coins `)
-            .setColor("RANDOM")
-        );
+        const member = message.mentions.members.first() || message.member;
 
+        const memberProfile = profiles.get(`profiles_${member.id}`)
+
+        if(!memberProfile) return message.reply(`That user haven't setup thier profile!`)
+
+        const bal = profiles.get(`profiles_${member.id}.money`) || 0;
+
+        return message.channel.send(`${member} has ${bal.toLocaleString()}$`)
     }
 }

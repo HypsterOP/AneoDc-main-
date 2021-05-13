@@ -1,19 +1,38 @@
+const db = require("quick.db")
+
 const { Client, Message, MessageEmbed } = require('discord.js');
 
 module.exports = {
     name: 'remove',
-    hidden: true,
+    aliases: [''],
     /** 
      * @param {Client} client 
      * @param {Message} message 
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        if(message.author.id !== "809007169210810398") return;
-        const member = message.mentions.users.first() || message.member;
+        if(!require("../../config.json").owners.includes(
+            message.author.id
+        )) return;
 
-        client.rmv(member.id, parseInt(args[0]));
+        const profiles = new db.table('profiles')
 
-        message.channel.send("REMOVED COINS")
+        const member = message.mentions.users.first() || message.member
+
+        const memberProfile = profiles.get(`profiles_${member.id}`)
+
+        if(!memberProfile) return message.channel.send(`That user does not have an account!`)
+
+        if(!args[1]) return message.channel.send("You need to tell me how much money")
+
+        if(isNaN(args[1])) return message.channel.send("not a number")
+
+        const oldBal = profiles.get(`profiles_${member.id}.money`)
+
+        if(oldBal - args[1] < 0 ) return message.channel.send("Cannot remove as balance will be negative")
+
+        profiles.subtract(`profiles_${member.id}.money`, args[1])
+
+        return message.channel.send(`Removed ${args[1].toLocaleString()}$ from ${member}`)
     }
 }
