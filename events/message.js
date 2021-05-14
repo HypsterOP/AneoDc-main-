@@ -15,7 +15,7 @@ client.on('message', async message =>{
 
     if(message.author.bot) return;
     if(db2.has(`afk-${message.author.id}+${message.guild.id}`)) {
-        const info = db.get(`afk-${message.author.id}+${message.guild.id}`)
+        const info = db2.get(`afk-${message.author.id}+${message.guild.id}`)
         await db2.delete(`afk-${message.author.id}+${message.guild.id}`)
         message.reply(`Welcome back, i have removed your afk`)
     }
