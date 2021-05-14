@@ -6,7 +6,7 @@ module.exports = {
     run: async(client, message, args) => {
         if(!require("../../config.json").owners.includes(
             message.author.id
-        )) return;
+        )) return message.reply(`Sorry this is an owner only command`);
         const profiles = new db.table('profiles')
 
         const member = message.mentions.users.first() || message.member
