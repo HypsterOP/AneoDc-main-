@@ -11,11 +11,11 @@ module.exports = {
     run: async(client, message, args) => {
         const profiles = new db.table(`profiles`)
 
-        const user = message.mentions.users.first() || message.author;
+        const user = message.mentions.members.first() || message.member;
 
         const userProfile = profiles.get(`profiles_${user.id}`)
 
-        if(!userProfile) return message.channel.send(`that user doesn't have a profile!`)
+        if(!userProfile) return message.channel.send(`That user doesn't have a profile!`)
 
         const bought = profiles.get(`profiles_${user.id}.bought`)
         try {
