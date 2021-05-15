@@ -131,7 +131,7 @@ module.exports = c => {
         "YELLOW",
         "USER UNBANNED",
         `User: ${user} (\`${user.id}\`)\n\`${user.tag}\``,
-        user.user.displayAvatarURL({ dynamic: true })
+        client.user.displayAvatarURL({ dynamic: true })
       );
     });
 
