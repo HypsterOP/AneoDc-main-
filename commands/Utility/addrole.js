@@ -26,6 +26,12 @@ module.exports = {
             return message.channel.send(`I cannot add or remove that role because that is my highest role`)
         }
 
+        let clientttt = message.guild.me.roles.highest;
+
+        if(role.position > clientttt.position){
+            return message.lineReplyNoMention(`Error! That role is above my role.`)
+        }
+
         if (user.roles.cache.has(role.id)) {
             try {
                 user.roles.remove(role.id)

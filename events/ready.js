@@ -25,7 +25,7 @@ client.on('ready', () => {
 	client.user.setPresence({
 		status: 'online',
 		activity: {
-			name: 'h!help',
+			name: 'h!help | Gonna be verified soon!',
 			type: 'WATCHING',
 		},
 	});

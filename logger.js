@@ -131,7 +131,7 @@ module.exports = c => {
         "YELLOW",
         "USER UNBANNED",
         `User: ${user} (\`${user.id}\`)\n\`${user.tag}\``,
-        client.user.displayAvatarURL()
+        user.user.displayAvatarURL({ dynamic: true })
       );
     });
 
@@ -228,7 +228,7 @@ module.exports = c => {
         "ORANGE",
         "Message Deleted",
         `
-**Author : ** ${message.author} - *${message.author}*
+**Author : ** <@${message.author.id}> - *${message.author.tag}*
 **Date : ** ${message.createdAt}
 **Channel : ** <#${message.channel.id}> - *${message.channel.name}*
 **Deleted Message : **
@@ -263,13 +263,12 @@ ${message.attachments.map(x => x.proxyURL)}
         "YELLOW",
         "Message Updated",
         `
-**Author : ** <@${newMessage.member.user.id}> - *${newMessage.member.user.tag}*
+**Author : ** ${newMessage.member}> - *${newMessage.member}*
 **Date : ** ${newMessage.createdAt}
 **Channel : ** <#${newMessage.channel.id}> - *${newMessage.channel.name}*
 **Orignal Message : **
 \`\`\`
-${oldMessage.content.replace(/`/g, "'")}
-\`\`\`
+${oldMessage.content}\`\`\`
 **Updated Message : **
 \`\`\`
 ${newMessage.content.replace(/`/g, "'")}

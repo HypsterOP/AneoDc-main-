@@ -26,11 +26,7 @@ client.on('message', async message =>{
     }else;
     const p = await client.prefix(message)
     if(message.mentions.users.first()) {
-        if(message.mentions.users.first().id === '811265195186978828') return message.channel.send(
-            new MessageEmbed()
-            .setTitle(`Hello!`)
-            .setDescription(`My prefx in ${message.guild.name} is ${p}`)
-        )
+        if(message.mentions.users.first().id === '811265195186978828') return message.channel.send(`The prefix in ${message.guild.name} is ${p}`)
     }
     if(!message.content.startsWith(p)) return;
     if (!message.content.startsWith(p)) return;
