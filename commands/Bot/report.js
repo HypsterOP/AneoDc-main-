@@ -49,6 +49,7 @@ module.exports = {
                         .setDescription(mapped)
                         .setColor(client.color)
                         .setTimestamp()
+                        .setFooter(`User Id: ${message.author.id}`)
                 );
             }
         });

@@ -1,3 +1,4 @@
+const moment = require("moment")
 require("dotenv").config();
 const AmeClient = require("amethyste-api")
 const Discord = require("discord.js")
@@ -5,6 +6,8 @@ const commandsrun = async (interaction, client) => {
     const command = interaction.data.name.toLowerCase();
     const args = interaction.data.options;
     let AmeApi = new AmeClient(process.env.AME)
+
+    const duration = moment.duration(client.uptime).format(" D [Days], H [Hrs], m [Mins], s [Secs]");
 
     if (command === 'triggered'){ 
           
@@ -32,6 +35,17 @@ var user = client.users.cache.get(user);
       
          channelsend.send(attachment);
       }
+}
+
+if(command === "uptime"){
+    client.api.interactions(interaction.id, interaction.token).callback.post({
+        data: {
+            type: 4,
+            data: {
+                content: `My Uptime - ${duration}`
+            }
+        }
+    })
 }
 module.exports = {
     commandsrun
