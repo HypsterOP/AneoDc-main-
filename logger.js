@@ -233,7 +233,7 @@ module.exports = c => {
 **Channel : ** <#${message.channel.id}> - *${message.channel.name}*
 **Deleted Message : **
 \`\`\`
-${message.content.replace(/`/g, "'")}
+${message.content}
 \`\`\`
 **Attachment URL : **
 ${message.attachments.map(x => x.proxyURL)}
