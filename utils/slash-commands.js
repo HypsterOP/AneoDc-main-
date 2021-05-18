@@ -36,18 +36,6 @@ var user = client.users.cache.get(user);
          channelsend.send(attachment);
       }
 }
-
-if(command === "uptime"){
-    let duration = moment.duration(client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
-    client.api.interactions(interaction.id, interaction.token).callback.post({
-        data: {
-            type: 4,
-            data: {
-                content: `My Uptime - ${duration}`
-            }
-        }
-    })
-}
 module.exports = {
     commandsrun
 }
