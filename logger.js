@@ -228,7 +228,7 @@ module.exports = c => {
         "ORANGE",
         "Message Deleted",
         `
-**Author : ** <@${message.author.id}> - *${message.author.tag}*
+**Author : ** <@${message.author}> - *${message.author}*
 **Date : ** ${message.createdAt}
 **Channel : ** <#${message.channel.id}> - *${message.channel.name}*
 **Deleted Message : **

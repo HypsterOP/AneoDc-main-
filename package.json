@@ -14,6 +14,7 @@
     "@iamtraction/google-translate": "^1.1.2",
     "@k3rn31p4nic/google-translate-api": "^1.1.1",
     "@reconlx/discord.js": "^1.1.101",
+    "amethyste-api": "^1.1.5",
     "animequote": "^1.1.1",
     "ascii": "^1.0.0",
     "ascii-table": "0.0.9",

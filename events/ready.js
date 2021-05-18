@@ -1,4 +1,5 @@
 const client = require('../index');
+client.slash = require("../utils/slash-commands")
 const path = require('path');
 const ms = require('ms');
 const Schema = require('../models/member-count');
@@ -21,6 +22,10 @@ client.on('ready', () => {
 			BlacklistedWords.set(val.Guild, val.Words);
 		});
 	});
+
+	client.ws.on('INTERACTION_CREATE', async (interaction) => {
+		client.slash.commandsrun(interaction, client);
+		 }) 
 
 	client.user.setPresence({
 		status: 'online',
