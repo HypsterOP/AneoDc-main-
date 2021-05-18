@@ -7,7 +7,7 @@ const commandsrun = async (interaction, client) => {
     const args = interaction.data.options;
     let AmeApi = new AmeClient(process.env.AME)
 
-    const duration = moment.duration(client.uptime).format(" D [Days], H [Hrs], m [Mins], s [Secs]");
+
 
     if (command === 'triggered'){ 
           
@@ -38,6 +38,7 @@ var user = client.users.cache.get(user);
 }
 
 if(command === "uptime"){
+    let duration = moment.duration(client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
     client.api.interactions(interaction.id, interaction.token).callback.post({
         data: {
             type: 4,
