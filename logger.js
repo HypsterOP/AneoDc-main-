@@ -290,7 +290,7 @@ ${newMessage.content.replace(/`/g, "'")}
         c,
         role.guild,
         "RED",
-        "ROLE DELETED"`ROLE: ${role}\nROLENAME: ${role.name}\nROLEID: ${role.id}\nHEXCOLOR: ${role.hexColor}\nPOSITION: ${role.position}`
+        `Role Deleted: Role Id: ${role}\nRole Name: ${role.name}\nRole Id: ${role.id}\nRole Color: ${role.hexColor}\nRole Position: ${role.position}`
       );
     });
 
