@@ -21,6 +21,7 @@ module.exports = {
         if (Date.now() > dailyCooldown || dailyCooldown === undefined) {
             const randomNumber = Math.floor(Math.random() * 20000) + 1;
             profiles.add(`profiles_${message.author.id}.money`, randomNumber)
+            profiles.add(`profiles_${message.author.id}.totalmoney`, randomNumber)
             profiles.set(`profiles_${message.author.id}.dailycooldown`, Date.now() + 86400000)
             return message.channel.send(
                 new MessageEmbed()

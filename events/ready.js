@@ -58,6 +58,7 @@ client.on('ready', () => {
 				const addAmount = itemCount * number;
 
 				profiles.add(`profiles_${memberID}.money`, addAmount);
+				profiles.add(`profiles_${memberID}.totalmoney`, addAmount);
 			});
 		});
 	}, 1000000);

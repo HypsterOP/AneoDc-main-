@@ -32,6 +32,7 @@ module.exports = {
                 profiles.set(`profiles_${message.author.id}.name`, name)
                 profiles.add(`profiles_${message.author.id}.money`, 50)
                 profiles.set(`profiles_${message.author.id}.bought.sword`, 1)
+                profiles.set(`profiles_${message.author.id}.totalmoney`, 50)
 
                 return message.channel.send(`Created your profile with the name *${name}*! | 50$ have been placed in your account! ${config.semoji}`)
             })
