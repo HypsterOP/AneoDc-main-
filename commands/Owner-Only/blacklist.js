@@ -7,7 +7,9 @@ module.exports = {
      * @param {Message} message
      */
     run : async(client, message, args) => {
-        if(message.author.id !== '800331322089537538') return;
+        if(!require("../../config.json").owners.includes(
+            message.author.id
+        )) return message.reply(`Sorry but this is owner-only command`)
         const User =  message.guild.members.cache.get(args[0])
         if(!User) return message.channel.send('User is not valid.')
 

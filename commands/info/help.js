@@ -19,6 +19,7 @@ module.exports = {
 
     const diremojis = {
       AntiAlt: "🧱",
+      antilink : "🔗",
       antiswear: "🎯",
       Bio: "👩‍🔬",
       Audio: "🎶",
