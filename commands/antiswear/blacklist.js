@@ -56,7 +56,7 @@ module.exports = {
 ;
 				BlacklistedWords.set(message.guild.id, filtered)
 			});
-			message.reply(`Rmemoved the word!`);
+			message.reply(`Removed the word!`);
 		} else if (query === 'display') {
 			Schema.findOne(guild, async (err, data) => {
 				if (!data) return message.reply('No data for this server');

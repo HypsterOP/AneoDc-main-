@@ -1,26 +1,44 @@
-const db = require("quick.db")
-const { Client, Message, MessageEmbed } = require('discord.js');
-
+const Discord = require("discord.js");
+const db = require("quick.db");
+const ms = require("parse-ms");
+require("../../ExtendedMessage")
+const cf = require("../../config.json")
 module.exports = {
-    name: 'add',
-    run: async(client, message, args) => {
-        if(!require("../../config.json").owners.includes(
-            message.author.id
-        )) return message.reply(`Sorry this is an owner only command`);
-        const profiles = new db.table('profiles')
+  name: 'addmoney',
+  /**
+   * @param {Client} client
+   * @param {Message} message
+   * @param {String[]} args
+   */
 
-        const member = message.mentions.users.first() || message.member
+  run:async (client , message , args) => {
 
-        const memberProfile = profiles.get(`profiles_${member.id}`)
 
-        if(!memberProfile) return message.channel.send(`That user does not have an account!`)
 
-        if(!args[1]) return message.channel.send(`You need to specify an amount`)
+  let user = message.guild.members.cache.get(args[0])
+if(!require("../../config.json").owners.includes(
+    message.author.id
+)) return message.inlineReply(`developer only`)
+  let member = db.fetch(`money_${message.author.id}`)
 
-        if(isNaN(args[1])) return message.channel.send(`Need to specify number above 0`)
+ ;
 
-        profiles.add(`profiles_${member.id}.money`, args[1])
+  if (!user) {
+      return message.inlineReply(`You need to specify a member!`, { allowedMentions: { repliedUser: false } })
+  }
 
-        return message.channel.send(`Added ${args[1].toLocaleString()}$ to ${member}`)
-    }
+  
+  if (!args[1]) {
+      return message.inlineReply('Specify an amount')
+  }
+  
+  let embed5 = new Discord.MessageEmbed()
+  .setColor("GREEN")
+  .setDescription(`You have payed ${user} ${args[1]}`);
+
+  message.channel.send(embed5)
+  db.add(`money_${user.id}`, args[1])
+ 
+
+}
 }

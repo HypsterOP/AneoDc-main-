@@ -1,86 +1,64 @@
-const { Client, Message, MessageEmbed } = require('discord.js');
-const db = require("quick.db")
+const Discord = require('discord.js')
+require("../../ExtendedMessage")
+const db = require('quick.db')
 module.exports = {
-    name: 'buy',
-    description: 'Buy an item from the shop',
-    /** 
-     * @param {Client} client 
-     * @param {Message} message 
-     * @param {String[]} args 
-     */
-    run: async(client, message, args) => {
-        const profile  = new db.table('profiles')
+  name: 'buy',
+  /**
+   * @param {Client} client
+   * @param {Message} message
+   * @param {String[]} args
+   */
 
-        const memberProfile = profile.get(`profiles_${message.author.id}`)
+  run:async (client , message , args) => {
 
-        if(!memberProfile) return message.channel.send(`You dont have a profile! create on by using h!newprofile`)
 
-        const items = [];
 
-        items.push("sword")
-        if(memberProfile.bought.sword > 15) items.push("crown")
-        if(memberProfile.bought.crown > 50) items.push("ak47")
+    let user = message.author;
 
-        if(!items.includes(args[1]) || !args[1]) return message.channel.send(`
-        That item is not available, here is a list of items!
-        ${items.map(i => i).join(", ")}
-        `) 
+    let author = db.fetch(`money_${user.id}`)
 
-        var cost = profile.get(`profiles_${message.author.id}.bought.${args[1]}`) * 20 + 20 || 20
 
-        if(!args[2]) {
-            const afterBal = profile.get(`profiles_${message.author.id}.money`) - cost
-            if(afterBal > 0) {
-                profile.subtract(`profiles_${message.author.id}.money`, cost)
-                profile.add(`profiles_${message.author.id}.bought.${args[1]}`, 1)
-                return message.channel.send(`You have bought ${args[1]} for ${cost.toLocaleString()}`)
-            } else {
-                return message.channel.send(`You do not have enough money to buy this!`)
-            }
-        } else if (args[2]){
-            if(args[2] === "max") {
-                var bal = profile.get(`profiles_${message.author.id}.money`)
-                const cost2 = (profile.get(`profiles_${message.author.id}.bought.${args[1]}`)) * 20 + 20 || 20
+    if (args[0] == 'car') {
+        if (author < 5000) return message.inlineReply('You need atleast **5000** Coins in your Wallet to buy a Car!', { allowedMentions: { repliedUser: false } })
+        
+        db.fetch(`car_${user.id}`);
+        db.set(`car_${user.id}`, true)
 
-                if(cost2 > bal) return message.channel.send(`You do not have enough money to buy this!`)
+      
+        db.subtract(`money_${user.id}`, 5000)
+        message.inlineReply(`Succesfully bought a **Car** for **5000** Coins!`)
+    
+    } else if (args[0] == 'miner' || args[0] == 'miner' || args[0] == 'fresh miner') {
+        if (author < 1000) return message.inlineReply('You need atleast **1000** Coins in your Wallet to buy a Miner!', { allowedMentions: { repliedUser: false } })
+        
+        db.fetch(`miner_${user.id}`);
+        db.set(`miner_${user.id}`, true)
 
-                var oldBal = bal
-                var newBal = bal - cost2
-                var boughtItems = 0
+      
+        db.subtract(`money_${user.id}`, 1000)
+        message.inlineReply(`Succesfully bought a **Miner** for **1000** Coins!`)
+    } else if (args[0] == 'mansion' || args[0] == 'house' || args[0] == 'Mansion') {
+        if (author < 20000) return message.inlineReply('You need atleast **20000** Coins to buy a Mansion!', { allowedMentions: { repliedUser: false } })
+        
+        db.fetch(`house_${user.id}`);
+        db.set(`house_${user.id}`, true)
 
-                while(bal > 0) {
-                    newBal = bal - cost2
-                    bal = bal - cost2
-                    boughtItems = boughtItems + 1;
-                }
+      
+        db.subtract(`money_${user.id}`, 20000)
+        message.inlineReply(`Succesfully bought a **Mansion** for **20000** Coins!`)
+       } else if (args[0] == 'minecraft' || args[0] == 'mc' || args[0] == 'game') {
+        if (author < 50) return message.inlineReply('You need atleast **50** Coins in your Wallet to buy a copy of Minecraft!', { allowedMentions: { repliedUser: false } })
+        
+        db.fetch(`mc_${user.id}`);
+        db.set(`mc_${user.id}`, true)
 
-                var latestPrice = profile.get(`profiles_${message.author.id}.bought.${args[1]}`) || 20;
-                newBal = newBal + (latestPrice * 20) + (latestPrice * 20)
-                boughtItems = boughtItems - 2;
-
-                if(boughtItems === 0) return message.channel.send(`You can only buy max more than 1 item!`)
-
-                profile.add(`profiles_${message.author.id}.bought.${args[1]}`, boughtItems)
-                profile.set(`profiles_${message.author.id}.money`, newBal)
-
-                return message.channel.send(`You bought ${boughtItems.toLocaleString()} ${args[1]} for ${(oldBal - newBal).toLocaleString()}`)
-            } else if (args[2]) {
-                const bal = profile.get(`profiles_${message.author.id}.money`)
-
-                if(isNaN(args[2])) return message.channel.send(`You need to specify the correct amount of ${args[1]}! ex 2`)
-
-                if(args[2] < 0) return message.channel.send(`You need to buy atleast 1 of ${args[1]}`)
-
-                const extraCost = (20 * args[2]) - 20
-
-                const newCost = (cost * args[2]) + extraCost
-
-                if(newCost > bal) return message.channel.send(`You do not have enough money to buy this!`)
-
-                profile.subtract(`profiles_${message.author.id}.money`, newCost)
-                profile.add(`profiles_${message.author.id}.bought.${args[1]}`, args[2])
-                return message.channel.send(`You have bought ${args[2]} ${args[1]} for ${newCost.toLocaleString()}`)
-            }
-        }
+      
+        db.subtract(`money_${user.id}`, 50)
+        message.inlineReply(`Succesfully bought **Minecraft** for **50** Coins!`)
+        } else {
+message.inlineReply('You need to specify an item to buy!')
     }
+       
+
+}
 }

@@ -1,29 +1,27 @@
-const { Client, Message, MessageEmbed } = require('discord.js');
-const db = require("quick.db")
+const Discord = require('discord.js')
+require("../../ExtendedMessage")
 module.exports = {
-    name: 'shop',
-    aliases: ['sh'],
-    /** 
-     * @param {Client} client 
-     * @param {Message} message 
-     * @param {String[]} args 
-     */
-    run: async(client, message, args) => {
-        const p = new db.table(`profiles`)
+  name: 'shop',
+  /**
+   * @param {Client} client
+   * @param {Message} message
+   * @param {String[]} args
+   */
 
-        const member = message.member.id;
+  run: async(client , message , args) => {
+     let embed = new Discord.MessageEmbed()
+    .setTitle("The Shop **Cheap Until 1K Servers!**")
+    .addField('Miner — **1000**', `Buy A Miner, And It Earns You With 1000 Coins Daily!`)
+    .addField('Car — **5000**', `Use A Car To Go Drivin' And Earn Upto 10000 Coins!`)
+    .addField('Mansion — **20000**', `Buy A Mansion And You Can Rent It Out To People And Collect An Amount Anywhere From 2000 To 30000 Coins Weekly!`)
+    .addField('Minecraft — **50**', `Play Minecraft And Win Money!`)
+    .setColor("RANDOM")
+    .setFooter("Type h!buy [item name] to buy the item! To use it, h!use [item]")
+    message.channel.send(embed)
 
-        const sword = p.get(`profiles_${member}.bought.sword`)
-        const crown = p.get(`profiles_${member}.bought.crown`)
-        const ak47 = p.get(`profiles_${member}.bought.ak47`)
 
-        return message.channel.send(new MessageEmbed()
-        .setColor('RANDOM')
-        .setDescription(`
-Sword - $${(sword * 20 + 20 || "20").toLocaleString()} - $0.25/ 10s
-${sword > 15 ? `Crown - $${(crown * 20 + 20 || "20").toLocaleString()} - $0.5/ 10s ` : ''}
-${crown > 50 ? `Ak47 - $${(ak47 * 20 + 20 || "20").toLocaleString()} - $1 /10s` : ''}
-`)
-        )
-    }
+
+
 }
+  }
+  

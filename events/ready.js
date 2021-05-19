@@ -34,32 +34,4 @@ client.on('ready', () => {
 			type: 'WATCHING',
 		},
 	});
-
-	setInterval(() => {
-		const profiles = new quick.table(`profiles`);
-
-		profiles.all().forEach(({ data, ID }) => {
-			const memberID = ID.split('_')[1];
-
-			const a = Object.entries(data.bought).flat();
-
-			let m = [];
-
-			for (let i = 0; i < a.length; i++) if (!(i & 1)) m.push(a[i]);
-
-			m.forEach((item) => {
-				const itemCount = data.bought[item];
-
-				var number;
-				if (item === 'sword') number = 0.25;
-				if (item === 'crown') number = 0.5;
-				if (item === 'ak47') number = 1;
-
-				const addAmount = itemCount * number;
-
-				profiles.add(`profiles_${memberID}.money`, addAmount);
-				profiles.add(`profiles_${memberID}.totalmoney`, addAmount);
-			});
-		});
-	}, 1000000);
 });

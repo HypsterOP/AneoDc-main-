@@ -1,36 +1,44 @@
-const { Client, Message, MessageEmbed } = require('discord.js');
-const db = require("quick.db")
-const moment = require("moment")
+const Discord = require("discord.js");
+const db = require("quick.db");
+const ms = require("parse-ms");
 module.exports = {
-    name: 'daily',
-    aliases: ['da'],
-    /** 
-     * @param {Client} client 
-     * @param {Message} message 
-     * @param {String[]} args 
-     */
-    run: async(client, message, args) => {
-        const profiles = new db.table(`profiles`)
+  name: 'daily',
+  /**
+   * @param {Client} client
+   * @param {Message} message
+   * @param {String[]} args
+   */
 
-        const userProfile = profiles.get(`profiles_${message.author.id}`)
+ run: async (client , message , args) => {
 
-        if(!userProfile) return message.channel.send(`You do not have a profile create on by using: h!newprofile`)
 
-        const dailyCooldown = profiles.get(`profiles_${message.author.id}.dailycooldown`)
 
-        if (Date.now() > dailyCooldown || dailyCooldown === undefined) {
-            const randomNumber = Math.floor(Math.random() * 20000) + 1;
-            profiles.add(`profiles_${message.author.id}.money`, randomNumber)
-            profiles.add(`profiles_${message.author.id}.totalmoney`, randomNumber)
-            profiles.set(`profiles_${message.author.id}.dailycooldown`, Date.now() + 86400000)
-            return message.channel.send(
-                new MessageEmbed()
-                .setTitle(`Daily Rewards`)
-                .setDescription(`You have recived ${randomNumber.toLocaleString()} coins. Come back in 24 hours to claim your daily reward`)
-                .setColor("RANDOM")
-            )
-        } else {
-            return message.channel.send(`You have already claimed your daily reward, come back ${moment(dailyCooldown).fromNow()}`)
-        }
-    }
+
+  let user = message.author;
+
+  let timeout = 86400000;
+  let amount = 1500;
+
+  let daily = await db.fetch(`daily_${user.id}`);
+
+  if (daily !== null && timeout - (Date.now() - daily) > 0) {
+    let time = ms(timeout - (Date.now() - daily));
+  
+    let timeEmbed = new Discord.MessageEmbed()
+    .setColor("#FFFFFF")
+    .setDescription(`:x: You've already collected your daily reward\n\nCollect it again in __${time.hours}__h __${time.minutes}__m __${time.seconds}__s `)
+    .setColor("RED")
+        message.lineReply({
+  embed: timeEmbed,
+  allowedMentions: { repliedUser: false }
+});
+  } else {
+   
+  message.lineReply(`You've collected your daily reward of **${amount}** Coins!`, { allowedMentions: { repliedUser: false } })
+  db.add(`money_${user.id}`, amount)
+  db.set(`daily_${user.id}`, Date.now())
+
+
+  }
+}
 }
