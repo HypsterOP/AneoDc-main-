@@ -51,14 +51,14 @@ client.on('ready', () => {
 				const itemCount = data.bought[item];
 
 				var number;
-				if (item === 'sword') number = 0.35;
-				if (item === 'crown') number = 0.8;
-				if (item === 'fruits') number = 1;
+				if (item === 'sword') number = 0.25;
+				if (item === 'crown') number = 0.5;
+				if (item === 'ak47') number = 1;
 
 				const addAmount = itemCount * number;
 
 				profiles.add(`profiles_${memberID}.money`, addAmount);
 			});
 		});
-	}, 10000);
+	}, 1000000);
 });
