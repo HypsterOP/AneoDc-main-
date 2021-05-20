@@ -55,9 +55,17 @@ module.exports = {
       
         db.subtract(`money_${user.id}`, 50)
         message.inlineReply(`Succesfully bought **Minecraft** for **50** Coins!`)
-        } else {
-message.inlineReply('You need to specify an item to buy!')
-    }
+        } else if (args[0] == 'diAmond' || args[0] == 'Diamond' || args[0] == 'diamond') {
+            if (author < 250000000) return message.inlineReply('You need atleast **250,000,000** Coins to buy a Diamond!', { allowedMentions: { repliedUser: false } })
+
+            db.fetch(`diamond_${user.id}`)
+            db.set(`diamond_${user.id}`, true)
+
+            db.subtract(`money_${user.id}`,250000000)
+            message.inlineReply('Succesfully bought **Diamond** for **250,000,000** Coins!')
+        }else {
+        message.inlineReply("That item doesn't exist! 😂")
+        }
        
 
 }

@@ -89,5 +89,13 @@ let embed = new Discord.MessageEmbed()
 
       } 
       }
+
+      if(args[0] === "diamond"){
+          let dimID = db.fetch(`diamond_${user.id}`)
+
+          if(dimID === null) return message.inlineReply("You need to buy a Diamond from the shop before using this command!")
+
+          message.channel.send(`**${message.author.username} is flexing on everybody with their diamond 💪**`)
+      }
   }
 }
