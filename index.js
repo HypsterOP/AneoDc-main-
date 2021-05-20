@@ -25,6 +25,17 @@ require("./logger")(client);
 const blacklist = require('./models/blacklist')
 const prefixSchema = require('./models/prefix')
 
+const { Database } = require("quickmongo")
+
+const db21 = new Database(process.env.MONGO_BOT)
+
+db21.on("ready", () => {
+    console.log("Connected to quick mongo db")
+})
+
+client.db = db21;
+
+
 
 const config = require('./config.json')
 const prefix = config.prefix

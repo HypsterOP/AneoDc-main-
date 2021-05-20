@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-const db = require("quick.db");
 const ms = require("parse-ms");
 require("../../ExtendedMessage")
 const cf = require("../../config.json")
@@ -11,7 +10,7 @@ module.exports = {
    * @param {String[]} args
    */
 
-  run:async (client , message , args) => {
+  run:async (client , message , args, quick) => {
 
 
 
@@ -19,7 +18,7 @@ module.exports = {
 if(!require("../../config.json").owners.includes(
     message.author.id
 )) return message.inlineReply(`developer only`)
-  let member = db.fetch(`money_${message.author.id}`)
+  let member = quick.fetch(`money_${message.author.id}`)
 
  ;
 
@@ -37,7 +36,7 @@ if(!require("../../config.json").owners.includes(
   .setDescription(`You have payed ${user} ${args[1]}`);
 
   message.channel.send(embed5)
-  db.add(`money_${user.id}`, args[1])
+  quick.add(`money_${user.id}`, args[1])
  
 
 }

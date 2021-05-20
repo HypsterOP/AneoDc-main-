@@ -1,5 +1,4 @@
 const slotItems = ["🍇", "🍉", "💰", "🍎", "🍒"];
-const db = require("quick.db");
 const { MessageEmbed } = require('discord.js');  
 
 module.exports = {
@@ -8,10 +7,10 @@ module.exports = {
         category: "economy",
         description: "Slot game | 9x - rare | 3x - common",
         usage: "<amount>",
-    run: async (client, message, args) => {
+    run: async (client, message, args, quick) => {
 
     let user = message.author;
-    let moneydb = await db.fetch(`money_${user.id}`)
+    let moneydb = await quick.fetch(`money_${user.id}`)
     let money = parseInt(args[0]);
     let win = false;
 
@@ -43,13 +42,13 @@ module.exports = {
             .setColor("00FFFF")
             
     message.channel.send(slotsEmbed1)
-    db.add(`money_${user.id}`, money)
+    quick.add(`money_${user.id}`, money)
     } else {
         let slotsEmbed = new MessageEmbed()
             .addField(`${slotItems[number[0]]} | ${slotItems[number[1]]} | ${slotItems[number[2]]}`, `You lost ${money} Coins.`)
             .setColor("FF2052")
      message.channel.send(slotsEmbed)
-     db.subtract(`money_${user.id}`, money)
+     quick.subtract(`money_${user.id}`, money)
     }
 
 }

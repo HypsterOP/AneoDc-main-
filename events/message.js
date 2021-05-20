@@ -6,7 +6,7 @@ const schema = require('../models/custom-commands');
 const db = require('../reconDB');
 const db2 = require('quick.db')
 const ms = require("ms")
-
+const quick = client.db;
 
 const Timeout = new Collection()
 
@@ -42,7 +42,7 @@ client.on('message', async message =>{
             if(data) message.channel.send(data.Response)
             let command = client.commands.get(cmd)
             if (!command) command = client.commands.get(client.aliases.get(cmd));
-            if (command) command.run(client, message, args)
+            if (command) command.run(client, message, args, quick)
         } else {
             message.channel.send('You are blacklisted! Try contacting the developer in support server you will find the link of server here - https://aneo.ml')
         }

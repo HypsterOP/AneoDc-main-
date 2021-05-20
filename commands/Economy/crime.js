@@ -1,5 +1,4 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
-const db = require("quick.db")
 const Discord = require("discord.js")
 const ms = require("ms")
 require("../../ExtendedMessage")
@@ -11,9 +10,9 @@ module.exports = {
      * @param {Message} message 
      * @param {String[]} args 
      */
-    run: async(client, message, args) => {
+    run: async(client, message, args, quick) => {
         let user = message.author;
-        let author = await db.fetch(`money_${user.id}`)
+        let author = await quick.fetch(`money_${user.id}`)
       if (author < 250) {
               return message.channel.send('You need at least 250 Coins to commit a crime')
           }
@@ -24,7 +23,7 @@ module.exports = {
       let rand = Math.round(Math.random() * 700 + 200);
     
     
-      let beg = await db.fetch(`crime_${user.id}`);
+      let beg = await quick.fetch(`crime_${user.id}`);
     
       if (beg !== null && timeout - (Date.now() - beg) > 0) {
         let time = ms(timeout - (Date.now() - beg));
@@ -51,8 +50,8 @@ module.exports = {
       embed: embedCrime,
       allowedMentions: { repliedUser: false }
     });
-      db.add(`money_${user.id}`, rand)
-      db.set(`crime_${user.id}`, Date.now())
+      quick.add(`money_${user.id}`, rand)
+      quick.set(`crime_${user.id}`, Date.now())
     
          }    
     }
