@@ -2,9 +2,9 @@
     "prefix": "h!",
     "everyoneMention": false,
     "hostedBy": true,
-    "secret": "Ozp8rgprif5gMewX71E2F-e2oa5ywt2E",
+    "secret": "38orOygIrCss_uo1ZgRvb4TvPLRWNE6y",
     "id": "811265195186978828",
-    "dashboardURL": "http://localhost:1003",
+    "dashboardURL": "http://localhost:3000",
     "semoji": "<:aneoTick:837567483422179358>",
     "femoji": "<:aneoError:837566696818343956>",
     "owners" : ["809007169210810398", "800331322089537538"]
