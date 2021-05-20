@@ -1,55 +1,56 @@
-const Discord = require('discord.js')
-require("../../ExtendedMessage")
-const db = require("quick.db")
-const ms = require("parse-ms")
-module.exports = {
-  name: 'slots',
-  /**
-   * @param {Client} client
-   * @param {Message} message
-   * @param {String[]} args
-   */
+const slotItems = ["🍇", "🍉", "💰", "🍎", "🍒"];
+const db = require("quick.db");
+const { MessageEmbed } = require('discord.js');  
 
-  run:async (client , message , args) => {
-  
+module.exports = {
+        name:"slots",
+        aliases: ["sl"],
+        category: "economy",
+        description: "Slot game | 9x - rare | 3x - common",
+        usage: "<amount>",
+    run: async (client, message, args) => {
+
     let user = message.author;
     let moneydb = await db.fetch(`money_${user.id}`)
     let money = parseInt(args[0]);
     let win = false;
 
- 
+  let moneymore = new MessageEmbed()
+    .setColor("FF2052")
+    .setDescription(`You're Betting for more Coins that You've!`);
 
-    if (!money) return message.inlineReply(`Please specify an amount to bet!`, { allowedMentions: { repliedUser: false } })
-    if (money > moneydb) return message.inlineReply(`You are betting more than you have!`, { allowedMentions: { repliedUser: false } });
+   let moneyhelp = new MessageEmbed()
+    .setColor("FF2052")
+    .setDescription(`You forgot to specify the Amount!`); 
 
-    const slotItems = ["win", "loose"]
+    if (!money) return message.channel.send(moneyhelp);
+    
+    if (money > moneydb) return message.channel.send(moneymore);
 
     let number = []
-    for (i = 0; i < 3; i++) { number[i] = Math.floor(Math.random() * slotItems.length); }
+    for (let i = 0; i < 3; i++) { number[i] = Math.floor(Math.random() * slotItems.length); }
 
-    if (number[0] == number[1] && number[1] == number[2]) { 
-        money *= 9
+    if (number[0] == number[1] && number[1] == number[2])  { 
+        money *= 5
         win = true;
     } else if (number[0] == number[1] || number[0] == number[2] || number[1] == number[2]) { 
         money *= 2
         win = true;
     }
     if (win) {
-        let slotsEmbed1 = new Discord.MessageEmbed()
+        let slotsEmbed1 = new MessageEmbed()
+            .addField(`${slotItems[number[0]]} | ${slotItems[number[1]]} | ${slotItems[number[2]]}`, `You won ${money} Coins.`)
+            .setColor("00FFFF")
             
-            .setDescription(` You won ${money} Coins`)
-            .setColor("GREEN")
-        message.channel.send(slotsEmbed1)
-        db.add(`money_${user.id}`, money)
+    message.channel.send(slotsEmbed1)
+    db.add(`money_${user.id}`, money)
     } else {
-        let slotsEmbed = new Discord.MessageEmbed()
-           
-            .setDescription(`You lost ${money} Coins`)
-            .setColor("RED")
-        message.channel.send(slotsEmbed)
-        db.subtract(`money_${user.id}`, money)
+        let slotsEmbed = new MessageEmbed()
+            .addField(`${slotItems[number[0]]} | ${slotItems[number[1]]} | ${slotItems[number[2]]}`, `You lost ${money} Coins.`)
+            .setColor("FF2052")
+     message.channel.send(slotsEmbed)
+     db.subtract(`money_${user.id}`, money)
     }
 
 }
-  }
-
+}
