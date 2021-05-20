@@ -20,7 +20,7 @@ module.exports = {
 
  
   let moneyEmbed = new Discord.MessageEmbed()
-  .setDescription(`**${user}'s Balance**\n\nWallet: ${bal} Coins\nBank: ${bank} Coins`)
+  .setDescription(`**${user}'s Balance**\n\nWallet: ${bal.toLocaleString()} Coins\nBank: ${bank.toLocaleString()} Coins`)
   .setColor("GREEN")
       message.lineReply({
   embed: moneyEmbed,
