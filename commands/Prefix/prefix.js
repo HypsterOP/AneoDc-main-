@@ -9,6 +9,11 @@ module.exports = {
         if(!message.member.hasPermission('MANAGE_SERVER')) return;
         const res = await args.join(" ")
         if(!res) return message.channel.send('Please give me the new prefix for the server.')
+        if( res.match(/^(?:<@!?)?(\d{16,22})>/gi) ||
+         res.match(/^(?:<#?)?(\d{16,22})>$/gi) || 
+         res.match(/^(?:<:(?![\n])[()#$@-\w]+:?)?(\d{16,22})>$/gi) ) {
+             return message.reply(`Nope you cant.....`)
+         }
         prefixSchema.findOne({ Guild : message.guild.id }, async(err, data) => {
             if(err) throw err;
             if(data) {
