@@ -2,18 +2,19 @@ const { Client, Message, MessageEmbed } = require("discord.js");
 
 module.exports = {
   name: 'avatar',
+  aliases: ['av'],
   /**
    * @param {Client} client
    * @param {Message} message
    * @param {String[]} args
    */
   run: async (client, message, args) => {
-    const member = message.mentions.members.first() || message.member;
+    const memer = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member || client.users.cache.get(args[0]);
 
     message.channel.send(
         new MessageEmbed()
-        .setTitle(`${member.user.tag}'s Avatar`)
-        .setImage(member.user.displayAvatarURL({ dynamic: true, size: 512 }))
+        .setTitle(`${memer.displayName}'s Avatar`)
+        .setImage(memer.user.displayAvatarURL({ dynamic: true }))
         .setColor('PURPLE')
     )
   }
