@@ -1,6 +1,7 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
 const Discord = require("discord.js")
 require("../../ExtendedMessage")
+const db = require("quick.db")
 module.exports = {
     name: 'remove',
     aliases: ['rmm'],
@@ -9,14 +10,14 @@ module.exports = {
      * @param {Message} message 
      * @param {String[]} args 
      */
-    run: async(client, message, args, quick) => {
+    run: async(client, message, args) => {
         if(!require("../../config.json").owners.includes(
             message.author.id
         )) return message.lineReply(`Only the owner can run this command`)
 
         let user = client.users.cache.get(args[0])
 
-        let member = quick.fetch(`money_${message.author.id}`)
+        let member = db.fetch(`money_${message.author.id}`)
 
         if(!user) return message.lineReply(`not found`)
 
@@ -29,6 +30,6 @@ module.exports = {
         .setDescription(`You have removed coins from ${user} amount- ${args[1]}`);
       
         message.channel.send(embed5)
-        quick.subtract(`money_${user.id}`, args[1])
+        db.subtract(`money_${user.id}`, args[1])
     } 
 }

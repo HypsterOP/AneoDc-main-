@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const db = require("quick.db")
 module.exports = {
   name: 'bal',
   /**
@@ -7,14 +8,14 @@ module.exports = {
    * @param {String[]} args
    */
 
-  run :async (client , message , args, quick) => {
+  run :async (client , message , args) => {
  let user = message.mentions.members.first() || message.author;
 
-  let bal =  await quick.fetch(`money_${user.id}`)
+  let bal =  await db.fetch(`money_${user.id}`)
 
   if (bal === null) bal = 0;
 
-  let bank = await quick.fetch(`bank_${user.id}`)
+  let bank = await db.fetch(`bank_${user.id}`)
   if (bank === null) bank = 0;
 
  

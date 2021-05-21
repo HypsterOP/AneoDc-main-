@@ -1,7 +1,7 @@
 const Discord = require("discord.js")
 const ms = require("parse-ms")
 require("../../ExtendedMessage")
-
+const db = require("quick.db")
 module.exports = {
   name: 'work',
   /**
@@ -10,7 +10,7 @@ module.exports = {
    * @param {String[]} args
    */
 
-  run:async (client , message , args, quick) => {
+  run:async (client , message , args) => {
 
 
   let user = message.author;
@@ -19,7 +19,7 @@ module.exports = {
   let rand = Math.round(Math.random() * 3000 + 690);
 
 
-  let beg = await quick.fetch(`work_${user.id}`);
+  let beg = await db.fetch(`work_${user.id}`);
 
   if (beg !== null && timeout - (Date.now() - beg) > 0) {
     let time = ms(timeout - (Date.now() - beg));
@@ -38,8 +38,8 @@ module.exports = {
   embed: embed,
   allowedMentions: { repliedUser: false }
 });
-  quick.add(`money_${user.id}`, rand)
-  quick.set(`work_${user.id}`, Date.now())
+  db.add(`money_${user.id}`, rand)
+  db.set(`work_${user.id}`, Date.now())
 
 
   }

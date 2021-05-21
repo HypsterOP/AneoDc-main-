@@ -9,19 +9,19 @@ module.exports = {
    * @param {String[]} args
    */
 
-  run:async (client , message , args, quick) => {
+  run:async (client , message , args) => {
  
 
   let user = message.author;
 
-  let member = quick.fetch(`money_${user.id}`)
-  let member2 = quick.fetch(`bank_${user.id}`)
+  let member = db.fetch(`money_${user.id}`)
+  let member2 = db.fetch(`bank_${user.id}`)
 
   if (args[0] == 'all' || args[0] == "max") {
-    let money = await quick.fetch(`bank_${user.id}`)
+    let money = await db.fetch(`bank_${user.id}`)
     
-    quick.subtract(`bank_${user.id}`, money)
-    quick.add(`money_${user.id}`, money)
+    db.subtract(`bank_${user.id}`, money)
+    db.add(`money_${user.id}`, money)
   
   message.inlineReply(`You have withdrawn all your Coins from your bank`, { allowedMentions: { repliedUser: false } })
   
@@ -44,8 +44,8 @@ module.exports = {
   }
 
 message.inlineReply(`Successfully withdrawn ${args[0]} Coins from your bank!`, { allowedMentions: { repliedUser: false } })
-  quick.subtract(`bank_${user.id}`, args[0])
-  quick.add(`money_${user.id}`, args[0])
+  db.subtract(`bank_${user.id}`, args[0])
+  db.add(`money_${user.id}`, args[0])
   }
 }
 }

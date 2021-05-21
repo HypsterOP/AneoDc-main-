@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const ms = require("parse-ms");
 require("../../ExtendedMessage")
+const db = require("quick.db")
 module.exports = {
   name: 'dep',
   /**
@@ -9,26 +10,26 @@ module.exports = {
    * @param {String[]} args
    */
 
-  run: async (client , message , args, quick) => {
+  run: async (client , message , args) => {
 
 let user = message.author;
-  let bank = await quick.fetch(`bank_${user.id}`)
+  let bank = await db.fetch(`bank_${user.id}`)
   if (bank === null) bank = 0;
 
   
 
-  let member = quick.fetch(`money_${user.id}`)
-  let member2 = quick.fetch(`bank_${user.id}`)
+  let member = db.fetch(`money_${user.id}`)
+  let member2 = db.fetch(`bank_${user.id}`)
 
   if (args[0] == 'all' || args[0] == "max") {
-    let money = await quick.fetch(`money_${user.id}`)
-    let bank = await quick.fetch(`bank_${user.id}`)
+    let money = await db.fetch(`money_${user.id}`)
+    let bank = await db.fetch(`bank_${user.id}`)
 
 
     if(money === 0) return message.inlineReply(`You don't have any Coins to deposit!`, { allowedMentions: { repliedUser: false } })
 
-    quick.add(`bank_${user.id}`, money)
-    quick.subtract(`money_${user.id}`, money)
+    db.add(`bank_${user.id}`, money)
+    db.subtract(`money_${user.id}`, money)
 message.inlineReply(`Successfully Deposited **${args[0]}** Coins Into Your Bank`, { allowedMentions: { repliedUser: false } })
   
   } else {
@@ -51,8 +52,8 @@ message.inlineReply(`Successfully Deposited **${args[0]}** Coins Into Your Bank`
   }
 
   message.inlineReply(`Successfully deposited **${args[0]}** Coins into your bank`, { allowedMentions: { repliedUser: false } })
-  quick.add(`bank_${user.id}`, args[0])
-  quick.subtract(`money_${user.id}`, args[0])
+  db.add(`bank_${user.id}`, args[0])
+  db.subtract(`money_${user.id}`, args[0])
   }
 }
 }

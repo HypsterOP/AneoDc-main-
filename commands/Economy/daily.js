@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const ms = require("parse-ms");
+const db = require("quick.db")
 module.exports = {
   name: 'daily',
   /**
@@ -8,7 +9,7 @@ module.exports = {
    * @param {String[]} args
    */
 
- run: async (client , message , args, quick) => {
+ run: async (client , message , args) => {
 
 
 
@@ -18,7 +19,7 @@ module.exports = {
   let timeout = 86400000;
   let amount = 1500;
 
-  let daily = await quick.fetch(`daily_${user.id}`);
+  let daily = await db.fetch(`daily_${user.id}`);
 
   if (daily !== null && timeout - (Date.now() - daily) > 0) {
     let time = ms(timeout - (Date.now() - daily));
@@ -34,8 +35,8 @@ module.exports = {
   } else {
    
   message.lineReply(`You've collected your daily reward of **${amount}** Coins!`, { allowedMentions: { repliedUser: false } })
-  quick.add(`money_${user.id}`, amount)
-  quick.set(`daily_${user.id}`, Date.now())
+  db.add(`money_${user.id}`, amount)
+  db.set(`daily_${user.id}`, Date.now())
 
 
   }
