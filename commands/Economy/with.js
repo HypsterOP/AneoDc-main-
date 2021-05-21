@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const ms = require("parse-ms");
 require("../../ExtendedMessage")
+const db = require("quick.db")
 module.exports = {
   name: 'with',
   /**
