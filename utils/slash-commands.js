@@ -47,7 +47,7 @@ var user = client.users.cache.get(user);
              .addField(`<:Server_Owner:838109754098188329> Servers Count:`, `${client.guilds.cache.size.toLocaleString()}`, false)
              .addField(`<:bfdverifieduser:838109624183816232> Users Count:`, `${client.users.cache.size.toLocaleString()}`, false)
              .addField(`<:CH_IconGreyTextChannel:838109379898376193> Channels Count:`, `${client.channels.cache.size.toLocaleString()}`, false)
-             .addField(`💠Shards:`, `${client.shard.ids}`, false)
+             .addField(`💠Shards:`, `0`, false)
              .addField(`📅 Creation Date -`, `${client.user.createdAt}`, false)
              .addField(`<:nodejs:838108744092876810> Made With :`, `Node.js, MongoDB <:mongo:840262904900747294> And ♥`, false)
              .addField(`👩‍💻 Developers of This Bot -`, `HypsterOP and Tech Infinity`, false)
