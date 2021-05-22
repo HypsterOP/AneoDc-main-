@@ -1,24 +1,40 @@
-const { Client, Message, MessageEmbed } = require('discord.js');
-const config = require("../../config.json")
+const { MessageEmbed } = require("discord.js");
+const ytsr = require('ytsr');
 module.exports = {
     name: 'play',
-    /** 
-     * @param {Client} client 
-     * @param {Message} message 
-     * @param {String[]} args 
-     */
-    run: async(client, message, args) => {
-        if(!message.member.voice.channel) return message.channel.send(
-          new MessageEmbed()
-          .setDescription(`<:error:826449624013078559> You need to be in a voice channel before you can use this command!`)
-        )
+    aliases: ['p', 'pla'],
+    category: 'Music',
+    description: 'Play a song in the vc', 
+    run: async (client, message, args) => {
+        const voice_channel = message.member.voice.channel;
+        const embed = new MessageEmbed()
+            .setColor('#FF5757')
+            .setDescription(`You need to be in a vc to execute this command!`)
+        if (!voice_channel) return message.channel.send(embed);
 
-        const qe = args.join(' ')
-        if(!qe) return message.channel.send(
-          new MessageEmbed()
-          .setDescription(`${config.femoji} what song should i play?`)
-        )
+        if(client.player.isPlaying(message)) {
+            let song = await client.player.addToQueue(message, args.join(' '));
 
-        await client.player.play(message, qe);
-    },
-};
+            const added = new MessageEmbed()
+            .setColor('#85b0d2')
+            .setDescription(`Added **${song.name}** to the queue`)
+
+
+            // If there were no errors the Player#songAdd event will fire and the song will not be null.
+            if(song)
+                message.channel.send(added);
+            return;
+        } else {
+          const argssssss = args.join(' ')
+          if(!argssssss) return message.channel.send(`Please give me a song!`)
+            let song = await client.player.play(message, argssssss);
+
+
+
+            // If there were no errors the Player#songAdd event will fire and the song will not be null.
+            if(song)
+                message.channel.send(started);
+            return;
+        }
+    }
+}

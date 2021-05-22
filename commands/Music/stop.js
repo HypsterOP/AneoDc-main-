@@ -1,25 +1,21 @@
-const { Client, Message, MessageEmbed } = require('discord.js');
-const config = require("../../config.json")
+const { MessageEmbed } = require("discord.js");
+
 module.exports = {
-    name: 'stop',
-    /** 
-     * @param {Client} client 
-     * @param {Message} message 
-     * @param {String[]} args 
-     */
-    run: async(client, message, args) => {
-         if(!message.member.voice.channel) return message.channel.send(
-          new MessageEmbed()
-          .setDescription(`${config.femoji} You need to be in a voice channel before you can use this command!`)
-        )
-
-        client.player.stop(message);
-
-        message.channel.send(
-            new MessageEmbed()
-            .setTitle("Stopped Playing!")
-            .setDescription(`Stopped Playing , Leaving the voice channel!`)
-            .setTimestamp()
-        )
-    },
-};
+    name: 'stop', // Optional
+    category: 'Music',
+    description: 'Clears the queue and leave the vc', 
+    aliases: ['st'], // Optional
+    run: async (client, message, args) => {
+            const voice_channel = message.member.voice.channel;
+            const embed = new MessageEmbed()
+            .setColor('#FF5757')
+            .setDescription(`You need to be in a vc to execute this command!`)
+            if (!voice_channel) return message.channel.send(embed);
+            if (!client.player.getQueue(message)) return message.channel.send(`No music currently playing !`);
+            let isDone = client.player.stop(message);
+            message.channel.send( new MessageEmbed()
+            .setColor('#85b0d2')
+            .setDescription('Music stopped!')
+            )
+    }
+}
