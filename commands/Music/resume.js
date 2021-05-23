@@ -15,10 +15,10 @@ module.exports = {
 
         if (!client.player.getQueue(message)) return message.channel.send(`${config.femoji} - No music currently playing !`);
 
-        if (!client.player.getQueue(message).pause) return message.channel.send(`${config.femoji} - The music is already playing !`);
+        if (!client.player.getQueue(message).paused) return message.channel.send(`${config.femoji} - The music is already playing !`);
 
         const success = client.player.resume(message);
 
-        if (success) message.channel.send(`${config.semoji} - Song resumed !`);
+        if (success) message.channel.send(`${config.semoji} - Song ${client.player.getQueue(message).playing.title} resumed !`);
     }
 }

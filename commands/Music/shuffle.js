@@ -15,8 +15,8 @@ module.exports = {
 
         if (!client.player.getQueue(message)) return message.channel.send(`${config.femoji} - No music currently playing !`);
 
-        const success = client.player.shuffle(message)
+        const success = client.player.shuffle(message);
 
-        if (success) message.channel.send(`${config.semoji} - Queue shuffled!`);
+        if (success) message.channel.send(`${config.semoji} - Queue shuffled **${client.player.getQueue(message).tracks.length}** song(s) !`);
     }
 }

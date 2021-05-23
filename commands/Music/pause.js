@@ -19,6 +19,6 @@ module.exports = {
 
         const success = client.player.pause(message);
 
-        if (success) message.channel.send(`${config.semoji} - Song paused !`);
+        if (success) message.channel.send(`${config.semoji} - Song ${client.player.getQueue(message).playing.title} paused !`);
     }
 }

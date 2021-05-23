@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@discord-player/extractor": "^3.0.0",
     "@discordjs/opus": "^0.5.0",
     "@iamtraction/google-translate": "^1.1.2",
     "@k3rn31p4nic/google-translate-api": "^1.1.1",
@@ -37,6 +38,7 @@
     "discord-hentai": "^1.0.6",
     "discord-jokes": "^3.0.0",
     "discord-paginationembed": "^2.1.0",
+    "discord-player": "^4.1.0",
     "discord-reply": "^0.1.2",
     "discord-together": "^1.1.1",
     "discord-ytdl-core": "^5.0.3",
