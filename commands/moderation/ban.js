@@ -1,5 +1,5 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
-
+const config = require("../../config.json")
 module.exports = {
     name: 'ban',
     description: 'ban a user',
@@ -10,48 +10,58 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-      if(!message.member.hasPermission("BAN_MEMBERS")) return;
+      if(!message.member.hasPermission("KICK_MEMBERS")) return;
       const aneo = message.guild.me;
-      if(!aneo.hasPermission("BAN_MEMBERS")) return message.channel.send(`I do not have permissions to ban members`)
+      if(!aneo.hasPermission("KICK_MEMBERS")) return message.channel.send(`I do not have permissions to kick members`)
 
-      let banNoob = 
+      let kickNoob = 
       message.mentions.members.first() ||
       message.guild.members.cache.find((m) => m.user.username === args[0]) ||
       message.guild.members.cache.find((m) => m.user.tag === args[0]) || 
       message.guild.members.cache.find((m) => m.user.id === args[0]);
 
-      if(!banNoob) {
+      if(!kickNoob) {
         return message.channel.send('Couldn\'t Find that member!')
       }
 
-      if(banNoob.id === message.author.id) {
-        return message.channel.send(`You cannot ban yourself`)
+      if(kickNoob.id === message.author.id) {
+        return message.channel.send(`You cannot kick yourself`)
       }
 
-      if(banNoob.id === client.user.id) {
-        return message.channel.send(`You cannot ban me with my own command!`)
+      if(kickNoob.id === client.user.id) {
+        return message.channel.send(`You cannot kick me with my own command!`)
       }
 
-      if(message.member.roles.highest.position <= banNoob.roles.highest.position) {
+      if(message.member.roles.highest.position <= kickNoob.roles.highest.position) {
         return message.channel.send(`You're role is not higher than the member's role.`)
       }
 
-      if(aneo.roles.highest.position <= banNoob.roles.highest.position){
+      if(aneo.roles.highest.position <= kickNoob.roles.highest.position){
         return message.channel.send(`My role is not above the member!`)
       }
 
       const reason = args[1] || "No reason provided";
 
-      banNoob.ban(reason)
+      kickNoob.ban({ reason: reason })
 
-      const banedNoob = new MessageEmbed()
-      .setTitle(`baned`)
-      .setDescription(`baned ${banNoob}(${banNoob.id}) for ${reason}`)
-      .setColor("RANDOM")
-      .setTimestamp()
-      .setFooter(`Action performed by: ${message.author.username}(${message.author.id})`)
+      const bannedNoob = new MessageEmbed()
+      .setTitle(`<:banhammer:846290055706181682> | Banned`)
+      .addFields({
+        name: `${config.semoji} | User's Name`,
+        value: `${kickNoob.displayName}`
+      }, {
+        name: `${config.semoji} | User Id`,
+        value: `${kickNoob.id}`
+      }, {
+        name: `${config.semoji} | Reason`,
+        value: `${reason}`
+      }, {
+        name: `Action By`,
+        value: `${config.semoji} | User Name ${message.author.username}, User Id ${message.author.id}`
+      })
+      .setColor('RANDOM')
 
-      message.channel.send(banedNoob)
+      message.channel.send(bannedNoob)
 
     }
 }

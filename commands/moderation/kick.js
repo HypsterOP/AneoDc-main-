@@ -1,5 +1,5 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
-
+const config = require("../../config.json")
 module.exports = {
     name: 'kick',
     description: 'kick a user',
@@ -45,11 +45,21 @@ module.exports = {
       kickNoob.kick(reason)
 
       const bannedNoob = new MessageEmbed()
-      .setTitle(`Banned`)
-      .setDescription(`Banned ${kickNoob}(${kickNoob.id}) for ${reason}`)
-      .setColor("RANDOM")
-      .setTimestamp()
-      .setFooter(`Action performed by: ${message.author.username}(${message.author.id})`)
+      .setTitle(`<:kick:846290502960545823> | Kicked`)
+      .addFields({
+        name: `${config.semoji} | User's Name`,
+        value: `${kickNoob.displayName}`
+      }, {
+        name: `${config.semoji} | User Id`,
+        value: `${kickNoob.id}`
+      }, {
+        name: `${config.semoji} | Reason`,
+        value: `${reason}`
+      }, {
+        name: `Action By`,
+        value: `${config.semoji} | User Name ${message.author.username}, User Id ${message.author.id}`
+      })
+      .setColor('RANDOM')
 
       message.channel.send(bannedNoob)
 

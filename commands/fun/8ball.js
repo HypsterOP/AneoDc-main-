@@ -32,6 +32,9 @@ module.exports = {
       ];
       const a = answers[Math.floor(Math.random() * answers.length)];
 
+      const ques = args.join(' ')
+      if(!ques) return message.lineReply(`No i am not answering an empty question`)
+
       return message.channel.send(
         new MessageEmbed()
         .setAuthor(`8ball`)
