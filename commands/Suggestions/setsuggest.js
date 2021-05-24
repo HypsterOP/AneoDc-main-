@@ -9,7 +9,7 @@ module.exports = {
      * @param {Message} message 
      * @param {String[]} args 
      */
-    run: async(client, message, args) => {
+    run: async(client, message, args, quick) => {
         if(!message.member.hasPermission("MANAGE_CHANNELS")) return message.channel.send(`You need **Manage Channels** permission to use this command.`)
 
         let ch = message.mentions.channels.first();
@@ -18,7 +18,7 @@ module.exports = {
 
         if(!ch.type === "voice") return message.lineReplyNoMention(`You need to mention a text channel!`)
 
-        await db.set(`suggestions_${message.guild.id}`, ch.id);
+        await quick.set(`suggestions_${message.guild.id}`, ch.id);
 
         const eeeeeeeem = new MessageEmbed()
         .setTitle(`${config.semoji} Success!`)
