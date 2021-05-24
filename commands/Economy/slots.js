@@ -1,6 +1,6 @@
 const slotItems = ["🍇", "🍉", "💰", "🍎", "🍒"];
 const { MessageEmbed } = require('discord.js');  
-
+const db = require("quick.db")
 module.exports = {
         name:"slots",
         aliases: ["sl"],
