@@ -39,6 +39,7 @@ module.exports = {
       Prefix: "📑",
       ranks: "🔰",
       reactionroles: "🎭",
+      Suggestions: "✅",
       Utility: "⚙",
       welcomesetup: "🙌"
 
