@@ -24,11 +24,15 @@ module.exports = {
       .setColor('RANDOM')
       .addField(`Status: `, `Pending`)
 
-      const clientChannel = await client.channels.cache.get(channel)
-
-      clientChannel.send(embed)
+      const clientChannel = await message.guild.channels.cache.get(channel)
 
       message.channel.send(`${config.semoji} | Nice! You have submitted a suggestion, to check it go to <#${clientChannel.id}>`)
+
+      const e = await message.guild.channels.cache.get(channel).send(embed)
+
+      await e.react('👍')
+      await e.react('👎')
+
 
 
 
