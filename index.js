@@ -1,177 +1,226 @@
-const { Collection, Client, Discord, MessageEmbed } = require('discord.js')
-const fs = require('fs')
+const { Collection, Client, Discord, MessageEmbed } = require('discord.js');
+const fs = require('fs');
 const afk = new Collection();
-const db2 = require("quick.db")
-const alt = require("discord-anti-alt")
-const coinsSchemaa = require("./models/Economy")
+const db2 = require('quick.db');
+const alt = require('discord-anti-alt');
+const coinsSchemaa = require('./models/Economy');
 module.exports = afk;
 const client = new Client({
-    disableEveryone: true,
-    partials: ["CHANNEL", "MESSAGE", "GUILD_MEMBER", "REACTION", "USER"],
-})
-require("dotenv").config()
+	disableEveryone: true,
+	partials: ['CHANNEL', 'MESSAGE', 'GUILD_MEMBER', 'REACTION', 'USER'],
+});
+require('dotenv').config();
 require('discord-reply');
-require('discord-buttons')
+require('discord-buttons');
 module.exports = client;
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGO_BOT, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-}).then(console.log('Connected to mongo db'))
+mongoose
+	.connect(process.env.MONGO_BOT, {
+		useUnifiedTopology: true,
+		useNewUrlParser: true,
+	})
+	.then(console.log('Connected to mongo db'));
 
-require("./logger")(client);
+require('./logger')(client);
 
-const blacklist = require('./models/blacklist')
-const prefixSchema = require('./models/prefix')
+const blacklist = require('./models/blacklist');
+const prefixSchema = require('./models/prefix');
+const altSchema = require('./models/alt');
+const altlog = require('./models/alt-logs');
 
-const { Database } = require("quickmongo")
+const { Database } = require('quickmongo');
 
-const db21 = new Database(process.env.MONGO_BOT)
+const db21 = new Database(process.env.MONGO_BOT);
 
-db21.on("ready", () => {
-    console.log("Connected to quick mongo db")
-})
+db21.on('ready', () => {
+	console.log('Connected to quick mongo db');
+});
 
 client.db = db21;
 
+client.on('warn', console.log);
+client.on('debug', console.log);
 
-client.on("warn", console.log)
-client.on("debug", console.log)
-
-
-
-const config = require('./config.json')
-const prefix = config.prefix
+const config = require('./config.json');
+const prefix = config.prefix;
 const reconDB = require('./reconDB');
 const db = require('./reconDB');
 client.commands = new Collection();
 client.aliases = new Collection();
 client.config = config;
 
-const { GiveawaysManager } = require("discord-giveaways")
+const { GiveawaysManager } = require('discord-giveaways');
 client.giveawaysManager = new GiveawaysManager(client, {
-    storage: "./give.json",
-    updateCountdownEvery: 5000,
-    default: {
-        botsCanWin: false,
-        embedColor: "#ADD8E6",
-        reaction: "🎉"
-    }
+	storage: './give.json',
+	updateCountdownEvery: 5000,
+	default: {
+		botsCanWin: false,
+		embedColor: '#ADD8E6',
+		reaction: '🎉',
+	},
 });
 
 const { DiscordTogether } = require('discord-together');
 
-client.discordTogether = new DiscordTogether(client)
+client.discordTogether = new DiscordTogether(client);
 
 const blacklistedWords = new Collection();
-client.categories = fs.readdirSync("./commands/");
-["command"].forEach(handler => {
-    require(`./handlers/${handler}`)(client);
+client.categories = fs.readdirSync('./commands/');
+['command'].forEach((handler) => {
+	require(`./handlers/${handler}`)(client);
 
+	/**
+	 * @param {Client} client
+	 */
+	client.prefix = async function (message) {
+		let custom;
 
-    /**
-     * @param {Client} client
-     */
-    client.prefix = async function (message) {
-        let custom;
+		const data = await prefixSchema
+			.findOne({ Guild: message.guild.id })
+			.catch((err) => console.log(err));
 
-        const data = await prefixSchema.findOne({ Guild: message.guild.id })
-            .catch(err => console.log(err))
-
-        if (data) {
-            custom = data.Prefix;
-        } else {
-            custom = prefix;
-        }
-        return custom;
-    }
-
-
-
-
+		if (data) {
+			custom = data.Prefix;
+		} else {
+			custom = prefix;
+		}
+		return custom;
+	};
 });
 
-client.bal = (id) => new Promise(async ful => {
-    const data = await coinsSchemaa.findOne({ id });
-    if (!data) return ful(0);
-    ful(data.coins)
-})
+client.bal = (id) =>
+	new Promise(async (ful) => {
+		const data = await coinsSchemaa.findOne({ id });
+		if (!data) return ful(0);
+		ful(data.coins);
+	});
 
 client.add = (id, coins) => {
-    coinsSchemaa.findOne({ id }, async (err, data) => {
-        if (err) throw err;
-        if (data) {
-            data.coins += coins;
-        } else {
-            data = new coinsSchemaa({ id, coins })
-        }
-        data.save();
-    })
-}
+	coinsSchemaa.findOne({ id }, async (err, data) => {
+		if (err) throw err;
+		if (data) {
+			data.coins += coins;
+		} else {
+			data = new coinsSchemaa({ id, coins });
+		}
+		data.save();
+	});
+};
 
 client.rmv = (id, coins) => {
-    coinsSchemaa.findOne({ id }, async (err, data) => {
-        if (err) throw err;
-        if (data) {
-            data.coins -= coins;
-        } else {
-            data = new coinsSchemaa({ id, coins })
-        }
-        data.save();
-    })
-}
+	coinsSchemaa.findOne({ id }, async (err, data) => {
+		if (err) throw err;
+		if (data) {
+			data.coins -= coins;
+		} else {
+			data = new coinsSchemaa({ id, coins });
+		}
+		data.save();
+	});
+};
 
-client.snipes = new Map()
+client.snipes = new Map();
 client.on('messageDelete', function (message, channel) {
-
-    client.snipes.set(message.channel.id, {
-        content: message.content,
-        author: message.author,
-        image: message.attachments.first() ? message.attachments.first().proxyURL : null
-    })
-})
-
+	client.snipes.set(message.channel.id, {
+		content: message.content,
+		author: message.author,
+		image: message.attachments.first()
+			? message.attachments.first().proxyURL
+			: null,
+	});
+});
 
 module.exports = client;
 
-
 client.on('guildDelete', async (guild) => {
-    prefixSchema.findOneAndDelete({ Guild: guild.id }).then(console.log('okokokokokoko, setting up prefix ... done!'))
-})
+	prefixSchema
+		.findOneAndDelete({ Guild: guild.id })
+		.then(console.log('okokokokokoko, setting up prefix ... done!'));
+});
 
+const { Player } = require('discord-player');
 
+client.player = new Player(client);
 
-const { Player } = require("discord-player")
+const discord = require('discord.js');
 
-client.player = new Player(client)
+client.on('guildMemberAdd', async (member) => {
+	altSchema.findOne({ Guild: member.guild.id }, async (err, data) => {
+		if (!data) return;
+		if (data.Avatar === 'Enabled')
+			if (member.user.avatar === null) {
+				await member
+					.send(
+						new MessageEmbed()
+							.setTitle(`Aneo Bot Alt Detector`)
+							.setDescription(
+								`You were kicked from ${memer.guild.name} | The bot has identified you as an alt.`
+							)
+							.setColor('RANDOM')
+							.setTimestamp()
+							.setFooter(`Aneo | The Discord Bot`)
+					)
+					.catch((er) => {
+						member.kick('Account might be an alt!');
+					});
 
-const discord = require("discord.js")
+				await member.kick('Account might be an alt!');
+			}
 
-client.on('guildMemberAdd', async member => {
-    const altdays = db2.get(`altdays.${member.guild.id}`);
-    const altChannel = db2.get(`antialt.${member.guild.id}`)
-    if (!altdays || !altChannel) return;
+		if (data.Days == '0') return;
+		let f = Date.now() - member.user.createdAt;
+		let create = Math.floor(f / 86400000);
+		let AltAccAge = data.Days;
+		if (create >= AltAccAge) return;
+		if (create < AltAccAge) {
+			await member
+				.send(
+					new MessageEmbed()
+						.setTitle(`Aneo Bot Alt Detector`)
+						.setDescription(
+							`You have been kicked from ${member.guild.name} | This was because your account age is below the server's account age requirement.`
+						)
+						.setColor('RANDOM')
+						.setFooter(`Aneo | The Discord Bot`)
+						.setTimestamp()
+				)
+				.catch((err) => {
+					member.kick('Account age is below the server requirement!');
+				});
 
-    const account = new alt.config({
-        days: parseInt(altdays),
-        options: 'kick'
-    });
+			await member.kick('Account age is below the server requirement!');
+		}
 
-    let running = account.run(member);
-    let profile = alt.profile(member);
-    if (running) {
-        let embed = new discord.MessageEmbed()
-            .setAuthor(member.user.tag, member.user.displayAvatarURL())
-            .setColor("RANDOM")
-            .addField("Account Age: ", profile.userAge, true)
-            .addField("Age Requirement: ", altdays, true)
-            .addField("Account Created", profile.date.userDateCreated, true)
-            .setTimestamp()
+		await altlog.findOne({ Guild: member.guild.id }, async (err, data1) => {
+			if (!data1) return;
+			const channel = member.guild.channels.cache.get(data1.Channel);
+			const embed = new MessageEmbed()
+				.setTitle('Aneo Bot Alt Detector')
+				.setDescription(`⚠ | Alt found`)
+				.addField(`Information`, [
+					`Alt's Name: ${member.user.username}`,
+					`Alt's Tag: ${member.user.discriminator}`,
+				])
+				.addField('More Information', [
+					`Bot?: ${member.user.bot}`,
+					`Created At: ${moment(member.user.createdTimestamp).format(
+						'LT'
+					)} ${moment(member.user.createdTimestamp).format('LL')}  ${moment(
+						member.user.createdTimestamp
+					).fromNow()}`,
+					`Joined At: ${moment(member.joinedTimestamp).format('LT')} ${moment(
+						member.joinedTimestamp
+					).format('LL')}  ${moment(member.joinedTimestamp).fromNow()}`,
+					`Avatar: ${member.user.avatar || `No Avatar`}`,
+					`Minimum Age: ${data.Days} days`,
+				])
+				.setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
+				.setColor('RANDOM')
+				.setFooter(`Alt Kicked | Aneo`)
+				.setTimestamp();
+		});
+	});
+});
 
-        member.guild.channels.cache.get(altChannel).send(embed)
-    }
-
-})
-
-client.login(process.env.TOKEN)
+client.login(process.env.TOKEN);

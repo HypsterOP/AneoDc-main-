@@ -1,6 +1,5 @@
 const client = require('../index');
 client.slash = require("../utils/slash-commands")
-const Dashboard = require('../src/router')
 const path = require('path');
 const chalk = require("chalk")
 const ms = require('ms');
