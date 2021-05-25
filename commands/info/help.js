@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const { readdirSync } = require("fs");
-
+const { semoji, femoji } = require('../../config.json')
 
 module.exports = {
   name: "help",
@@ -99,35 +99,35 @@ module.exports = {
 
     if (!command) {
       const embed = new MessageEmbed()
-        .setTitle(`Invalid command! Use \`${p}help\` for all of my commands!`)
+        .setTitle(`Command not found! Use \`${p}help\` for all of my commands!`)
         .setColor("FF0000");
       return message.channel.send(embed);
     }
 
     const embed = new MessageEmbed()
       .setTitle("Command Details:")
-      .addField("PREFIX:", `\`${p}\``)
+      .addField("Prefix:", `\`${p}\``)
       .addField(
-        "COMMAND:",
-        command.name ? `\`${command.name}\`` : "No name for this command."
+        "Command Name:",
+        command.name ? `\`${command.name}\`` : `${femoji}`
       )
       .addField(
-        "ALIASES:",
+        "Alaises:",
         command.aliases
           ? `\`${command.aliases.join("` `")}\``
-          : "No aliases for this command."
+          : `${femoji} No aliases`
       )
       .addField(
-        "USAGE:",
+        "Usage:",
         command.usage
           ? `\`${p}${command.name} ${command.usage}\``
           : `\`${p}${command.name}\``
       )
       .addField(
-        "DESCRIPTION:",
+        "Description:",
         command.description
           ? command.description
-          : "No description for this command."
+          : `${femoji} No Description`
       )
       .setFooter(
         `Requested by ${message.author.tag}`,
