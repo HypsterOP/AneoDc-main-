@@ -1,0 +1,9 @@
+{
+  "814117890701787157": {
+    "func": true,
+    "settings": {
+      "user_punish": "remove_roles",
+      "bot_punish": "kick"
+    }
+  }
+}

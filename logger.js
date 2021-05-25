@@ -3,8 +3,9 @@ const fs = require("fs");
 const Guild = require("./models/log");
 const mongoose = require("mongoose");
 const client = require("./index")
+const chalk = require('chalk')
 module.exports = c => {
-  console.log("Loaded Logger Module");
+  console.log(chalk.blueBright(`[LOGGER] Logger is loaded`));
   try {
     c.on("channelCreate", function(channel) {
       send_log(
@@ -281,7 +282,7 @@ ${newMessage.content.replace(/`/g, "'")}
         c,
         role.guild,
         "GREEN",
-        "ROLE CREATED"`ROLE: ${role}\nROLENAME: ${role.name}\nROLEID: ${role.id}\nHEXCOLOR: ${role.hexColor}\nPOSITION: ${role.position}`
+        `ROLE: ${role}\nROLENAME: ${role.name}\nROLEID: ${role.id}\nHEXCOLOR: ${role.hexColor}\nPOSITION: ${role.position}`
       );
     });
 

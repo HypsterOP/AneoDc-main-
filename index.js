@@ -40,8 +40,6 @@ db21.on('ready', () => {
 
 client.db = db21;
 
-client.on('warn', console.log);
-client.on('debug', console.log);
 
 const config = require('./config.json');
 const prefix = config.prefix;

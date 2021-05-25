@@ -17,10 +17,10 @@ client.on('ready', () => {
 	});
 
 	console.log('------------------------------------------------')
-	console.log(chalk.blue(`${client.user.username} is Ready!`))
-	console.log(chalk.red(`Shards ${client.shard.count}`))
-	console.log(chalk.green(`Connected to ${client.channels.cache.size} Channels`))
-	console.log(chalk.yellowBright(`Listening to ${client.guilds.cache.size} Servers`))
+	console.log(chalk.blue(`[CLIENT] ${client.user.username} is Ready!`))
+	console.log(chalk.red(`[SHARD] Shards ${client.shard.count}`))
+	console.log(chalk.green(`[CHANNELS] Connected to ${client.channels.cache.size} Channels`))
+	console.log(chalk.yellowBright(`[SERVERS] Listening to ${client.guilds.cache.size} Servers`))
 	console.log('------------------------------------------------')
 
 
