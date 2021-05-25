@@ -1,6 +1,7 @@
 const client = require('../index');
 client.slash = require("../utils/slash-commands")
 const path = require('path');
+const chalk = require("chalk")
 const ms = require('ms');
 const Schema = require('../models/member-count');
 const WokCommands = require('wokcommands');
@@ -15,7 +16,13 @@ client.on('ready', () => {
 		showWarns: false,
 	});
 
-	console.log(`${client.user.username} ✅ OP`);
+	console.log('------------------------------------------------')
+	console.log(chalk.blue(`${client.user.username} is Ready!`))
+	console.log(chalk.red(`Shards ${client.shard.count}`))
+	console.log(chalk.green(`Connected to ${client.channels.cache.size} Chnanels`))
+	console.log(chalk.yellowBright(`Listening to ${client.guilds.cache.size} Servers`))
+	console.log('------------------------------------------------')
+
 
 	Schema1.find().then((data) => {
 		data.forEach((val) => {
