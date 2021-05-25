@@ -229,7 +229,7 @@ module.exports = c => {
         "ORANGE",
         "Message Deleted",
         `
-**Author : ** <@${message.author}> - *${message.author}*
+**Author : ** ${message.author} - *${message.author}*
 **Date : ** ${message.createdAt}
 **Channel : ** <#${message.channel.id}> - *${message.channel.name}*
 **Deleted Message : **
@@ -264,7 +264,7 @@ ${message.attachments.map(x => x.proxyURL)}
         "YELLOW",
         "Message Updated",
         `
-**Author : ** ${newMessage.member}> - *${newMessage.member}*
+**Author : ** ${newMessage.member} - *${newMessage.member}*
 **Date : ** ${newMessage.createdAt}
 **Channel : ** <#${newMessage.channel.id}> - *${newMessage.channel.name}*
 **Orignal Message : **
