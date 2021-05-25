@@ -16,7 +16,14 @@ client.on('message', async message =>{
     if(message.author.bot) return;
     const p = await client.prefix(message)
     if(message.mentions.users.first()) {
-        if(message.mentions.users.first().id === '811265195186978828') return message.channel.send(`The prefix in ${message.guild.name} is ${p}`)
+        if(message.mentions.users.first().id === '811265195186978828') return message.channel.send(
+            new MessageEmbed()
+            .setTitle(`<:status_online:843174802683592714> Hello there!`)
+            .setDescription(`My prefix in ${message.guild.name} is ${p}\nUse ${p}help to get started!\n[Invite](https://dsc.gg/aneo)・[Support Server](https://discord.gg/kR27E5WaQG)`)
+            .setThumbnail(client.user.displayAvatarURL())
+            .setColor('RANDOM')
+            .setFooter(`Thank you for using me!`)
+        )
     }
     if(!message.content.startsWith(p)) return;
     if (!message.content.startsWith(p)) return;
