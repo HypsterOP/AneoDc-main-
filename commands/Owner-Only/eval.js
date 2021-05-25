@@ -1,76 +1,121 @@
-const Discord = require('discord.js');
-const { post } = require('node-superfetch');
-const config = require("../../config.json")
+const { Client, Message, MessageEmbed } = require('discord.js');
+const Discord = require("discord.js")
 module.exports = {
 	name: 'eval',
-	aliases: ['ev', 'e'],
-	category: 'owner',
-	ownerOnly: true,
+	description: 'Lol hi if your"r seeing this have a good day!',
+	/** 
+	 * @param {Client} client 
+	 * @param {Message} message 
+	 * @param {String[]} args 
+	 */
+	run: async(client, message, args) => {
+		if(!require('../../config.json').owners.includes(
+			message.author.id
+		)) return message.lineReply(`U thought u can use the eval command :joy:`)
 
-	run: async (client, message, args) => {
-        if(!require("../../config.json").owners.includes(
-            message.author.id
-        )) return message.channel.send(`Please do not try to break me!`)
-		const eembed = new Discord.MessageEmbed()
-			.setDescription('Evaluating...')
-			.setColor('RANDOM');
-		const msg = await message.channel.send(eembed);
+		let code = args.join(" ");
+        if (!code)
+            return message.channel.send(
+                "provide code dumb"
+            );
+        function CheckFilter(object) {
+            if (typeof object === "string") {
+                object = object.replace(
+                    new RegExp(client.token || process.env.TOKEN, "gi"),
+                    "Nah Bro sorry check the console only smh"
+                );
+            } else if (typeof object === "object") {
+                if (Array.isArray(object)) {
+                    for (let i = 0; i < object.length; i++) {
+                        object[i] = CheckFilter(object[i]);
+                    }
+                } else {
+                    for (let key in object) {
+                        object[key] = CheckFilter(object[key]);
+                    }
+                }
+            }
+            return object;
+        }
+        let oldSend = Discord.TextChannel.prototype.send;
+        Discord.TextChannel.prototype.send = async function send(content, options) {
+            return oldSend.bind(this)(CheckFilter(content), CheckFilter(options));
+        };
+        let evaled;
+        try {
+            evaled = eval(code);
+            if (evaled instanceof Promise) evaled = await evaled;
+        } catch (err) {
+            evaled = err;
+        }
+        if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
+        evaled = new (require("string-toolkit"))().toChunks(evaled, 750);
+        let reactions = ["❌", "⏪", "◀️", "⏹️", "▶️", "⏩"],
+            page = 0,
+            evaledEmbed = new Discord.MessageEmbed()
+                .setColor(client.color)
+                .setDescription(`\`\`\`js\n${evaled[0]}\n\`\`\``)
+                .addField(`Type of`, `\`\`\`js\n${typeof (evaled[0])}\n\`\`\``)
+        let mainMessage = await message.channel.send(evaledEmbed);
+        Discord.TextChannel.prototype.send = oldSend;
+        await Promise.all(
+            (evaled.length === 1 ? ["❌", "⏹️"] : reactions).map(r =>
+                mainMessage.react(r)
+            )
+        );
+        let filter = (reaction, user) =>
+            (evaled.length === 1 ? ["❌", "⏹️"] : reactions).some(
+                e => e === reaction.emoji.name
+            ) && user.id === message.author.id;
+        let collector = mainMessage.createReactionCollector(filter, {
+            time: 300000
+        });
+        collector.on("collect", async (reaction, user) => {
+            switch (reaction.emoji.name) {
+                case "❌":
+                    await collector.stop();
+                    return mainMessage.delete();
+                    break;
+                case "⏪":
+                    if (evaled.length === 1 || page === 0) return;
+                    page = 0;
+                    break;
+                case "◀️":
+                    if (evaled.length === 1) return;
+                    if (page === 0) {
+                        page = evaled.length - 1;
+                    } else {
+                        page -= 1;
+                    }
+                    break;
+                case "⏹️":
+                    await collector.stop();
+                    for (let reaction of mainMessage.reactions.cache.array()) {
+                        await reaction.users.remove(client.user.id);
+                    }
+                    return;
+                    break;
+                case "▶️":
+                    if (evaled.length === 1) return;
+                    if (page === evaled.length - 1) {
+                        page = 0;
+                    } else {
+                        page += 1;
+                    }
+                    break;
+                case "⏩":
+                    if (evaled.length === 1 || page === evaled.length - 1) return;
+                    page = evaled.length - 1;
+                    break;
+            }
+            evaledEmbed = new Discord.MessageEmbed()
+                .setColor(message.guild.me.displayColor)
+                .setDescription(`\`\`\`js\n${evaled[page]}\n\`\`\``)
+                .addField(`Type of`, `\`\`\`js\n${typeof (evaled[page])}\n\`\`\``)
 
-		const embed = new Discord.MessageEmbed().addField(
-			'📥 Input',
-			'```js\n' + args.join(' ') + '```'
-		);
-
-		try {
-			const error = new Discord.MessageEmbed()
-				.setDescription(
-					`${config.femoji} | Please put the code to evaluate!`
-				)
-				.setColor('RED');
-			const code = args.join(' ');
-			if (!code) return msg.edit(error);
-			let evaled = eval(code);
-
-			if (typeof evaled !== 'string')
-				evaled = require('util').inspect(evaled, { depth: 0 });
-
-			let output = clean(evaled);
-			if (output.length > 1024) {
-				// If the output was more than 1024 characters, we're gonna export them into the hastebin.
-				const { body } = await post('https://hastebin.com/documents').send(
-					output
-				);
-				embed.addField('📤 Output', `https://hastebin.com/${body.key}.js`);
-				embed.setColor('RANDOM');
-				// Sometimes, the body.key will turn into undefined. It might be the API is under maintenance or broken.
-			} else {
-				embed.addField('📤 Output', '```js\n' + output + '```');
-				embed.setColor('RANDOM');
-				embed.addField('Type', '```js\n' + typeof evaled + '```');
-			}
-
-			await msg.edit(embed);
-		} catch (error) {
-			let err = clean(error);
-			if (err.length > 1024) {
-				// Do the same like above if the error output was more than 1024 characters.
-				const { body } = await post('https://hastebin.com/documents').send(err);
-				embed.addField('📤 Output', `https://hastebin.com/${body.key}.js`);
-				embed.setColor('RED');
-			} else {
-				embed.addField('📤 Output', '```js\n' + err + '```');
-				embed.setColor('RED');
-			}
-			msg.edit(embed);
-		}
-	}
-};
-function clean(string) {
-	if (typeof text === 'string') {
-		return string
-			.replace(/`/g, '`' + String.fromCharCode(8203))
-			.replace(/@/g, '@' + String.fromCharCode(8203));
-	} else {
-		return string;
+            await mainMessage.edit({
+                embed: evaledEmbed
+            });
+        });
 	}
 }
