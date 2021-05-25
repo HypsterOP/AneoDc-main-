@@ -50,6 +50,8 @@
     "ejs": "^3.1.6",
     "erela.js": "^2.3.2",
     "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
+    "express-session": "^1.17.2",
     "ffmpeg-static": "^4.3.0",
     "figlet": "^1.5.0",
     "glob": "^7.1.6",

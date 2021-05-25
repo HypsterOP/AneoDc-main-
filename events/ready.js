@@ -1,5 +1,6 @@
 const client = require('../index');
 client.slash = require("../utils/slash-commands")
+const Dashboard = require('../src/router')
 const path = require('path');
 const chalk = require("chalk")
 const ms = require('ms');
@@ -19,7 +20,7 @@ client.on('ready', () => {
 	console.log('------------------------------------------------')
 	console.log(chalk.blue(`${client.user.username} is Ready!`))
 	console.log(chalk.red(`Shards ${client.shard.count}`))
-	console.log(chalk.green(`Connected to ${client.channels.cache.size} Chnanels`))
+	console.log(chalk.green(`Connected to ${client.channels.cache.size} Channels`))
 	console.log(chalk.yellowBright(`Listening to ${client.guilds.cache.size} Servers`))
 	console.log('------------------------------------------------')
 
