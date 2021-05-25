@@ -28,6 +28,7 @@ const blacklist = require('./models/blacklist');
 const prefixSchema = require('./models/prefix');
 const altSchema = require('./models/alt');
 const altlog = require('./models/alt-logs');
+const reactionSchema = require('./models/reaction-roles')
 
 const { Database } = require('quickmongo');
 
@@ -144,6 +145,44 @@ const { Player } = require('discord-player');
 client.player = new Player(client);
 
 const discord = require('discord.js');
+
+client.on("messageReactionAdd", async(messageReaction, user) => {
+	const { message , emoji } = messageReaction;
+	if(client.user.id == user.id) return;
+	await reactionSchema.findOne({
+	  Guild: message.guild.id,
+	  Channel: message.channel.id,
+	  Message: message.id,
+	  Emoji: emoji
+	}, async(err, data) => {
+	  if(!data) return
+	  const role = await message.guild.roles.cache.get(data.Role)
+	  if(!role) return data.delete()
+	  const member = await message.guild.members.cache.get(user.id)
+	  await member.roles.add(role)
+	  await member.send(new MessageEmbed().setTitle(`Role Added`).setColor("GREEN").setDescription(`You were given role 
+	  \`${role.name}\` because you reacted to ${emoji}`))
+	})
+  })
+
+  client.on("messageReactionRemove", async(messageReaction, user) => {
+	const { message , emoji } = messageReaction;
+	if(client.user.id == user.id) return;
+	await reactionSchema.findOne({
+	  Guild: message.guild.id,
+	  Channel: message.channel.id,
+	  Message: message.id,
+	  Emoji: emoji
+	}, async(err, data) => {
+	  if(!data) return
+	  const role = await message.guild.roles.cache.get(data.Role)
+	  if(!role) return data.delete()
+	  const member = await message.guild.members.cache.get(user.id)
+	  await member.roles.remove(role)
+	  await member.send(new MessageEmbed().setTitle(`Role Removed`).setColor("RED").setDescription(`You lost a role 
+	  \`${role.name}\` by unreacting ${emoji}`))
+	})
+  })
 
 client.on('guildMemberAdd', async (member) => {
 	altSchema.findOne({ Guild: member.guild.id }, async (err, data) => {

@@ -1,9 +1,11 @@
-const mongoose = require('mongoose');
+const mongo = require('mongoose');
 
-const Schema = new mongoose.Schema({
-    Guild: String,
-    Message: String,
-    Roles: Object,
+const schema = new mongo.Schema({
+  Guild: String,
+  Channel: String,
+  Message: String,
+  Emoji: String,
+  Role: String,
 })
 
-module.exports = mongoose.model('reaction-roles', Schema);
+module.exports = mongo.model('reaction-roles', schema)
