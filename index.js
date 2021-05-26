@@ -4,6 +4,7 @@ const afk = new Collection();
 const db2 = require('quick.db');
 const alt = require('discord-anti-alt');
 const coinsSchemaa = require('./models/Economy');
+const moment = require('moment')
 module.exports = afk;
 const client = new Client({
 	disableEveryone: true,
