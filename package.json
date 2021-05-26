@@ -42,6 +42,7 @@
     "discord-player": "^4.1.0",
     "discord-reply": "^0.1.2",
     "discord-together": "^1.1.1",
+    "discord-xp": "^1.1.14",
     "discord-ytdl-core": "^5.0.3",
     "discord.js": "^12.5.3",
     "discord.js-pagination": "^1.0.3",
