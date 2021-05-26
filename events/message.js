@@ -44,7 +44,7 @@ client.on('message', async (message) => {
 					const user = await Levels.fetch(message.author.id, message.guild.id);
 					message.channel.send(
 						`Congrats ${message.author.username}, You just leveled up to level ${user.level}!`
-					);
+					).then(msg => msg.delete({ timeout: 10000 }));
 				}
 			}
 		);
