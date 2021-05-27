@@ -146,6 +146,7 @@ client.player = new Player(client);
 const discord = require('discord.js');
 
 client.on("messageReactionAdd", async(messageReaction, user) => {
+	if(user.bot) return;
 	const { message , emoji } = messageReaction;
 	if(client.user.id == user.id) return;
 	await reactionSchema.findOne({
