@@ -133,6 +133,28 @@ client.on('messageDelete', function (message, channel) {
 
 module.exports = client;
 
+let antiPingSchema = require('./models/anti-ping')
+
+client.on('message', async message => {
+	if(!message.guild) return;
+	if(message.author.id == client.user.id) return;
+	if(message.content.length == 0) return;
+	const spilittedMsg = message.content.split("")
+	const reason = "Anti-Ping System"
+	let deleting = false;
+	antiPingSchema.findOne({ Guild: message.guild.id }, async(err,data1) => {
+	  if(data1) {
+		const member = message.mentions.members.first()
+		if(member) {
+		  if(data1.Member.includes(member.id)) {
+			message.channel.send(new MessageEmbed().setDescription(`**<:aneoError:842630488064917525> You can't ping \`${member.user.tag}\`**`).setColor("ORANGE"))
+		  message.delete()
+		  }
+		}
+	  }
+	})
+  })
+
 client.on('guildDelete', async (guild) => {
 	prefixSchema
 		.findOneAndDelete({ Guild: guild.id })
