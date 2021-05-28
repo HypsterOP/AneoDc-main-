@@ -156,9 +156,18 @@ client.on('message', async message => {
   })
 
 client.on('guildDelete', async (guild) => {
+	client.channels.cache.get('838741267227475978').send(
+        new MessageEmbed()
+        .setTitle('Removed from a server')
+        .addField('Guild Info', `${guild.name} (${guild.id}) **${guild.memberCount} members!**`)
+        .addField('Owner Info', `${guild.owner} (${guild.owner.id})`)
+        .setFooter(`Currently in ${client.guilds.cache.size} guilds!`)
+        .setTimestamp()
+        .setColor('RANDOM')
+    )
 	prefixSchema
 		.findOneAndDelete({ Guild: guild.id })
-		.then(console.log('okokokokokoko, setting up prefix ... done!'));
+		.then(console.log(`i got kicked or banned from ${guild.name}, deleted prefix database for that server yikes`));
 });
 
 const { Player } = require('discord-player');
