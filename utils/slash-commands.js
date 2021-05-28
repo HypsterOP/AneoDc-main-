@@ -3,7 +3,7 @@ require("dotenv").config();
 const AmeClient = require("amethyste-api")
 const Discord = require("discord.js")
 const commandsrun = async (interaction, client) => {
-    const command = interaction.data.name.toLowerCase();
+    const command = interaction.data.name;
     const args = interaction.data.options;
     let AmeApi = new AmeClient(process.env.AME)
 
