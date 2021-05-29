@@ -85,6 +85,7 @@
     "sourcebin_js": "*",
     "string-progressbar": "^1.0.4",
     "table": "^6.0.7",
+    "top.gg-core": "*",
     "translate-google": "^1.4.3",
     "txtgen": "^2.2.8",
     "validator": "^13.6.0",
