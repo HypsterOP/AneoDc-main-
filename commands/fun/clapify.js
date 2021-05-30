@@ -17,6 +17,8 @@ module.exports = {
 			);
 
 		const text = args.join(' :clap: ');
+
+        if(text.includes('@')) return message.lineReply(`:clap: No :clap:`)
         
         if(text.length > 100) return message.channel.send(`:clap: **|** :clap: That's :clap: over :clap: the :clap: limit! :clap:`)
 
