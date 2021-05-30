@@ -10,16 +10,23 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        const user = message.mentions.users.first();
-        if(!user) return message.reply(`Why do u want to fight with air? Lmao | Mention a user!`)
-        if(user.id === message.author.id) return message.reply(`Breh u can fight yourself`)
-        const x = new fight({
-            client: client,
-            message: message,
-            acceptMessage: `Click to fight with ${message.author.username}, ${user.username} React with ✅ to start, React with ❌ To stop the fight!`,
-            challenger: message.author,
-            opponent: user
-        })
-        x.start()
+        const oppenent = message.mentions.users.first();
+        if (!oppenent) return message.channel.send(`Please mention who you want to fight`);
+    const { fight } = require('weky')
+    const x = new fight({
+        client: client,
+        message: message,
+        acceptMessage: 'Click to fight with <@' + message.author + '>',
+        challenger: message.author,
+        opponent: message.mentions.users.first(),
+        hitButtonText: 'Hit',
+        hitButtonColor: 'red',
+        healButtonText: 'Heal',
+        healButtonColor:  'green',
+        cancelButtonText: 'Cancel',
+        cancelButtonColor: 'blurple',
+    })
+    x.start()
+    //ERRORS? Join our support server https://discord.gg/2EZSpxNB5z (Weky Npm Official)
     }
 }
