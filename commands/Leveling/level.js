@@ -28,6 +28,7 @@ try {
         .setProgressBar('WHITE', 'COLOR')
         .setUsername(message.author.username)
         .setDiscriminator(message.author.discriminator)
+        .setRank(user.rank + 1)
          rank.build()
            .then(data => {
             const attachment = new Discord.MessageAttachment
