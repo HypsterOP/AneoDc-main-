@@ -132,6 +132,12 @@ client.on('messageDelete', function (message, channel) {
 });
 
 module.exports = client;
+//-------------------DEBUG AND WARN------------------------//
+const chalk = require('chalk')
+client.on('warn', console.error)
+client.on('debug', console.error)
+
+//------------=----DEBUG AND WARN END-------------------//
 
 let antiPingSchema = require('./models/anti-ping')
 
