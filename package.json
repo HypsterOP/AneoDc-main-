@@ -46,6 +46,7 @@
     "discord-xp": "^1.1.14",
     "discord-ytdl-core": "^5.0.3",
     "discord.js": "^12.5.3",
+    "discord.js-akinator": "^2.0.4",
     "discord.js-pagination": "^1.0.3",
     "distube": "^2.8.11",
     "dotenv": "^8.2.0",
