@@ -16,7 +16,7 @@ module.exports = {
 
         let color = '#0000FF'
 
-        const userAvatar = user.displayAvatarURL({ dynamic: true })
+        const userAvatar = user.displayAvatarURL({ format: 'png' })
 
         const img = await Canvas.quote({ image: userAvatar, message: text, username: user.username, color: color })
 
