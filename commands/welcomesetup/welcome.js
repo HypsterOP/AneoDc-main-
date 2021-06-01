@@ -11,7 +11,7 @@ module.exports = {
       const embed2 = new MessageEmbed()
         .setColor("RED")
         .setDescription(
-          "**You Dont Have Permission To User This Command. Required Permission** `MANAGE_CHANNELS`"
+          "**You Dont Have Permission To use This Command. Required Permission** `MANAGE_CHANNELS`"
         );
       return msg.channel.send(embed2);
     }
