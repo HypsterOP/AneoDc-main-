@@ -67,7 +67,7 @@ client.discordTogether = new DiscordTogether(client);
 
 const blacklistedWords = new Collection();
 client.categories = fs.readdirSync('./commands/');
-['command'].forEach((handler) => {
+['command', 'distube-handler'].forEach((handler) => {
 	require(`./handlers/${handler}`)(client);
 
 	/**

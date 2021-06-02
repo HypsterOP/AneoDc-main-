@@ -1,17 +1,41 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
 const config = require('../../config.json')
 const ee = require('../../config.json')
+const filters = [
+    "clear",
+    "lowbass",
+    "bassboost",
+    "purebass",
+    "8D",
+    "vaporwave",
+    "nightcore",
+    "phaser",
+    "tremolo",
+    "vibrato",
+    "reverse",
+    "treble",
+    "normalizer",
+    "surrounding",
+    "pulsator",
+    "subboost",
+    "karaoke",
+    "flanger",
+    "gate",
+    "haas",
+    "mcompand"
+  ]
 module.exports = {
-    name: 'volume',
-    aliases: ['vol', 'vo'],
-    description: 'Adjust the volume',
-    usage: '<number>',
+    name: 'filter',
+    aliases: [''],
+    description: 'Add a filter',
+    usage: '<filter>',
     /** 
      * @param {Client} client 
      * @param {Message} message 
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
+        const prefix = await client.prefix(message)
         try{
             const { channel } = message.member.voice; // { message: { member: { voice: { channel: { name: "Allgemein", members: [{user: {"username"}, {user: {"username"}] }}}}}
             if(!channel)
@@ -38,24 +62,23 @@ module.exports = {
               return message.channel.send(new MessageEmbed()
                 .setColor(ee.wrongcolor)
                 .setFooter(ee.footertext, ee.footericon)
-                .setTitle(`${config.femoji} | You didn't provide volume`)
-                .setDescription(`Current Volume: \`${client.distube.getQueue(message).volume}%\`\nUsage: \`${await client.prefix(message)}volume <0-150>\``)
+                .setTitle(`${config.femoji} | Please add a Filtertype`)
+                .setDescription(`Usage: \`${prefix}filter <Filtertype>\`\nExample: \`${prefix}filter bassboost\``)
               );
+              if(!filters.join(" ").toLowerCase().split(" ").includes(args[0].toLowerCase()))
+                return message.channel.send(new MessageEmbed()
+                  .setColor(ee.wrongcolor)
+                  .setFooter(ee.footertext, ee.footericon)
+                  .setTitle(`${config.femoji} | Not a valid Filtertype`)
+                  .setDescription(`Usage: \`${prefix}filter <Filtertype>\`\nFilter types:\n> \`${filters.join("`, `")}\``.substr(0, 2048))
+                );
+            client.distube.setFilter(message, args[0]);
       
-            if(!(0 <= Number(args[0]) && Number(args[0]) <= 500))
-              return message.channel.send(new MessageEmbed()
-                .setColor(ee.wrongcolor)
-                .setFooter(ee.footertext, ee.footericon)
-                .setTitle(`${config.femoji} | Volume out of Range`)
-                .setDescription(`Usage: \`${await client.prefix(message)}volume <0-150>\``)
-              );
-      
-              client.distube.setVolume(message, Number(args[0]));
-              return message.channel.send(new MessageEmbed()
-                .setColor(ee.color)
-                .setFooter(ee.footertext, ee.footericon)
-                .setTitle(`🔊 Changed the Volume to: \`${args[0]}%\``)
-              );
+            message.channel.send(new MessageEmbed()
+              .setColor(ee.color)
+              .setFooter(ee.footertext,ee.footericon)
+              .setTitle(`✅ Successfully set Filter to: \`${args[0]}\``)
+            ).then(msg=>msg.delete({timeout: 4000}).catch(e=>console.log(e.message)))
           } catch (e) {
               console.log(String(e.stack).bgRed)
               return message.channel.send(new MessageEmbed()

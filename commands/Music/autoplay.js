@@ -1,9 +1,11 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
 const config = require('../../config.json')
+const ee = require('../../config.json')
+const { format } = require('../../handlers/functions')
 module.exports = {
-    name: 'stop',
-    aliases: ['st', 'sto'],
-    description: 'Stops the music',
+    name: 'autoplay',
+    aliases: ['ap'],
+    description: 'Auto play songs',
     usage: '',
     /** 
      * @param {Client} client 
@@ -15,32 +17,34 @@ module.exports = {
             const { channel } = message.member.voice; // { message: { member: { voice: { channel: { name: "Allgemein", members: [{user: {"username"}, {user: {"username"}] }}}}}
             if(!channel)
               return message.channel.send(new MessageEmbed()
-                .setColor(`RANDOM`)
+                .setColor(ee.wrongcolor)
+                .setFooter(ee.footertext, ee.footericon)
                 .setTitle(`${config.femoji} | Please join a Channel first`)
               );
             if(!client.distube.getQueue(message))
               return message.channel.send(new MessageEmbed()
-                .setColor(`RANDOM`)
+                .setColor(ee.wrongcolor)
+                .setFooter(ee.footertext, ee.footericon)
                 .setTitle(`${config.femoji} | I am not playing anything`)
                 .setDescription(`The Queue is empty`)
               );
             if(client.distube.getQueue(message) && channel.id !== message.guild.me.voice.channel.id)
               return message.channel.send(new MessageEmbed()
-                .setColor(`RANDOM`)
+                .setColor(ee.wrongcolor)
+                .setFooter(ee.footertext, ee.footericon)
                 .setTitle(`${config.femoji} | Please join **my** Channel first`)
-                .setDescription(`Channelname: \`${message.guild.me.voice.channel.name}\``)
+                .setDescription(`Im in channel: \`${message.guild.me.voice.channel.name}\``)
               );
-      
             message.channel.send(new MessageEmbed()
-              .setColor(`RANDOM`)
-              .setTitle("⏹ Stopped playing Music and left your Channel")
-            ).then(msg=>msg.delete({timeout: 4000}).catch(e=>console.log(e.message)))
-      
-            client.distube.stop(message);
+              .setColor(ee.color)
+              .setFooter(ee.footertext,ee.footericon)
+              .setTitle(`✅ Successfully toggled Autoplay! It's now: ${client.distube.toggleAutoplay(message) ? "On" : "Off"}`)
+            )
           } catch (e) {
-              console.log(String(e.stack))
+              console.log(String(e.stack).bgRed)
               return message.channel.send(new MessageEmbed()
-                  .setColor(`RANDOM`)
+                  .setColor(ee.wrongcolor)
+                  .setFooter(ee.footertext, ee.footericon)
                   .setTitle(`${config.femoji} | An error occurred`)
                   .setDescription(`\`\`\`${e.stack}\`\`\``)
               );

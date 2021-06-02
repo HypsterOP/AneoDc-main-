@@ -1,22 +1,49 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
-const config = require("../../config.json")
+const config = require('../../config.json')
 module.exports = {
     name: 'skip',
-    aliases: ['ski'],
+    aliases: ['sk'],
+    description: 'Skips the current song',
+    usage: '',
     /** 
      * @param {Client} client 
      * @param {Message} message 
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        if (!message.member.voice.channel) return message.channel.send(`${config.femoji} - You're not in a voice channel !`);
-
-        if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.channel.send(`${config.femoji} - You are not in the same voice channel !`);
-
-        if (!client.player.getQueue(message)) return message.channel.send(`${config.femoji} - No music currently playing !`);
-
-        const success = client.player.skip(message);
-
-        if (success) message.channel.send(`${config.semoji} - The current music has just been **skipped** !`);
+         try {
+        const { channel } = message.member.voice; // { message: { member: { voice: { channel: { name: "Allgemein", members: [{user: {"username"}, {user: {"username"}] }}}}}
+        if(!channel)
+          return message.channel.send(new MessageEmbed()
+            .setColor(`RANDOM`)
+            .setTitle(`${config.femoji} | Please join a Channel first`)
+          );
+        if(!client.distube.getQueue(message))
+          return message.channel.send(new MessageEmbed()
+            .setColor(`RANDOM`)
+            .setTitle(`${config.femoji} | I am not playing anything in this server.`)
+            .setDescription(`The Queue is empty`)
+          );
+        if(client.distube.getQueue(message) && channel.id !== message.guild.me.voice.channel.id)
+          return message.channel.send(new MessageEmbed()
+            .setColor(`RANDOM`)
+            .setTitle(`${config.femoji} | Please join **my** Channel first`)
+            .setDescription(`I am in channel: ${message.guild.me.voice.channel.name}`)
+          );
+  
+        message.channel.send(new MessageEmbed()
+          .setColor('RANDOM')
+          .setTitle("⏭ Skipped the Current Track")
+        ).then(msg=>msg.delete({timeout: 4000}).catch(e=>console.log(e.message)))
+  
+        client.distube.skip(message);
+      } catch (e) {
+          console.log(String(e.stack).bgRed)
+          return message.channel.send(new MessageEmbed()
+              .setColor(`RANDOM`)
+              .setTitle(`${config.femoji} | An error occurred`)
+              .setDescription(`\`\`\`${e.stack}\`\`\``)
+          );
+      }
     }
 }
