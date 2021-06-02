@@ -1,9 +1,10 @@
-const { fight } = require("weky")
 const { Client, Message, MessageEmbed } = require('discord.js');
 
 module.exports = {
     name: 'fight',
     aliases: ['f'],
+    description: 'Fight with someone',
+    usage: '<@user>',
     /** 
      * @param {Client} client 
      * @param {Message} message 
@@ -27,6 +28,5 @@ module.exports = {
         cancelButtonColor: 'blurple',
     })
     x.start()
-    //ERRORS? Join our support server https://discord.gg/2EZSpxNB5z (Weky Npm Official)
     }
 }
