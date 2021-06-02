@@ -24,7 +24,7 @@ module.exports = {
         hitButtonColor: 'red',
         healButtonText: 'Heal',
         healButtonColor:  'green',
-        cancelButtonText: 'Cancel',
+        cancelButtonText: 'Stop',
         cancelButtonColor: 'blurple',
     })
     x.start()
