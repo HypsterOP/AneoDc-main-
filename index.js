@@ -120,6 +120,9 @@ client.rmv = (id, coins) => {
 	});
 };
 
+client.error = config.femoji
+client.yes = config.semoji
+
 client.snipes = new Map();
 client.on('messageDelete', function (message, channel) {
 	client.snipes.set(message.channel.id, {
