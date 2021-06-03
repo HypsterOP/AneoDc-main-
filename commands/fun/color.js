@@ -1,22 +1,37 @@
-const { Client, Message, MessageEmbed, MessageAttachment } = require('discord.js');
-const { Canvas } = require("canvacord")
+const { Client, Message, MessageEmbed } = require('discord.js');
+const fetch = require('node-fetch')
 module.exports = {
     name: 'color',
-    aliases: ['co'],
-    usage: "h!color color_name_or_hexcode",
+    aliases: ['cc'],
+    description: 'Shows a color',
+    usage: '<color>',
     /** 
      * @param {Client} client 
      * @param {Message} message 
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        const color = args[0];
-        if(!color) return message.reply(`Please enter a color, Example h!color red or h!color #000000`)
-
-        const img = Canvas.color(color, false, 2048, 2048);
-        
-        const attachment = new MessageAttachment(img, "color.png");
-
-        message.channel.send(attachment);
+        let color = args[0]
+        if (color.includes("#")) {
+            color = args[0].split("#")[1]
+        }
+ const url = (`https://api.alexflipnote.dev/colour/${color}`)
+ let json
+        try{
+            json = await fetch(url).then(res => res.json())
+        }
+        catch(e) {
+            return message.reply('An Error Occured, Try Again Later.')
+        }
+if (json.description) return message.reply("Invalid color!")
+ let embed = new MessageEmbed()
+ .setTitle(json.name)
+ .addField("Rgb(red green blue)", json.rgb, true)
+ .addField("Brightness", json.brightness, true)
+ .addField("Hex", json.hex, true)
+ .setThumbnail(json.image)
+ .setImage(json.image_gradient, true)
+ .setColor(json.hex)
+ message.channel.send(embed)
     }
 }
