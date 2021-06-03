@@ -122,6 +122,7 @@ client.rmv = (id, coins) => {
 
 client.error = config.femoji
 client.yes = config.semoji
+client.loading = '<a:loading:850070616819368016>'
 
 client.snipes = new Map();
 client.on('messageDelete', function (message, channel) {
