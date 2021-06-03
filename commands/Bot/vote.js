@@ -1,4 +1,5 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
+const { MessageButton, MessageActionRow } = require('discord-buttons')
 
 module.exports = {
     name: 'vote',
@@ -9,13 +10,34 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        message.channel.send(
-          new MessageEmbed()
-          .setTitle('Vote for Aneo!')
-          .addField(`Top.gg`, `[Click Here](https://top.gg/bot/811265195186978828/vote)`)
-          .addField(`Discord Bots List`, `[Click Here](https://discordbotlist.com/bots/aneo/upvote)`)
-          .addField(`Void Bots`, `[Click Here](https://voidbots.net/bot/811265195186978828/vote)`)
+        
+        let embed =  new MessageEmbed()
+          .setDescription(`Click on the website button you want to vote on`)
           .setColor('RANDOM')
-        )
+
+        let button = new MessageButton()
+        .setLabel(`Top.gg`)
+        .setStyle('url')
+        .setEmoji('🔝')
+        .setURL(`https://top.gg/bot/811265195186978828/vote`)
+
+        let button2 = new MessageButton()
+        .setLabel(`Discord bot lists`)
+        .setStyle('url')
+        .setEmoji('🤖')
+        .setURL(`https://discordbotlist.com/bots/aneo/upvote`)
+
+        let button3 = new MessageButton()
+        .setLabel(`Void Bots`)
+        .setStyle('url')
+        .setEmoji('📑')
+        .setURL('https://voidbots.net/bot/811265195186978828/vote')
+
+        let row = new MessageActionRow()
+        .addComponent(button)
+        .addComponent(button2)
+        .addComponent(button3)
+
+        message.channel.send({ embed: embed, component: row})
     },
 };
