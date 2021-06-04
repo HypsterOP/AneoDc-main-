@@ -9,6 +9,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
+    try {
     if(!message.member.hasPermission('ADMINISTRATOR')) return;
 
     const rankName = args.join(" ")
@@ -23,5 +24,8 @@ module.exports = {
         else return message.channel.send('There insn\'t any rank found for this guild!')
     }
     );
+  } catch (e) {
+    return message.channel.send(`An error has occured, please try again. If this keeps happening please dm HypsterOP#5687 his dms are always open`)
+  }
   },
 };

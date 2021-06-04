@@ -8,6 +8,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
+        try {
         let time = args[0]
         if(!time) return message.channel.send("What is the time when the reminder should be off?")
         if(ms(time) > ms("1w")) return message.reply(`${message.author.tag} You cannot set your reminder for more than 1w`)
@@ -28,5 +29,8 @@ module.exports = {
             .addField(`Reason:`, `\`${alert}\``, true)
             message.author.send(DP)
         }, ms(time))
+    } catch (e){
+        return message.channel.send(`An error has occured please make sure you have given a **time**`)
+    }
     }
 }

@@ -8,6 +8,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
+    try {
 
     const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
 
@@ -23,5 +24,8 @@ module.exports = {
         .setDescription(`${member}'s roles <:Hype_Role:821003023835987998> ${memberRoles}`)
         .setColor('BLUE')
     )
+    } catch (e) {
+      return message.channel.send(`An error has occured, please try again. If this keeps happening please dm HypsterOP#5687 his dms are always open`)
+    }
   }
 }

@@ -9,6 +9,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
+    try {
     RankSchema.find({ Guild: message.guild.id }, async(err, data) => {
         if(!data) return message.reply('There is no rank.');
         message.channel.send(
@@ -18,5 +19,8 @@ module.exports = {
         }).join('\n'))
         )
     })
+  } catch (e) {
+    return message.channel.send(`An error has occured, please try again. If this keeps happening please dm HypsterOP#5687 his dms are always open`)
+  }
   },
 };

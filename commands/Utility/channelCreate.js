@@ -8,6 +8,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
+    try {
     if(!message.member.hasPermission('MANAGE_CHANNELS')) return;
 
     const channelNameQuery = args.join(" ");
@@ -17,5 +18,8 @@ module.exports = {
     .then(ch => {
         message.channel.send(`Created ${ch} channel!`)
     })
+  } catch {
+    return message.channel.send(`An error has occured i maybe do not have permissions, please try again later..`)
+  }
   }
 }

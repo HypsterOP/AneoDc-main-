@@ -8,6 +8,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
+    try {
     const inviteemebd = new MessageEmbed()
     .setTitle('Invite me')
     .setDescription(`Click on the below button to invite me!`)
@@ -19,5 +20,8 @@ module.exports = {
     .addComponent(linkingbutton)
 
     message.channel.send({ embed: inviteemebd, component: row })
+    } catch (e) {
+      return message.channel.send(`An error has occured: ${e.stack}`)
+    }
   }
 }

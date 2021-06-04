@@ -5,6 +5,7 @@ module.exports = {
         name: "welcome",
         aliases: ["welcome"],
     run: async (client, message, args) => {
+       try {
         const p = await client.prefix(message)
       const msg = message;
    if (!msg.member.hasPermission("MANAGE_CHANNELS")) {
@@ -445,5 +446,8 @@ module.exports = {
             msg.delete()
     });
   }
+} catch (e) {
+  return message.channel.send(`An error has occured: ${e.stack}`)
+}
 }
 }

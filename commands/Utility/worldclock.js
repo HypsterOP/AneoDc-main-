@@ -5,6 +5,9 @@ module.exports = {
   description : "this is a world Clock",
 
   run: async(client, message, args) => {
+
+    try {
+
     var gmt = new Date().toLocaleString('en-US', { timeZone: 'Europe/London' });
     var est = new Date().toLocaleString('en-US', {
       timeZone: 'America/New_York'
@@ -41,5 +44,8 @@ module.exports = {
       .addField('\u200B', '\u200B', true)
       .setColor('BLUE');
     message.channel.send(worldClock);
+  } catch (e){
+    return message.channel.send(`An error has occured: ${e.stack}`)
+  }
   }
 }

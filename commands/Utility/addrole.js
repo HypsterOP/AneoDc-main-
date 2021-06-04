@@ -9,6 +9,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
+        try {
         if(!message.member.hasPermission("MANAGE_ROLES")) return;
         const user = message.mentions.members.last() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(x => x.user.username.toLowerCase() === args.slice(0).join(" ") || x.user.username === args[0])
 
@@ -49,5 +50,8 @@ module.exports = {
                 return message.channel.send(`There was an error: ${e}`)
             }
         }
+    } catch (e) {
+        return message.channel.send(`An error has occured, i think i do not have permissions please try again.`)
+    }
     }
 }

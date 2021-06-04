@@ -10,6 +10,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args, quick) => {
+        try {
         if(!message.member.hasPermission("MANAGE_CHANNELS")) return message.channel.send(`You need **Manage Channels** permission to use this command.`)
 
         let ch = message.mentions.channels.first();
@@ -25,5 +26,8 @@ module.exports = {
         .setDescription(`${config.semoji} Set Suggestion Channel to <#${ch.id}>`)
 
         return message.channel.send(eeeeeeeem)
+        } catch (e) {
+            return message.channel.send(`An error has occured, please try again. If this keeps happening please dm HypsterOP#5687 his dms are always open`)
+        }
     }
 }

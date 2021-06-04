@@ -8,6 +8,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
+    try {
     if(!message.member.hasPermission('MANAGE_CHANNELS')) return;
         const channelTarget = message.mentions.channels.first() || message.channel;
 
@@ -16,6 +17,8 @@ module.exports = {
             message.author.send(`Channel has been deleted!! `)
         })
         
-
+      } catch (e) {
+        return message.channel.send(`An error has occured maybe i do not have permissions.`)
+      }
   },
 };

@@ -11,6 +11,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args, quick) => {
+      try {
       const p = await client.prefix(message)
       const channel = await quick.fetch(`suggestions_${message.guild.id}`)
       if(channel === null) return message.inlineReply(`${config.femoji} | This server hasn't setup suggestion system!`)
@@ -33,7 +34,9 @@ module.exports = {
       await e.react('👍')
       await e.react('👎')
 
-
+      } catch (e) {
+        return message.channel.send(`An error has occured, please try again. If this keeps happening please dm HypsterOP#5687 his dms are always open`)
+      }
 
 
     }

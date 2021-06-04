@@ -10,6 +10,7 @@ module.exports = {
 	 * @param {String[]} args
 	 */
 	run: async (client, message, args, quick) => {
+		try {
 		if (!message.member.hasPermission('MANAGE_CHANNELS'))
 			return message.channel.send(`You dont have permissions.`);
 
@@ -93,5 +94,8 @@ module.exports = {
 		} catch (err) {
 			return;
 		}
+	} catch (e) {
+		return message.channel.send(`An error has occured, please try again. If this keeps happening please dm HypsterOP#5687 his dms are always open`)
+	}
 	},
 };

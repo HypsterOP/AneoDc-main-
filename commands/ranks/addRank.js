@@ -9,6 +9,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
+    try {
     if(!message.member.hasPermission('ADMINISTRATOR')) return;
 
     const rankName = args.slice(1).join(" ")
@@ -31,5 +32,8 @@ module.exports = {
             }
         }
     );
+      } catch (e) {
+        return message.channel.send(`An error has occured, please try again. If this keeps happening please dm HypsterOP#5687 his dms are always open`)
+      }
   },
 };

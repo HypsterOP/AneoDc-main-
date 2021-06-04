@@ -11,6 +11,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
+        try {
         if(!message.member.hasPermission('MANAGE_GUILD')) return message.reply(`You are missing permissions!`);
         if(!args[0]) return message.lineReply(`You haven't given the id a channel!`)
         var channel2 = message.mentions.channels.first();
@@ -27,5 +28,8 @@ module.exports = {
         }
         db.set(`starboard_${message.guild.id}`, channel2)
         message.channel.send(`⭐ | Successfully setup starboard channel!`)
+    } catch (e){
+        return message.channel.send(`An error has occured, please try again. If this keeps happening please dm HypsterOP#5687 his dms are always open`)
+    }
     }
 }

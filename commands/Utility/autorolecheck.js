@@ -8,6 +8,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
+        try {
         if(!message.member.hasPermission("MANAGE_ROLES")) return;
         const check = await db.has(`autorole-${message.guild.id}`);
         if(check === false) return message.reply('There is no autorole set for this guild!');
@@ -17,5 +18,8 @@ module.exports = {
             .setTitle(`Autorole for ${message.guild.name}`)
             .setDescription(`<@&${role}> is the autorole!`)
         )
+        } catch (e) {
+            return message.channel.send(`An error has occured please try again later`)
+        }
     }
 }

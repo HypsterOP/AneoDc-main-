@@ -28,6 +28,9 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
+
+    try {
+
     var status;
     target = args[0];
     const member =
@@ -111,5 +114,8 @@ module.exports = {
       )
       .setTimestamp();
     return message.channel.send(embed);
+      } catch (e){
+        return message.channel.send(`An error has occured: ${e.stack}`)
+      }
   },
 };

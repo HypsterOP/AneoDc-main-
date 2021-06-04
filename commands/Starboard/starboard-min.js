@@ -12,6 +12,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
+        try {
         if(!message.member.hasPermission('MANAGE_GUILD')) return message.reply(`You are missing permissions!`);
 
         if(!args[0] || isNaN(args[0])){
@@ -37,5 +38,8 @@ module.exports = {
         .setDescription(`Success! Minimun reactions required to be in the starboard is now set as: ${number}`)
         .setColor('RANDOM')
         return message.channel.send(embed3)
+    } catch (e){
+        return message.channel.send(`An error has occured, please try again. If this keeps happening please dm HypsterOP#5687 his dms are always open`)
+    }
     }
 }

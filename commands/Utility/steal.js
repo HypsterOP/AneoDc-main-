@@ -9,6 +9,7 @@ module.exports = {
    */
 
   run: async(client , message , args) => {
+    try {
     const errembed = new Discord.MessageEmbed()
           .setTitle(`${config.femoji}`)
           .setDescription(`An error occured! Please check if you used the command correctly. Possible Reasons:\n\n• Correct Usage: ${await client.prefix(message)}steal (emoji name) (link)\n• File cannot be larger than 256.0 kb.\n• Invalid image`)
@@ -34,5 +35,8 @@ name: Must be between 2 and 32 in length.\`\`\``)
           message.channel.send(embed).catch(err => 
           message.channel.send(errembed)
           )
+    } catch(e) {
+      return message.chanel.send(`Seems like there is an error, maybe the server emoji slots are full please check.`)
+    }
   }
 }

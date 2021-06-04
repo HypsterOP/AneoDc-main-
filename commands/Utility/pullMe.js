@@ -8,6 +8,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
+     try {
     if(!message.member.hasPermission('MANAGE_CHANNELS')) return;
 
     const member = message.mentions.members.first();
@@ -17,5 +18,8 @@ module.exports = {
     if(!message.member.voice.channel) return message.channel.send('Hey , join a voice channel before you can actually pull them');
     member.voice.setChannel(message.member.voice.channel)
     message.channel.send(`Moved ${member} to your vc!`)
+     } catch (e) {
+      return message.channel.send(`An error has occured: ${e.stack}`)
+     }
   },
 };

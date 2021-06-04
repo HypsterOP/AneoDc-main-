@@ -9,6 +9,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
+    try {
       const rankName = args.join(" ");
       if(!rankName) return message.channel.send('Please tell me a rank name!');
     RankSchema.findOne({ Guild: message.guild.id, Rank: rankName }, async(err, data) => {
@@ -16,5 +17,8 @@ module.exports = {
         message.member.roles.add(data.Role);
         return message.channel.send(`You have received <@&${data.Role}>`)
     });
+  } catch (e) {
+    return message.channel.send(`An error has occured, please try again. If this keeps happening please dm HypsterOP#5687 his dms are always open`)
+  }
   },
 };

@@ -7,6 +7,7 @@ module.exports = {
      * @param {Message} message
      */
     run : async(client, message, args) => {
+        try {
         if(!message.member.hasPermission('MANAGE_MESSAGES')) return;
         const Member = message.mentions.members.first() || message.guild.members.cache.get(args[0])
         const time = args[1]
@@ -43,5 +44,8 @@ module.exports = {
             await Member.roles.remove(role2)
             message.channel.send(`${Member.displayName} is now unmuted`)
         }, ms(time))
+    } catch (e){
+        return message.channel.send(`An error has occured, please try again. If this keeps happening please dm HypsterOP#5687 his dms are always open`)
+    }
     }
 }

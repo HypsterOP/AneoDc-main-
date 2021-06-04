@@ -7,6 +7,7 @@ module.exports = {
   timeout: '1000',
   aliases: ['addrr'],
   run: async (client, message, args) => {
+    try {
       const p = await client.prefix(message)
     if (!message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`You can't use this command`)
     const channel = await message.mentions.channels.first() || message.guild.channels.cache.get(args[0])
@@ -44,5 +45,8 @@ module.exports = {
       }).save()
       message.channel.send(new MessageEmbed().setTitle(`Reaction Roles Added`).addField(`Role`, role, true).addField(`Channel`, channel , true).addField(`Message`, msg.id , true).addField(`Emoji`, emoji, true).setColor("GREEN").setTimestamp().addField(`Link`, `[Jump](https://discord.com/channels/${message.guild.id}/${channel.id}/${msg.id})`))
     })
+  } catch (e) {
+    return message.channel.send(`An error has occured, please try again. If this keeps happening please dm HypsterOP#5687 his dms are always open`)
+  }
   }
 }

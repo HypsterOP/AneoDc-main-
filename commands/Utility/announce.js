@@ -8,6 +8,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
+         try {
         if(!message.member.hasPermission('MANAGE_MESSAGES')) return;
 
         let mention;
@@ -37,7 +38,9 @@ module.exports = {
                 .setTimestamp()
                 .setColor('RANDOM')
         )
-
+        } catch (e){
+          return message.channel.send(`An error has occured, i think i do not have permissions please try again.`)
+        }
 
     }
 }

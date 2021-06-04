@@ -9,6 +9,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
+        try {
         let ticketData = await TicketData.findOne({ GuildID: message.guild.id });
         if (!message.member.hasPermission('MANAGE_GUILD')) {
             return message.channel.send('You are missing permissions! You must have the **MANAGE_SERVER** permission.');
@@ -82,6 +83,9 @@ module.exports = {
             });
             message.channel.send(`**Successfuly Reset the Ticket System on your Server!**\nuse the sname command to reset it !`);
         }    
+    } catch (e) {
+        return message.channel.send(`An error has occured, please try again.`)
+    }
     }
 }
 

@@ -9,6 +9,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
+       try {
         const ask = {
             title: "OKay, first of all, what do you want to be the embed's title? Type the title into the chat now!",
             desc: "Type the description that you want in the embed!",
@@ -56,5 +57,8 @@ module.exports = {
           if (answer.footer !== "skip") embed.setFooter(answer.footer);
           
           return message.channel.send("", { embed : embed });
+        } catch (e){
+          return message.channel.send(`An error has occured maybe you skipped every question`)
+        }
     }
 }

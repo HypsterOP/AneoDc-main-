@@ -9,6 +9,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
+       try {
     const guild = message.guild;
     const embed = new MessageEmbed()
         .setTitle(message.guild.name)
@@ -45,6 +46,9 @@ module.exports = {
                         `Boost Count: ${message.guild.premiumSubscriptionCount || "0"}`
                 ])
                 message.channel.send(embed)
+            } catch (e){
+                return message.channel.send(`An error has occured: ${e.stack}`)
+            }
 
   },
 };
