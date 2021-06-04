@@ -81,7 +81,7 @@ module.exports = {
             await TicketData.findOneAndRemove({
                 GuildID: message.guild.id
             });
-            message.channel.send(`**Successfuly Reset the Ticket System on your Server!**\nuse the sname command to reset it !`);
+            message.channel.send(`**Successfuly Reset the Ticket System on your Server!**\nuse the command to again to set it up!`);
         }    
     } catch (e) {
         return message.channel.send(`An error has occured, please try again.`)

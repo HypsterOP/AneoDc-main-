@@ -1,11 +1,12 @@
 const TicketData = require('../models/TicketData');
 const cooldown = new Set();
+const client = require('../index')
 const {
 	MessageEmbed,
 	MessageCollector
 } = require('discord.js');
+	client.on('messageReactionAdd', async(reaction, user) => {
 
-module.exports = async (client, reaction, user) => {
 	if (user.bot) return;
 
 	if (reaction.message.partial) await reaction.message.fetch();
@@ -46,7 +47,7 @@ module.exports = async (client, reaction, user) => {
 		reaction.users.remove(user.id);
 		const successEmbed = new MessageEmbed()
 			.setTitle(`Ticket #${'0'.repeat(4 - data.TicketNumber.toString().length)}${data.TicketNumber}`)
-			.setDescription(`This ticket was created by ${user.toString()}. Type \`done\` when you're finished.`)
+			.setDescription(`Ticket created by: ${user.toString()}. Support Will be with you soon\nType \`done\` when you're finished.`)
 			.setColor('BLUE');
 		let successMsg = await channel.send(`${user.toString()}`, successEmbed);
 		await cooldown.add(user.id);
@@ -55,7 +56,7 @@ module.exports = async (client, reaction, user) => {
 			cooldown.delete(user.id);
 		}, 300000);
 	}
-}
+})
 
 async function checkIfClose(client, reaction, user, successMsg, channel) {
 	const filter = m => m.content.toLowerCase() === 'done'
