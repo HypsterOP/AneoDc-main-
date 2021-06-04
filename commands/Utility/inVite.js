@@ -1,5 +1,5 @@
 const { Client, Message, MessageEmbed } = require("discord.js");
-const { MessageButton } = require('discord-buttons')
+const { MessageButton, MessageActionRow } = require('discord-buttons')
 module.exports = {
   name: 'invite',
   /**
@@ -15,6 +15,9 @@ module.exports = {
 
     let linkingbutton = new MessageButton().setStyle("url").setLabel("Click Me!").setURL("https://dsc.gg/aneo")
 
-    message.channel.send({ embed: inviteemebd, button: linkingbutton })
+    let row = new MessageActionRow()
+    .addComponent(linkingbutton)
+
+    message.channel.send({ embed: inviteemebd, component: row })
   }
 }
