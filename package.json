@@ -57,6 +57,7 @@
     "express-session": "^1.17.2",
     "ffmpeg-static": "^4.3.0",
     "figlet": "^1.5.0",
+    "fortnite": "^4.3.2",
     "glob": "^7.1.6",
     "got": "^11.8.2",
     "images-scraper": "^6.0.1",
