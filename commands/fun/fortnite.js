@@ -14,6 +14,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
+         try {
         const platforms = ['pc', 'xbox1', 'psn']
 
         const lastWord = args[args.length - 1].toLowerCase();
@@ -73,5 +74,8 @@ module.exports = {
         **~Top 3:** ${lifetime.top_3}`, false)
 
         message.channel.send(embed)
+    } catch {
+        return message.lineReply(`An error has occured maybe you didn't provide a user.`)
+    }
         }
 }
