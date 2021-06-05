@@ -18,7 +18,7 @@ module.exports = {
         .setTitle(`Pong!`)
         .addFields({
           name: `Shard ${message.guild.shardID}`,
-          value: `<:aneoTick:842630449200889856> Latency: ${client.ws.ping}ms\n\n🕖 Uptime: ${uptimed}\n\n<:quickmongo:847767036314779708> Database Ping: ${dbping.average}ms\n\n<:shard:847781581635846175> Shard ${message.guild.shard.id} Ping: ${message.guild.shard.ping}ms`
+          value: `<:aneoTick:842630449200889856> Latency: ${Math.round(client.ws.ping)}ms\n\n🕖 Uptime: ${uptimed}\n\n<:quickmongo:847767036314779708> Database Ping: ${dbping.average}ms\n\n<:shard:847781581635846175> Shard ${message.guild.shard.id} Ping: ${message.guild.shard.ping}ms`
         })
         .setColor('RANDOM')
       )
