@@ -10,9 +10,9 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-      if(!message.member.hasPermission("KICK_MEMBERS")) return;
+      if(!message.member.hasPermission("BAN_MEMBERS")) return;
       const aneo = message.guild.me;
-      if(!aneo.hasPermission("KICK_MEMBERS")) return message.channel.send(`I do not have permissions to kick members`)
+      if(!aneo.hasPermission("BAN_MEMBERS")) return message.channel.send(`I do not have permissions to ban members`)
 
       let kickNoob = 
       message.mentions.members.first() ||
@@ -25,11 +25,11 @@ module.exports = {
       }
 
       if(kickNoob.id === message.author.id) {
-        return message.channel.send(`You cannot kick yourself`)
+        return message.channel.send(`You cannot ban yourself`)
       }
 
       if(kickNoob.id === client.user.id) {
-        return message.channel.send(`You cannot kick me with my own command!`)
+        return message.channel.send(`You cannot ban me with my own command!`)
       }
 
       if(message.member.roles.highest.position <= kickNoob.roles.highest.position) {
@@ -50,14 +50,14 @@ module.exports = {
         name: `${config.semoji} | User's Name`,
         value: `${kickNoob.displayName}`
       }, {
-        name: `${config.semoji} | User Id`,
+        name: `💳 | User Id`,
         value: `${kickNoob.id}`
       }, {
-        name: `${config.semoji} | Reason`,
+        name: `📖 | Reason`,
         value: `${reason}`
       }, {
         name: `Action By`,
-        value: `${config.semoji} | User Name ${message.author.username}, User Id ${message.author.id}`
+        value: `${config.semoji} | Username ${message.author.username}, User Id ${message.author.id}`
       })
       .setColor('RANDOM')
 

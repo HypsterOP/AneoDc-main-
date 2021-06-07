@@ -50,14 +50,14 @@ module.exports = {
         name: `${config.semoji} | User's Name`,
         value: `${kickNoob.displayName}`
       }, {
-        name: `${config.semoji} | User Id`,
+        name: `💳 | User Id`,
         value: `${kickNoob.id}`
       }, {
         name: `${config.semoji} | Reason`,
         value: `${reason}`
       }, {
         name: `Action By`,
-        value: `${config.semoji} | User Name ${message.author.username}, User Id ${message.author.id}`
+        value: `${config.semoji} | Username ${message.author.username}, User Id ${message.author.id}`
       })
       .setColor('RANDOM')
 
