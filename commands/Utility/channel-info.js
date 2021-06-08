@@ -29,8 +29,6 @@ module.exports = {
 
 		let channeltypingcount = channel.typingCount;
 
-		let channellastmessage = channel.lastMessage.content;
-
 		let ischannelview = channel.viewable;
 
 		let channelpostion = channel.position;
@@ -48,7 +46,6 @@ module.exports = {
         .addField(`⏲ Channel Cooldown`, channelcooldown, true)
         .addField(`📅 Channel Created At`, channelcreatedat, true)
         .addField(`<a:typing:393848431413559296> Total Users typing`, channeltypingcount, true)
-        .addField(`⏮ Channel Last Message`, channellastmessage, true)
         .addField(`👀 Channel Viewable?`, ischannelview, true)
         .addField(`🔢 Channel Position`, channelpostion, true)
         .setColor('RANDOM')
