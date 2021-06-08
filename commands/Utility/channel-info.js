@@ -21,7 +21,7 @@ module.exports = {
 
 		let channeltype = channel.type;
 
-		let channelisnsfw = channel.nsfw || 'No an nsfw channel';
+		let channelisnsfw = channel.nsfw || 'Not an nsfw channel';
 
 		let channelcooldown = channel.rateLimitPerUser;
 
