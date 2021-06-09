@@ -1,4 +1,4 @@
-const { Client, Message } = require("discord.js");
+const { Client, Message, MessageEmbed } = require("discord.js");
 
 module.exports = {
   name: "position",
@@ -22,7 +22,9 @@ module.exports = {
     });
 
     message.channel.send(
-      `${member} is the ${await position} member to join the server!`
+      new MessageEmbed()
+      .setColor("2F3136")
+      .setDescription(`${member} is the ${await position} member to join the server!`)
     );
   },
 };
