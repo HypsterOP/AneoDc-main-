@@ -72,7 +72,7 @@
     "minecraft-server-util": "^3.4.4",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
-    "mongoose": "^5.12.0",
+    "mongoose": "^5.12.13",
     "ms": "^2.1.3",
     "nekos.life": "^2.0.7",
     "nekoyasui": "^1.3.2",
