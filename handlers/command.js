@@ -18,6 +18,7 @@ module.exports= (client) => {
         }
     });
     console.log(table.toString());
+    console.log(`Total commands: ${client.commands.size}`)
 }
 
 readdirSync("./events/").forEach((file) => {
