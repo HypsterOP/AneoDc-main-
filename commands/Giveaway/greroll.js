@@ -26,13 +26,5 @@ module.exports = {
             // Success message
             message.channel.send('Giveaway rerolled!');
         })
-        .catch((e) => {
-            if(e.startsWith(`Giveaway with message ID ${giveaway.args[0]} is not ended.`)){
-                message.channel.send('This giveaway is not ended!');
-            } else {
-                // console.error(e);
-                message.channel.send('An error occured...');
-            }
-        })
     }
 }

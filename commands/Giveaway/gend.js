@@ -27,14 +27,6 @@ if(!giveaway) return message.channel.send(`I was not able to find a message with
         .then(() => {
             message.channel.send('Giveaway will end in less than '+(client.giveawaysManager.options.updateCountdownEvery/1000)+' seconds...');
         })
-        .catch((e) => {
-            if(e.startsWith(`Giveaway with message ID ${giveaway.args[0]} is already ended.`)){
-                message.channel.send('This giveaway is already ended!');
-            } else {
-                // console.error(e);
-            message.channel.send('An error occured...');
-            }
-        })
 
     }
 }
