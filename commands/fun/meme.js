@@ -1,17 +1,27 @@
-const got = require('got')
-const { MessageEmbed } = require('discord.js')
+const axios = require('axios');
+const { Client, Message, MessageEmbed } = require('discord.js');
+
 module.exports = {
-    name : 'meme',
-    run : async(client, message) => {
-        got('https://www.reddit.com/r/memes/random/.json').then(res => {
-            let content = JSON.parse(res.body)
-            message.channel.send(
-                new MessageEmbed()
-                    .setTitle(content[0].data.children[0].data.title)
-                    .setImage(content[0].data.children[0].data.url)
-                    .setColor("RANDOM")
-                    .setFooter(`👍 ${content[0].data.children[0].data.ups} 👎 ${content[0].data.children[0].data.downs} | Comments : ${content[0].data.children[0].data.num_comments}`)
-            )
-        })
-    }
-}
+	name: 'meme',
+	aliases: ['me'],
+	description: 'Shows memes',
+	usage: '',
+	/**
+	 * @param {Client} client
+	 * @param {Message} message
+	 * @param {String[]} args
+	 */
+	run: async (client, message, args) => {
+		let data = await axios
+			.get(`https://api.hypsterisgod.repl.co/meme`)
+			.then((res) =>
+				message.channel.send(
+					new MessageEmbed()
+						.setTitle(res.data.response.title)
+						.setURL(res.data.response.url)
+						.setImage(res.data.response.url)
+						.setColor(`RANDOM`)
+				)
+			);
+	},
+};
