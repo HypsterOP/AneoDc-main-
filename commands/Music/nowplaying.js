@@ -1,11 +1,9 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
-const config = require('../../config.json')
-const ee = require('../../config.json')
-const { createBar, format } = require('../../handlers/functions')
+const colors = require('colors')
 module.exports = {
     name: 'nowplaying',
     aliases: ['np'],
-    description: 'Shows the currently playing song',
+    description: 'Shows the current playing song',
     usage: '',
     /** 
      * @param {Client} client 
@@ -13,50 +11,63 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        try{
-            const { channel } = message.member.voice; // { message: { member: { voice: { channel: { name: "Allgemein", members: [{user: {"username"}, {user: {"username"}] }}}}}
-            if(!channel)
-              return message.channel.send(new MessageEmbed()
-                .setColor(ee.wrongcolor)
-                .setFooter(ee.footertext, ee.footericon)
-                .setTitle(`${config.femoji} | Please join a Channel first`)
-              );
-            if(!client.distube.getQueue(message))
-              return message.channel.send(new MessageEmbed()
-                .setColor(ee.wrongcolor)
-                .setFooter(ee.footertext, ee.footericon)
-                .setTitle(`${config.femoji} | I am not playing anything`)
-                .setDescription(`The Queue is empty`)
-              );
-            if(client.distube.getQueue(message) && channel.id !== message.guild.me.voice.channel.id)
-              return message.channel.send(new MessageEmbed()
-                .setColor(ee.wrongcolor)
-                .setFooter(ee.footertext, ee.footericon)
-                .setTitle(`${config.femoji} | Please join **my** Channel first`)
-                .setDescription(`Im in channel: \`${message.guild.me.voice.channel.name}\``)
-              );
-            let queue = client.distube.getQueue(message);
-            let track = queue.songs[0];
-            console.log(track)
-            message.channel.send(new MessageEmbed()
-              .setColor(ee.color)
-              .setFooter(ee.footertext,ee.footericon)
-              .setTitle(`Now playing :notes: ${track.name}`.substr(0, 256))
-              .setURL(track.url)
-              .setThumbnail(track.thumbnail)
-              .addField("Views", `▶ ${track.views.toString()}`,true)
-              .addField("Dislikes", `:thumbsdown: ${track.dislikes.toString()}`,true)
-              .addField("Likes", `:thumbsup: ${track.likes.toString()}`,true)
-              .addField("Duration: ", createBar(queue.currentTime))
-            )
-          } catch (e) {
-              console.log(String(e.stack).bgRed)
-              return message.channel.send(new MessageEmbed()
-                  .setColor(ee.wrongcolor)
-                  .setFooter(ee.footertext, ee.footericon)
-                  .setTitle(`${config.femoji} | An error occurred`)
-                  .setDescription(`\`\`\`${e.stack}\`\`\``)
-              );
-          }
+try {
+            function format(millis)
+            {
+                try {
+                    var h = Math.floor(millis / 3600000),
+                      m = Math.floor(millis / 60000),
+                      s = ((millis % 60000) / 1000).toFixed(0);
+                    if (h < 1) return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s + " | " + (Math.floor(millis / 1000)) + " Seconds";
+                    else return (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s + " | " + (Math.floor(millis / 1000)) + " Seconds";
+                  } catch (e) {
+                    console.log(String(e.stack).bgRed)
+                  }
+            }
+
+            function createBar(player)
+            {
+                try{
+                    if (!player.queue.current) return `**"[""▇""—".repeat(size - 1)}]**\n**00:00:00 / 00:00:00**`;
+                    let current = player.queue.current.duration !== 0 ? player.position : player.queue.current.duration;
+                    let total = player.queue.current.duration;
+                    let size = 15;
+                    let bar = String("|") + String("▇").repeat(Math.round(size * (current / total))) + String("—").repeat(size - Math.round(size * (current / total))) + String("|");
+                    return `**${bar}**\n**${new Date(player.position).toISOString().substr(11, 8)+" / "+(player.queue.current.duration==0?" ◉ LIVE":new Date(player.queue.current.duration).toISOString().substr(11, 8))}**`;
+                  }catch (e){
+                    console.log(String(e.stack).bgRed)
+                  }
+            }
+
+            const player = message.client.manager.get(message.guild.id);
+            if (!player.queue.current)
+        return message.channel.send(new MessageEmbed()
+          .setColor('RED')
+          .setTitle(`Error | There is nothing playing`)
+        );
+      return message.channel.send(new MessageEmbed()
+        .setAuthor(`Current song playing:`, message.client.user.displayAvatarURL({
+          dynamic: true
+        }))
+        .setThumbnail(`https://img.youtube.com/vi/${player.queue.current.identifier}/mqdefault.jpg`)
+        .setURL(player.queue.current.uri)
+        .setColor('GREEN')
+        .setTitle(`🎶 **${player.queue.current.title}** 🎶`)
+        .addField(`🕰️ Duration: `, `\`${format(player.queue.current.duration)}\``, true)
+        .addField(`🎼 Song By: `, `\`${player.queue.current.author}\``, true)
+        .addField(`🔢 Queue length: `, `\`${player.queue.length} Songs\``, true)
+        .addField(`🎛️ Progress: `, createBar(player))
+        .setFooter(`Requested by: ${player.queue.current.requester.tag}`, player.queue.current.requester.displayAvatarURL({
+          dynamic: true
+        }))
+      );
+    } catch (e) {
+      console.log(String(e.stack))
+      return message.channel.send(new MessageEmbed()
+        .setColor('RED')
+        .setTitle(`ERROR | An error occurred`)
+        .setDescription(`\`\`\`${e.message}\`\`\``)
+      );
+    }
     }
 }

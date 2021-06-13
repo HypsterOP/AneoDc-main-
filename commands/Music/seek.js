@@ -1,72 +1,64 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
-const config = require('../../config.json')
-const { format } = require('../../handlers/functions')
-const ee = require('../../config.json')
+const colors = require('colors')
 module.exports = {
     name: 'seek',
-    aliases: ['se', 'see', 'sek'],
-    description: 'Seek the current music',
-    usage: '<seconds>',
+    aliases: ['see', 'se'],
+    description: 'Seek the music',
+    usage: '',
     /** 
      * @param {Client} client 
      * @param {Message} message 
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        try{
-            const { channel } = message.member.voice; // { message: { member: { voice: { channel: { name: "Allgemein", members: [{user: {"username"}, {user: {"username"}] }}}}}
-            if(!channel)
+try{
+            function createBar(player)
+            {
+                try{
+                    if (!player.queue.current) return `**"[""🔘""▬".repeat(size - 1)}]**\n**00:00:00 / 00:00:00**`;
+                    let current = player.queue.current.duration !== 0 ? player.position : player.queue.current.duration;
+                    let total = player.queue.current.duration;
+                    let size = 15;
+                    let bar = String("| ") + String("🔘").repeat(Math.round(size * (current / total))) + String("▬").repeat(size - Math.round(size * (current / total))) + String(" |");
+                    return `**${bar}**\n**${new Date(player.position).toISOString().substr(11, 8)+" / "+(player.queue.current.duration==0?" ◉ LIVE":new Date(player.queue.current.duration).toISOString().substr(11, 8))}**`;
+                  }catch (e){
+                    console.log(String(e.stack).bgRed)
+                  }
+            }
+
+            function format(millis)
+            {
+                try {
+                    var h = Math.floor(millis / 3600000),
+                      m = Math.floor(millis / 60000),
+                      s = ((millis % 60000) / 1000).toFixed(0);
+                    if (h < 1) return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s + " | " + (Math.floor(millis / 1000)) + " Seconds";
+                    else return (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s + " | " + (Math.floor(millis / 1000)) + " Seconds";
+                  } catch (e) {
+                    console.log(String(e.stack).bgRed)
+                  }
+            }
+
+            const player = message.client.manager.get(message.guild.id);
+            if (Number(args[0]) < 0 || Number(args[0]) >= player.queue.current.duration / 1000)
               return message.channel.send(new MessageEmbed()
-                .setColor(ee.wrongcolor)
-                .setFooter(ee.footertext, ee.footericon)
-                .setTitle(`${config.femoji} | Please join a Channel first`)
+                .setColor('RED')
+                .setTitle(` Error | You may seek from \`0\` - \`${player.queue.current.duration}\``)
               );
-            if(!client.distube.getQueue(message))
-              return message.channel.send(new MessageEmbed()
-                .setColor(ee.wrongcolor)
-                .setFooter(ee.footertext, ee.footericon)
-                .setTitle(`${config.femoji} | I am not playing anything`)
-                .setDescription(`The Queue is empty`)
-              );
-            if(client.distube.getQueue(message) && channel.id !== message.guild.me.voice.channel.id)
-              return message.channel.send(new MessageEmbed()
-                .setColor(ee.wrongcolor)
-                .setFooter(ee.footertext, ee.footericon)
-                .setTitle(`${config.femoji} | Please join **my** Channel first`)
-                .setDescription(`Im in channel: \`${message.guild.me.voice.channel.name}\``)
-              );
-            if(!args[0])
-              return message.channel.send(new MessageEmbed()
-                .setColor(ee.wrongcolor)
-                .setFooter(ee.footertext, ee.footericon)
-                .setTitle(`${config.femoji} | You didn't provided a Time you want to seek to!`)
-                .setDescription(`Usage: \`${await client.prefix(message)}seek 10\``)
-              )
-      
-            let seektime = Number(args[0]);
-      
-            if(seektime < 0)
-              seektime = 0;
-      
-            if(seektime >= client.distube.getQueue(message).songs[0].duration)
-              seektime = client.distube.getQueue(message).songs[0].duration - 1;
-      
-            client.distube.seek(message, seektime*1000);
-      
-            message.channel.send(new MessageEmbed()
-              .setColor(ee.color)
-              .setFooter(ee.footertext,ee.footericon)
-              .setTitle(`⏩ Seeking to: ${format(seektime)}`)
-            ).then(msg=>msg.delete({timeout: 4000}).catch(e=>console.log(e.message)))
-      
+
+            player.seek(Number(args[0]) * 1000);
+            return message.channel.send(new MessageEmbed()
+              .setTitle(`Success | Seeked song to: ${format(Number(args[0]) * 1000)}`)
+              .addField(`Progress: `, createBar(player))
+              .setColor('GREEN')
+            );
           } catch (e) {
-              console.log(String(e.stack).bgRed)
-              return message.channel.send(new MessageEmbed()
-                  .setColor(ee.wrongcolor)
-                  .setFooter(ee.footertext, ee.footericon)
-                  .setTitle(`${config.femoji} | An error occurred`)
-                  .setDescription(`\`\`\`${e.stack}\`\`\``)
-              );
+            console.log(String(e.stack).bgRed)
+            return message.channel.send(new MessageEmbed()
+              .setColor('RED')
+              .setTitle(`ERROR | An error occurred`)
+              .setDescription(`\`\`\`${e.message}\`\`\``)
+            );
           }
     }
 }

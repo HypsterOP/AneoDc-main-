@@ -14,7 +14,7 @@ const { BlacklistedWords } = require('../Collection');
 const guildId = '814117890701787157';
 const quick = require('quick.db');
 client.on('ready', () => {
-
+client.manager.init(client.user.id)
 setInterval(() => {
 	api.postStats({
 		serverCount: client.guilds.cache.size,

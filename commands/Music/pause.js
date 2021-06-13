@@ -1,9 +1,9 @@
 const { Client, Message, MessageEmbed } = require('discord.js');
-const config = require('../../config.json')
+
 module.exports = {
     name: 'pause',
-    aliases: ['p', 'pau', 'pa'],
-    description: 'Pauses the current song.',
+    aliases: ['pa'],
+    description: 'Pause the music',
     usage: '',
     /** 
      * @param {Client} client 
@@ -11,47 +11,18 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        try{
-            const { channel } = message.member.voice; // { message: { member: { voice: { channel: { name: "Allgemein", members: [{user: {"username"}, {user: {"username"}] }}}}}
-            if(!channel)
-              return message.channel.send(new MessageEmbed()
-                .setColor(`RANDOM`)
-                
-                .setTitle(`${config.femoji} | Please join a Channel first`)
-              );
-            if(!client.distube.getQueue(message))
-              return message.channel.send(new MessageEmbed()
-                .setColor(`RANDOM`)
-                
-                .setTitle(`${config.femoji} | I am not playing anything!`)
-                .setDescription(`The Queue is empty`)
-              );
-            if(client.distube.getQueue(message) && channel.id !== message.guild.me.voice.channel.id)
-              return message.channel.send(new MessageEmbed()
-                .setColor(`RANDOM`)
-                
-                .setTitle(`${config.femoji} | Please join **my** Channel first`)
-                .setDescription(`Im in channel: \`${message.guild.me.voice.channel.name}\``)
-              );
-            if(client.distube.isPaused(message))
-              return message.channel.send(new MessageEmbed()
-                .setColor(`RANDOM`)
-                .setTitle(`${config.femoji} | Cannot pause the Song`)
-                .setDescription(`It's already paused, so I cant!`)
-              );
-            message.channel.send(new MessageEmbed()
-              .setColor(`RANDOM`)
-              .setTitle("⏸ Paused the Song")
-            ).then(msg=>msg.delete({timeout: 4000}).catch(e=>console.log(e.message)))
-      
-            client.distube.pause(message);
-          } catch (e) {
-              console.log(String(e.stack).bgRed)
-              return message.channel.send(new MessageEmbed()
-                  .setColor(`RANDOM`)
-                  .setTitle(`${config.femoji} | An error occurred`)
-                  .setDescription(`\`\`\`${e.stack}\`\`\``)
-              );
-          }
-    }
-}
+
+		const player = message.client.manager.get(message.guild.id);
+		if (!player) return message.reply('There is no player for this guild.');
+
+		const { channel } = message.member.voice;
+
+		if (!channel) return message.reply('You need to join a voice channel.');
+		if (channel.id !== player.voiceChannel)
+			return message.reply("You're not in the same voice channel.");
+		if (player.paused) return message.reply('The player is already paused.');
+
+		player.pause(true);
+		return message.reply('Player for ' + message.guild.name + ' has been paused');
+	},
+};
