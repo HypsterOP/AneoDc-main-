@@ -18,7 +18,7 @@ module.exports = {
 
         const userAvatar = user.user.displayAvatarURL({ format: 'png' })
 
-        const img = await Canvas.quote({ image: userAvatar, message: text, username: user.username, color: color })
+        const img = await Canvas.quote({ image: userAvatar, message: text, username: user.nickname, color: color })
 
         let attachemnt = new MessageAttachment(img, "quote.png")
         message.channel.send(attachemnt)
