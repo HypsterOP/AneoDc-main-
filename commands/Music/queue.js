@@ -33,6 +33,7 @@ const player = message.client.manager.get(message.guild.id);
     const maxPages = Math.ceil(queue.length / multiple);
 
     embed.setFooter(`Page ${page > maxPages ? maxPages : page} of ${maxPages}`);
+    embed.setColor('2F3136');
 
     return message.reply(embed);
     }

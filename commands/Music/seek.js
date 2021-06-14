@@ -50,7 +50,7 @@ try{
             return message.channel.send(new MessageEmbed()
               .setTitle(`Success | Seeked song to: ${format(Number(args[0]) * 1000)}`)
               .addField(`Progress: `, createBar(player))
-              .setColor('GREEN')
+              .setColor('2F3136')
             );
           } catch (e) {
             console.log(String(e.stack).bgRed)
