@@ -310,7 +310,7 @@ client.on('guildMemberAdd', async (member) => {
 						new MessageEmbed()
 							.setTitle(`Aneo Bot Alt Detector`)
 							.setDescription(
-								`You were kicked from ${memer.guild.name} | The bot has identified you as an alt.`
+								`You were kicked from ${member.guild.name} | The bot has identified you as an alt.`
 							)
 							.setColor('RANDOM')
 							.setTimestamp()

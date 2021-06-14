@@ -1,5 +1,5 @@
 const Meme = require("memer-api")
-const memer = new Meme();
+const memer = new Meme(process.env.MEMER);
 const { Client, Message, MessageEmbed, MessageAttachment } = require('discord.js');
 
 module.exports = {
