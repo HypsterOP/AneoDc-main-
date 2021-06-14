@@ -8,15 +8,15 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        let user = message.mentions.users.first();
+        let user = message.mentions.members.first();
         if(!user) return message.channel.send("Please mention a user!")
 
         let text = args.slice(1).join(" ")
         if(!text) return message.channel.send("Please provide a text!")
 
-        let color = '#0000FF'
+        let color = user.displayHexColor
 
-        const userAvatar = user.displayAvatarURL({ format: 'png' })
+        const userAvatar = user.user.displayAvatarURL({ format: 'png' })
 
         const img = await Canvas.quote({ image: userAvatar, message: text, username: user.username, color: color })
 
