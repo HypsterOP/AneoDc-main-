@@ -18,6 +18,7 @@ module.exports = {
     let categories = [];
 
     const diremojis = {
+      Anti_Raid: "<:moderatorblue:853672070156255232>",
       AntiAlt: "🧱",
       antilink : "🔗",
       antiping: '⚠',
