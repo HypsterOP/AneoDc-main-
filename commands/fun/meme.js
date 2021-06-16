@@ -1,4 +1,4 @@
-const axios = require('axios');
+const fetch = require('node-fetch')
 const { Client, Message, MessageEmbed } = require('discord.js');
 
 module.exports = {
@@ -12,16 +12,18 @@ module.exports = {
 	 * @param {String[]} args
 	 */
 	run: async (client, message, args) => {
-		let data = await axios
-			.get(`https://api.hypsterisgod.repl.co/meme`)
-			.then((res) =>
-				message.channel.send(
-					new MessageEmbed()
-						.setTitle(res.data.response.title)
-						.setURL(res.data.response.url)
-						.setImage(res.data.response.url)
-						.setColor(`RANDOM`)
-				)
-			);
+
+		let data = await fetch(`https://meme-api.herokuapp.com/gimme/memes`).then(res => 
+		res.json())
+
+		const embed = new MessageEmbed()
+		embed.setTitle(data.title)
+		embed.setImage(data.url)
+		embed.setURL(data.postLink)
+		embed.setColor('2F3136')
+		embed.setFooter(data.ups+ " Upvotes | Author: " + data.author)
+		embed.setTimestamp()
+
+		message.channel.send(embed)
 	},
 };
