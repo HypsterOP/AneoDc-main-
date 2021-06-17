@@ -287,6 +287,8 @@ client.on('message', async message => {
   })
 
 client.on('guildDelete', async (guild) => {
+	const customCmdns = require('./models/custom-commands')
+	const ticketData = require('./models/TicketData')
 	client.channels.cache.get('838741267227475978').send(
         new MessageEmbed()
         .setTitle('Removed from a server')
@@ -299,6 +301,21 @@ client.on('guildDelete', async (guild) => {
 	prefixSchema
 		.findOneAndDelete({ Guild: guild.id })
 		.then(console.log(`i got kicked or banned from ${guild.name}, deleted prefix database for that server yikes`));
+	altlog
+		.findOneAndDelete({ Guild: guild.id })
+		.then(console.log(`i got kicked or banned from ${guild.name}, delete alt log `))
+	altSchema	
+		.findOneAndDelete({ Guild: guild.id })
+		.then(console.log(`i got kicked or banned from ${guild.name}, so deleted altSchema`))
+	antiPingSchema
+		.findOneAndDelete({ Guild: guild.id })
+		.then(console.log(`i got kicked or banned from ${guild.name}, so deleted antiPing`))
+	customCmdns
+		.findOneAndDelete({ Guild: guild.id })
+		.then(console.log(`i got kicked or banned from ${guild.name}, so deleted custom commands`))
+	ticketData
+		.findOneAndDelete({ Guild: guild.id })
+		.then(console.log(`i got kicked or banned from ${guild.name}, so deleted ticket data`))	
 });
 
 const { Player } = require('discord-player');
