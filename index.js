@@ -159,6 +159,11 @@ client.manager = new Manager({
 
   client.on('raw', (d) => client.manager.updateVoiceState(d));
 
+  const { DiscordUNO } = require('discord-uno')
+  const discordUNO = new DiscordUNO()
+
+  client.uno = discordUNO
+
 const prefix = config.prefix;
 const reconDB = require('./reconDB');
 const db = require('./reconDB');

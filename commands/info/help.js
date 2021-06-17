@@ -44,6 +44,7 @@ module.exports = {
       reactionroles: "🎭",
       Starboard: '⭐',
       Suggestions: "✅",
+      Uno: "<:uno:854962001695997992>",
       Utility: "⚙",
       welcomesetup: "🙌"
 
