@@ -8,7 +8,7 @@ module.exports = {
        try {
         const p = await client.prefix(message)
       const msg = message;
-   if (!msg.member.hasPermission("MANAGE_CHANNELS")) {
+   if (!msg.member.permissions.has("MANAGE_CHANNELS")) {
       const embed2 = new MessageEmbed()
         .setColor("RED")
         .setDescription(

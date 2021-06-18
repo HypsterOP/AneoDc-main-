@@ -8,7 +8,7 @@ module.exports = {
   aliases: ['anti-ping-set'],
   usage: '[add/remove/display]',
   run: async(client, message, args) => {
-    if(!message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`You can't use this command`)
+    if(!message.member.permissions.has("MANAGE_GUILD")) return message.channel.send(`You can't use this command`)
     const query = args[0]
     if(!query) return message.channel.send(`You need to provide query. \`add\` to add member ; \`remove\` to remove member ; \`display\` to display all members`);
     if(!(["add","remove","display"]).includes(query.toLowerCase())) return message.channel.send(`You need to provide correct query. \`add\` to add member ; \`remove\` to remove member ; \`display\` to display all members`);

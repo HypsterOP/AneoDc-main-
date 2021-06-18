@@ -4,7 +4,7 @@ module.exports = {
     name: 'cc-delete',
     run: async(client, message, args) => {
         try {
-        if(!message.member.hasPermission('ADMINISTRATOR')) return;
+        if(!message.member.permissions.has('ADMINISTRATOR')) return;
 
         const name = args[0];
 

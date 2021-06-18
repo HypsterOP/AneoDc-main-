@@ -10,7 +10,7 @@ module.exports = {
    */
   run: async (client, message, args) => {
     try {
-    if(!message.member.hasPermission('ADMINISTRATOR')) return;
+    if(!message.member.permissions.has('ADMINISTRATOR')) return;
 
     const rankName = args.slice(1).join(" ")
     const role = message.mentions.roles.first()

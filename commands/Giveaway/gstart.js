@@ -10,7 +10,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        if(!message.member.hasPermission("MANAGE_MESSAGES")) return;
+        if(!message.member.permissions.has("MANAGE_MESSAGES")) return;
 
         let giveawayChannel = message.mentions.channels.first();
         if(!giveawayChannel) return message.reply("You need to specify a channel!")

@@ -9,7 +9,7 @@ module.exports = {
    */
   run: async (client, message, args) => {
      try {
-    if(!message.member.hasPermission('MANAGE_CHANNELS')) return;
+    if(!message.member.permissions.has('MANAGE_CHANNELS')) return;
 
     const member = message.mentions.members.first();
     if(!member) return message.channel.send('Please mention a member that you want to pull in your vc!');

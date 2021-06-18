@@ -10,7 +10,7 @@ module.exports = {
 	 * @param {String[]} args
 	 */
 	run: async (client, message, args) => {
-		if (!message.member.hasPermission('MANAGE_MESSAGES')) return;
+		if (!message.member.permissions.has('MANAGE_MESSAGES')) return;
 
 		const query = args[0]?.toLowerCase();
 		const guild = { Guild: message.guild.id };

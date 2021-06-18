@@ -11,7 +11,7 @@ module.exports = {
 	 */
 	run: async (client, message, args, quick) => {
 		try {
-		if (!message.member.hasPermission('MANAGE_CHANNELS'))
+		if (!message.member.permissions.has('MANAGE_CHANNELS'))
 			return message.channel.send(`You dont have permissions.`);
 
 		let sugchannel = await quick.fetch(`suggestions_${message.guild.id}`);

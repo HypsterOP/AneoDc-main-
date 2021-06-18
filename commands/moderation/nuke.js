@@ -8,8 +8,8 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
-    if(!message.member.hasPermission('ADMINISTRATOR')) return;
-    if(!message.member.hasPermission('MANAGE_CHANNELS')) return message.reply('I need manage channels permission!')
+    if(!message.member.permissions.has('ADMINISTRATOR')) return;
+    if(!message.member.permissions.has('MANAGE_CHANNELS')) return message.reply('I need manage channels permission!')
 
     message.channel.clone().then((ch) => {
         ch.setParent(message.channel.parent.id);

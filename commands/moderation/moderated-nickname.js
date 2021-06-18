@@ -12,8 +12,8 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        if(!message.member.hasPermission('MANAGE_NICKNAMES')) return message.reply('You do not have the permission \`MANAGE_NICKNAMES\`')
-        if(!message.guild.me.hasPermission("MANAGE_NICKNAMES")) return message.reply(`I do not have the permission \`MANAGE_NICKNAMES\``)
+        if(!message.member.permissions.has('MANAGE_NICKNAMES')) return message.reply('You do not have the permission \`MANAGE_NICKNAMES\`')
+        if(!message.guild.me.permissions.has("MANAGE_NICKNAMES")) return message.reply(`I do not have the permission \`MANAGE_NICKNAMES\``)
 
         let user = message.mentions.members.first();
         if(!user) {

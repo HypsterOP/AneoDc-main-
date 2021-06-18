@@ -8,8 +8,8 @@ module.exports = {
   aliases: ['sal'],
   requirePermission: "Administrator",
   run: async(client, message, args) => {
-    if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(`You can't use this`)
-    if(!message.guild.me.hasPermission("ADMINISTRATOR")) return message.channel.send(`I don't have permission to run Alt Identifier Module`);
+    if(!message.member.permissions.has("ADMINISTRATOR")) return message.channel.send(`You can't use this`)
+    if(!message.guild.me.permissions.has("ADMINISTRATOR")) return message.channel.send(`I don't have permission to run Alt Identifier Module`);
     const channel = await message.mentions.channels.first() || message.guild.channels.cache.get(args[0]) || message.channel
     schema.findOne({ Guild: message.guild.id }, async(err, data) => {
       if(!data) {

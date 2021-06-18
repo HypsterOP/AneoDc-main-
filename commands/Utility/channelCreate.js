@@ -9,7 +9,7 @@ module.exports = {
    */
   run: async (client, message, args) => {
     try {
-    if(!message.member.hasPermission('MANAGE_CHANNELS')) return;
+    if(!message.member.permissions.has('MANAGE_CHANNELS')) return;
 
     const channelNameQuery = args.join(" ");
     if(!channelNameQuery) return message.reply('Please tell me the name of the new channel!')

@@ -9,7 +9,7 @@ module.exports = {
      */
     run: async(client, message, args) => {
        try {
-        if (!message.member.hasPermission('BAN_MEMBERS')) return;
+        if (!message.member.permissions.has('BAN_MEMBERS')) return;
 
         const id = args[0];
         if(!id) return message.channel.send('Please give me a correct id')

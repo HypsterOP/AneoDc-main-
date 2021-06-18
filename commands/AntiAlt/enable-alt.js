@@ -8,8 +8,8 @@ module.exports = {
   timeout: '10000',
   requirePermission: "Administrator",
   run: async(client, message, args) => {
-    if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send(`You need Admin permission to use this command`);
-    if(!message.guild.me.hasPermission("ADMINISTRATOR")) return message.channel.send(`I need Admin permission to run Alt Identifier Module`);
+    if(!message.member.permissions.has("ADMINISTRATOR")) return message.channel.send(`You need Admin permission to use this command`);
+    if(!message.guild.me.permissions.has("ADMINISTRATOR")) return message.channel.send(`I need Admin permission to run Alt Identifier Module`);
     const avatar = args[0]
     if(!avatar) return message.channel.send(`Avatar Checker Settings must: \`true\` to enable, \`false\` to disable`)
     const day = args[1]

@@ -5,7 +5,7 @@ const { confirmation } = require('@reconlx/discord.js')
 module.exports = {
     name : 'prefix-reset',
     run : async(client, message) => {
-        if(!message.member.hasPermission("ADMINISTRATOR")) return;
+        if(!message.member.permissions.has("ADMINISTRATOR")) return;
         message.channel.send("Are you sure you want to reset the prefix?").then(async (msg) => {
             const emoji = await confirmation(msg, message.author, ['✅', '❌'], 10000)
             if(emoji === '✅') {

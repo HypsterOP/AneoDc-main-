@@ -9,7 +9,7 @@ module.exports = {
      */
     run: async(client, message, args) => {
          try {
-        if(!message.member.hasPermission('MANAGE_MESSAGES')) return;
+        if(!message.member.permissions.has('MANAGE_MESSAGES')) return;
 
         let mention;
 

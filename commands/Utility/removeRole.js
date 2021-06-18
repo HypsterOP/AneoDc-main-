@@ -9,7 +9,7 @@ module.exports = {
          */
         //so firstly we will check whether the author of the message has permissions
         //this line means if the author doesn't have manage roles permission it will stop the process and send the following text
-        if(!message.member.hasPermission("MANAGE_ROLES")) return;
+        if(!message.member.permissions.has("MANAGE_ROLES")) return;
         //next we define some variables
         const target = message.mentions.members.first() //member = mentions
         if(!target) return message.channel.send(`I couldn\'t find that member, or there was no member ${config.femoji} `) //when no member is pinged

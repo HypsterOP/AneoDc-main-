@@ -9,7 +9,7 @@ module.exports = {
    */
   run: async (client, message, args) => {
     try {
-    if(!message.member.hasPermission('MANAGE_CHANNELS')) return;
+    if(!message.member.permissions.has('MANAGE_CHANNELS')) return;
         const channelTarget = message.mentions.channels.first() || message.channel;
 
         channelTarget.delete()

@@ -12,7 +12,7 @@ module.exports = {
   run: async(client, message, args) => {
     const data = await schema.findOne({ Guild: message.guild.id })
   if(!data) return message.channel.send(`Leveling System is not enabled`)
-    if(!message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`You don't have permission to use this command`)
+    if(!message.member.permissions.has("MANAGE_GUILD")) return message.channel.send(`You don't have permission to use this command`)
     const member = await message.mentions.members.first() || message.guild.members.cache.get(args[0])
     if(!member) return message.channel.send(`You specified incorrect usage`)
  await Levels.setXp(member.id, message.guild.id, 0)

@@ -13,7 +13,7 @@ module.exports = {
      */
     run: async(client, message, args) => {
         try {
-        if(!message.member.hasPermission('MANAGE_GUILD')) return message.reply(`You are missing permissions!`);
+        if(!message.member.permissions.has('MANAGE_GUILD')) return message.reply(`You are missing permissions!`);
 
         if(!args[0] || isNaN(args[0])){
             var embed = new MessageEmbed()

@@ -8,7 +8,7 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
-    if(!message.member.hasPermission('BAN_MEMBERS')) return;
+    if(!message.member.permissions.has('BAN_MEMBERS')) return;
 
     const fetchBans = message.guild.fetchBans();
     const bannedMembers = (await fetchBans)

@@ -8,7 +8,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        if(!message.member.hasPermission('BAN_MEMBERS')) return;
+        if(!message.member.permissions.has('BAN_MEMBERS')) return;
 
         let userID = args[0];
         let reason = args.slice(1).join(' ');

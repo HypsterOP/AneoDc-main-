@@ -11,6 +11,7 @@ module.exports = {
 
 
 run: async(client, message, args) => {
+    if(!message.member.permissions.has(`ADMINISTRATOR`)) return;
     const func = args[0];
     if (!func) return message.channel.send(`You need to mention an option, on or off`)
     if (!['on', "off"].includes(func)) return message.channel.send(`You need to mention an option, on or off`);

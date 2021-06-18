@@ -11,7 +11,7 @@ module.exports = {
      */
     run: async(client, message, args, quick) => {
         try {
-        if(!message.member.hasPermission("MANAGE_CHANNELS")) return message.channel.send(`You need **Manage Channels** permission to use this command.`)
+        if(!message.member.permissions.has("MANAGE_CHANNELS")) return message.channel.send(`You need **Manage Channels** permission to use this command.`)
 
         let ch = message.mentions.channels.first();
         

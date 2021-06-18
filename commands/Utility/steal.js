@@ -9,7 +9,7 @@ module.exports = {
 	 */
 	run: async (client, message, args) => {
 		try {
-			if (!message.member.hasPermission('MANAGE_EMOJIS')) return;
+			if (!message.member.permissions.has('MANAGE_EMOJIS')) return;
 			if (!args.length) return message.channel.send('No emoji specified');
 
 			for (const rawEmoji of args) {

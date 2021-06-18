@@ -8,7 +8,7 @@ module.exports = {
      */
     run : async(client, message, args) => {
         try {
-        if(!message.member.hasPermission('MANAGE_MESSAGES')) return;
+        if(!message.member.permissions.has('MANAGE_MESSAGES')) return;
         const Member = message.mentions.members.first() || message.guild.members.cache.get(args[0])
         const time = args[1]
         if(!Member) return message.channel.send('Member is not found.')

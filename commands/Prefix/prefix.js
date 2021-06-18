@@ -6,7 +6,7 @@ module.exports = {
      * @param {Message} message
      */
     run : async(client, message, args) => {
-        if(!message.member.hasPermission('MANAGE_SERVER')) return;
+        if(!message.member.permissions.has('MANAGE_SERVER')) return;
         const res = await args.join(" ")
         if(!res) return message.channel.send('Please give me the new prefix for the server.')
         if( res.match(/^(?:<@!?)?(\d{16,22})>/gi) ||

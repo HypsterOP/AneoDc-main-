@@ -10,9 +10,9 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-      if(!message.member.hasPermission("BAN_MEMBERS")) return;
+      if(!message.member.permissions.has("BAN_MEMBERS")) return;
       const aneo = message.guild.me;
-      if(!aneo.hasPermission("BAN_MEMBERS")) return message.channel.send(`I do not have permissions to ban members`)
+      if(!aneo.permissions.has("BAN_MEMBERS")) return message.channel.send(`I do not have permissions to ban members`)
 
       let kickNoob = 
       message.mentions.members.first() ||

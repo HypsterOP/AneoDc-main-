@@ -6,7 +6,7 @@ module.exports = {
   description: "Enable Leveling Module",
   timeout: '3000',
   run: async(client, message, args) => {
-    if(!message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`You can't use this command`);
+    if(!message.member.permissions.has("MANAGE_GUILD")) return message.channel.send(`You can't use this command`);
     schema.findOne({ Guild: message.guild.id }, async(err, data) => {
       if(!data) {
         new schema({

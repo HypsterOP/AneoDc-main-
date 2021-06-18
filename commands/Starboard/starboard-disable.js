@@ -11,7 +11,7 @@ module.exports = {
      */
     run: async(client, message, args) => {
         try {
-        if(!message.member.hasPermission('MANAGE_GUILD')) return message.reply(`You are missing permissions!`);
+        if(!message.member.permissions.has('MANAGE_GUILD')) return message.reply(`You are missing permissions!`);
         if(!db.has(`starboard_${message.guild.id}`)){
             return message.channel.send(`${message.guild.name} hasn't setup starboard yet :star:`);
         }

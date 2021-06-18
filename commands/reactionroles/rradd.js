@@ -9,7 +9,7 @@ module.exports = {
   run: async (client, message, args) => {
     try {
       const p = await client.prefix(message)
-    if (!message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`You can't use this command`)
+    if (!message.member.permissions.has("MANAGE_GUILD")) return message.channel.send(`You can't use this command`)
     const channel = await message.mentions.channels.first() || message.guild.channels.cache.get(args[0])
     const msg1 = args[1]
     const role = message.mentions.roles.first() || message.guild.roles.cache.get(args[2])

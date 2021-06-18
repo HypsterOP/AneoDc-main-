@@ -11,7 +11,7 @@ module.exports = {
     run: async(client, message, args) => {
         try {
         let ticketData = await TicketData.findOne({ GuildID: message.guild.id });
-        if (!message.member.hasPermission('MANAGE_GUILD')) {
+        if (!message.member.permissions.has('MANAGE_GUILD')) {
             return message.channel.send('You are missing permissions! You must have the **MANAGE_SERVER** permission.');
         }
         

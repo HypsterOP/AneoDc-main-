@@ -9,7 +9,7 @@ module.exports = {
      */
     run: async(client, message, args) => {
         try {
-        if(!message.member.hasPermission("MANAGE_ROLES")) return;
+        if(!message.member.permissions.has("MANAGE_ROLES")) return;
         const check = await db.has(`autorole-${message.guild.id}`);
         if(check === false) return message.reply('There is no autorole set for this guild!');
         const role = await db.get(`autorole-${message.guild.id}`);

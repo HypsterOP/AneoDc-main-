@@ -9,7 +9,7 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        if(!message.member.hasPermission("MANAGE_ROLES")) return message.reply(`Hey! Sorry but u need **Manage Roles** permission to do that!`)
+        if(!message.member.permissions.has("MANAGE_ROLES")) return message.reply(`Hey! Sorry but u need **Manage Roles** permission to do that!`)
         function getChannelFromMention(message, mention) {
             if (!mention) return;
             const matches = mention.match(/^<#(\d+)>$/);

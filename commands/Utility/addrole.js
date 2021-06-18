@@ -10,7 +10,7 @@ module.exports = {
      */
     run: async(client, message, args) => {
         try {
-        if(!message.member.hasPermission("MANAGE_ROLES")) return;
+        if(!message.member.permissions.has("MANAGE_ROLES")) return;
         const user = message.mentions.members.last() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(x => x.user.username.toLowerCase() === args.slice(0).join(" ") || x.user.username === args[0])
 
         const role = message.mentions.roles.first() || message.guild.roles.cache.get(args[1]) || message.guild.roles.cache.find(x => x.name.toLowerCase() === args.slice(1).join(" ") || x.name === args[1])

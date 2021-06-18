@@ -3,7 +3,7 @@ const { hangman } = require('reconlx')
 module.exports = {
     name : 'hangman',
     run : async(client, message, args) => {
-        if(!message.member.hasPermission("SEND_MESSAGES")) return message.channel.send('You need send messages permission.')
+        if(!message.member.permissions.has("SEND_MESSAGES")) return message.channel.send('You need send messages permission.')
         const channel = message.mentions.channels.first() || message.guild.channels.cache.get(args[0])
         if(!channel) return message.channel.send('Please specify a channel for the hangman')
         const word = args.slice(1).join(" ")

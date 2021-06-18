@@ -9,7 +9,7 @@ module.exports = {
      */
     run: async(client, message, args) => {
         try {
-        if(!message.member.hasPermission('MANAGE_ROLES')) return;
+        if(!message.member.permissions.has('MANAGE_ROLES')) return;
         const role = message.mentions.roles.first() || message.guild.roles.cache.get(args[0]);
         if(!role) return message.channel.send('Role is not valid!')
 
