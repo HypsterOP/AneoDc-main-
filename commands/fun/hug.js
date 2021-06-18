@@ -1,26 +1,29 @@
-//https://tenor.com/view/anime-hug-manga-cuddle-japan-gif-10522729
-const discord = require('discord.js')
-
+const { Client, Message, MessageEmbed } = require('discord.js');
+const nekos = require('nekos.life')
+const neko = new nekos()
 module.exports = {
-    name: "hug",
-    description: "hugs a user UwU",
+    name: 'hug',
+    aliases: ['hg'],
+    description: 'Hug someone uwu',
+    usage: '<@mention>',
     /** 
      * @param {Client} client 
      * @param {Message} message 
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-        const user = message.author;
 
-        const user2 = message.mentions.members.first()
+        const member = message.mentions.members.first();
 
-        if(!user2) return message.channel.send('Whom do you want to hug Uwu <a:M_kiss:824544053781725234>')
+        if(!member) return message.channel.send(`Whom do you want to hug 🤗`)
+
+        const image = await neko.sfw.hug();
 
         message.channel.send(
-            new discord.MessageEmbed()
-            .setDescription(`${user} Hugs ${user2} Aww So cute <a:M_kiss:824544053781725234>`)
-            .setImage(`https://i.pinimg.com/originals/10/8c/22/108c2257683620292f4687262f26e872.gif`)
-            .setColor('BLUE')
+            new MessageEmbed()
+            .setAuthor(`${message.author.username} is hugging ${member.user.username} 🥰`)
+            .setImage(image.url)
+            .setColor('#2F3136')
         )
     }
 }
