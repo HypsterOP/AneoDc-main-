@@ -13,6 +13,7 @@ const client = new Client({
 require('dotenv').config();
 require('discord-reply');
 require('discord-buttons')(client);
+require('discord-slider')(client);
 module.exports = client;
 const mongoose = require('mongoose');
 
