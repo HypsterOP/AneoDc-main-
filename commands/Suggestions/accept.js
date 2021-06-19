@@ -90,6 +90,7 @@ module.exports = {
 				)
 				.setColor('RANDOM')
 				.setTimestamp();
+			user.send(embed);
 		} catch (err) {
 			return;
 		}
