@@ -242,16 +242,6 @@ ${message.attachments.map(x => x.proxyURL)}
       );
     });
 
-    c.on("messageDeleteBulk", function(messages) {
-      send_log(
-        c,
-        messages.guild,
-        "RED",
-        messages.length + "  Message Deleted BULK",
-        `${messages.length} Messages delete in: ${messages.channel}`
-      );
-    });
-
     c.on("messageUpdate", function(oldMessage, newMessage) {
 
       if (oldMessage.channel.type !== "text") return;
