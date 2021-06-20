@@ -2,3 +2,4 @@ node_modules
 .idea
 json.sqlite
 logs
+.eslintrc.json

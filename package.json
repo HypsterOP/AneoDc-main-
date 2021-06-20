@@ -120,5 +120,9 @@
     "url": "https://github.com/HypsterOP/AneoDc-main-/issues"
   },
   "homepage": "https://github.com/HypsterOP/AneoDc-main-#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "eslint": "^7.29.0",
+    "eslint-config-google": "^0.14.0"
+  }
 }
