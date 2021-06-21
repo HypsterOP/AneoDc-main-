@@ -11,6 +11,6 @@ module.exports = {
      * @param {String[]} args 
      */
     run: async(client, message, args) => {
-      return message.reply(`Hello! My ping is - \`\`${client.ws.ping}\`ms`)
+      return message.lineReplyNoMention(`Hello! My ping is - \`${client.ws.ping}\`ms`)
     }
 }
