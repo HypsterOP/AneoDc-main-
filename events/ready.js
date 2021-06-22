@@ -37,6 +37,18 @@ setInterval(() => {
 	console.log(chalk.yellowBright(`[SERVERS] Listening to ${client.guilds.cache.size} Servers`))
 	console.log('------------------------------------------------')
 
+	var date = new Date()
+	var time = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()
+	var timxd = date.getHours() +":" + date.getMinutes() + ":" + date.getSeconds()
+
+	client.channels.cache.get('856822483206668318').send(
+		new dc.MessageEmbed()
+		.setTitle(`️↪ Aneo has Been restarted`)
+		.setColor('#2F3136')
+		.addField(`Date`, `${time}`)
+		.addField(`Time`, `${timxd}`)
+	)
+
 
 	Schema1.find().then((data) => {
 		data.forEach((val) => {
