@@ -68,7 +68,7 @@ module.exports = {
 
       const Fun = new MessageEmbed()
       .setTitle(`**🤣 __Fun__**`)
-      .addField(`Commands`, `8ball, akinator, anime, binary, calculator, changemymind, chaos-words, clapify, clyde, color, comment, connect4, trash, emojify, facepalm, facts, fast-type, fight, gay-rate, hangman, hug, image, joke, magik, meme, mock, owoify, quote, gay, rip, hitler, roast, roblox, rockpaperscissors, say, ship, shit, simp-card, simp-rate, slap, snake, spotify, sudo, superscript-text, ascii, tictactoe, translate, trivia, tweet, useless-web, wanted, wasted, wouldyourather`)
+      .addField(`Commands`, `spin, 8ball, akinator, anime, binary, calculator, changemymind, chaos-words, clapify, clyde, color, comment, connect4, trash, emojify, facepalm, facts, fast-type, fight, gay-rate, hangman, hug, image, joke, magik, meme, mock, owoify, quote, gay, rip, hitler, roast, roblox, rockpaperscissors, say, ship, shit, simp-card, simp-rate, slap, snake, spotify, sudo, superscript-text, ascii, tictactoe, translate, trivia, tweet, useless-web, wanted, wasted, wouldyourather`)
       .setColor(colr)
 
       const gw = new MessageEmbed()
