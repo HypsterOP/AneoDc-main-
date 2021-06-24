@@ -78,7 +78,7 @@ module.exports = {
 
       const info = new MessageEmbed()
       .setTitle(`**<:infoblue:855752307979583508> __Info__**`)
-      .addField(`Commands`, `badges, djs, firstmessage, help, position, members, oldest, permissions, ping, roles`)
+      .addField(`Commands`, `badges, djs, firstmessage, emojiinfo,help, position, members, oldest, permissions, ping, roles`)
       .setColor(colr)
 
       const leveling = new MessageEmbed()
