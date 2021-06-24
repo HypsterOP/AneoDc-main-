@@ -27,7 +27,7 @@ client.on('messageReactionAdd', async( reaction, user ) => {
            }
            const embed = new MessageEmbed()
            .setAuthor(reaction.message.author.username, reaction.message.author.displayAvatarURL({ dynamic: true }))
-           .setDescription(`message: ${content}`)
+           .addField(`Content`, `${content}`)
            .addField(`Source`, `[Jump!](${reaction.message.url})`)
            .setFooter(`${testcount} Stars ⭐`)
            .setTimestamp()
