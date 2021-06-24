@@ -23,15 +23,17 @@ client.on('messageReactionAdd', async( reaction, user ) => {
            var content = reaction.message.content;
            if(!content || content === "")
            {
-               var content = 'Embed'
+               var content = 'Embed';
            }
            const embed = new MessageEmbed()
-           .setTitle(`:star: Starboard :star:`)
-           .setDescription(`Author: ${reaction.message.author.username}\nMessage: ${content}`)
+           .setAuthor(reaction.message.author.username, reaction.message.author.displayAvatarURL({ dynamic: true }))
+           .setDescription(`message: ${content}`)
+           .addField(`Source`, `[Jump!](${reaction.message.url})`)
            .setFooter(`${testcount} Stars ⭐`)
-           .setColor('RANDOM')
+           .setTimestamp()
+           .setColor('RANDOM');
 
-           channelto.send(embed)
+           channelto.send(`:star: ${testcount} - ${reaction.message.channel}`, embed );
         }
     } else {
         return;
