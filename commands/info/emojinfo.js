@@ -21,15 +21,15 @@ module.exports = {
     );
     if (!emoji)
       return message.channel.send(`${client.error} | Please provide an emoji!`);
-      
+
     const embed = new MessageEmbed()
       .setTitle(`${emoji.name} ${emoji}`)
       .addField(`Info`, [
         `🆔 Emoji Id: ${emoji.id}`,
         `🔗 Emoji Url: [Click Here](${emoji.url})`,
         `🎬 Animated: ${
-          emoji.animated ? "Yes" : "No"
-        }``✏ Emoji Added By: ${emoji.author}`,
+          emoji.animated ? "Yes" : "No"}`,
+        `✏ Emoji Added By: ${emoji.author}`,
         `⏲ Emoji Added At: ${emoji.createdAt}`,
         `🤔 Requires Colon: ${emoji.requiresColons ? "Yes" : "No"}`,
         `📜 Managed Emoji? : ${emoji.managed ? "Yes" : "No"}`,
