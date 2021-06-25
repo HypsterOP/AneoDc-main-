@@ -48,7 +48,7 @@ module.exports = {
 
       const bot = new MessageEmbed()
       .setTitle(`**🤖 __Bot__**`)
-      .addField(`Commands`, `donate, feedback, report-bug, shard-stats, stats, uptime, vote`)
+      .addField(`Commands`, `donate, feedback, report-bug, shard-stats, stats, uptime`)
       .setColor('#2F3136')
 
       const cc = new MessageEmbed()
