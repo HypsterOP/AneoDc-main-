@@ -19,7 +19,7 @@ client.on('message', async (message) => {
 	const p = await client.prefix(message);
 	if (message.mentions.users.first()) {
 		if (message.mentions.users.first().id === '813356831002198026')
-			return message.channel.send(
+			 message.channel.send(
 				new MessageEmbed()
 					.setTitle(`<:status_online:843174802683592714> Hello there!`)
 					.setDescription(
