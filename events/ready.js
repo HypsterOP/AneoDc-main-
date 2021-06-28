@@ -49,6 +49,22 @@ setInterval(() => {
 		.addField(`Time`, `${timxd}`)
 	)
 
+	const arrayofstatus = [
+		`Over ${client.users.cache.size}  users. | h!help`,
+		`${client.guilds.cache.size} guilds | h!help`,
+		`h!help`
+	]
+
+	let index = 0;
+
+	setInterval(() => {
+		if(index === arrayofstatus.length) index = 0;
+		const stauts = arrayofstatus[index];
+		console.log(stauts)
+		client.user.setActivity(stauts);
+		index++
+	}, 20000)
+
 
 	Schema1.find().then((data) => {
 		data.forEach((val) => {
@@ -59,12 +75,4 @@ setInterval(() => {
 	client.ws.on('INTERACTION_CREATE', async (interaction) => {
 		client.slash.commandsrun(interaction, client);
 		 }) 
-
-	let arr = [`Over ${client.users.cache.size} | h!help`, `${client.guilds.cache.size} guilds | h!help`, `h!help`]
-
-	const rand =  Math.floor(Math.random() * (arr.length - 1) + 1);
-
-	setInterval(() => {
-		client.user.setActivity(arr[rand], { type: "WATCHING" })
-	}, 10000)
 });
