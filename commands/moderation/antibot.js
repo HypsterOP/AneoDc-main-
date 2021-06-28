@@ -64,7 +64,7 @@ run: async(client, message, args) => {
    
         const disabled = new MessageEmbed()
         .setColor(client.color)
-        .setDescription(`${client.success} anti bot is now \`disabled\``)
+        .setDescription(`${client.yes} anti bot is now \`disabled\``)
 
         message.channel.send(disabled);
 

@@ -21,7 +21,7 @@ module.exports = (type, description, ...otherArgs) => {
         type === "success"
           ? "<:ayumuTick:837567483422179358>"
           : type === "fail"
-          ? "<:ayumuError:837566696818343956>"
+          ? "<:ayumuError:842630488064917525>"
           : ""
       } ${description}`
     );
