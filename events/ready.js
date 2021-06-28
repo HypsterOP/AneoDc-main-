@@ -61,7 +61,7 @@ setInterval(() => {
 		if(index === arrayofstatus.length) index = 0;
 		const stauts = arrayofstatus[index];
 		console.log(stauts)
-		client.user.setActivity(stauts);
+		client.user.setActivity(stauts, { type: "WATCHING" });
 		index++
 	}, 20000)
 
