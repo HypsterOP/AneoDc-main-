@@ -78,7 +78,7 @@ module.exports = {
     }
     
     sourcebin.create([{
-      name: `Discriminators | by the bot Aneo`,
+      name: `Discriminators | by the bot Ayumu`,
       content: discrims.join('\n'),
       languageId: 'text'
     }])

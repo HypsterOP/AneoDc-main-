@@ -422,7 +422,7 @@ async function send_log(c, guild, color, title, description, thumb) {
       .setTimestamp()
       .setThumbnail(thumb ? thumb : client.user.displayAvatarURL({ format: "png" }))
       .setFooter(
-"powered by: Aneo#8028",
+"powered by: Ayumu",
         client.user.displayAvatarURL({ format: "png" })
       );
     //GET THE CHANNEL

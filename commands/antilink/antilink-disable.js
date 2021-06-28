@@ -11,8 +11,8 @@ module.exports = {
      */
     run: async(client, message, args) => {
         if(!message.member.permissions.has("MANAGE_MESSAGES")) return;
-        const aneo = message.guild.me;
-        if(!aneo.permissions.has("MANAGE_MESSAGES")) return message.channel.send(`I do not have manage_messages permission!`)
+        const ayumu = message.guild.me;
+        if(!ayumu.permissions.has("MANAGE_MESSAGES")) return message.channel.send(`I do not have manage_messages permission!`)
 
         if(await db.has(`link-${message.guild.id}`) === true) {
 

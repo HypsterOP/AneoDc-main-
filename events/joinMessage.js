@@ -16,8 +16,8 @@ client.on('guildCreate', (guild) => {
     channelToSend.send(
         new MessageEmbed()
         .setAuthor(guild.name, guild.iconURL({ dynamic: true }))
-        .setDescription("<:brnd_thanks:821723247187591218> Thanks For inviting me! My prefix is h! I will be more than happy to help out this server! And Please Make sure my role is at the top! If you need anymore help regarding the bot join the support server! https://discord.gg/Qmn6sGmNqU")
+        .setDescription("<:brnd_thanks:821723247187591218> Thanks For inviting me! My prefix is h! I will be more than happy to help out this server! And Please Make sure my role is at the top! If you need anymore help regarding the bot join the support server! https://discord.gg/RHRgmAmYnf")
         .setTimestamp()
-        .setFooter("Aneo Development")
+        .setFooter("Ayumu Developer")
     )
 });

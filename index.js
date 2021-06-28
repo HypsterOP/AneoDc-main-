@@ -443,7 +443,7 @@ client.on("message", async (message) => {
           message.channel.send(
             new MessageEmbed()
               .setDescription(
-                `**<:aneoError:842630488064917525> You can't ping \`${member.user.tag}\`**`
+                `**<:ayumuError:842630488064917525> You can't ping \`${member.user.tag}\`**`
               )
               .setColor("ORANGE")
           );
@@ -578,13 +578,13 @@ client.on("guildMemberAdd", async (member) => {
         await member
           .send(
             new MessageEmbed()
-              .setTitle(`Aneo Bot Alt Detector`)
+              .setTitle(`Ayumu Alt Detector`)
               .setDescription(
                 `You were kicked from ${member.guild.name} | The bot has identified you as an alt.`
               )
               .setColor("RANDOM")
               .setTimestamp()
-              .setFooter(`Aneo | The Discord Bot`)
+              .setFooter(`Ayumu | The Discord Bot`)
           )
           .catch((er) => {
             member.kick("Account might be an alt!");
@@ -602,12 +602,12 @@ client.on("guildMemberAdd", async (member) => {
       await member
         .send(
           new MessageEmbed()
-            .setTitle(`Aneo Bot Alt Detector`)
+            .setTitle(`Ayumu Bot Alt Detector`)
             .setDescription(
               `You have been kicked from ${member.guild.name} | This was because your account age is below the server's account age requirement.`
             )
             .setColor("RANDOM")
-            .setFooter(`Aneo | The Discord Bot`)
+            .setFooter(`Ayumu | The Discord Bot`)
             .setTimestamp()
         )
         .catch((err) => {
@@ -621,7 +621,7 @@ client.on("guildMemberAdd", async (member) => {
       if (!data1) return;
       const channel = member.guild.channels.cache.get(data1.Channel);
       const embed = new MessageEmbed()
-        .setTitle("Aneo Bot Alt Detector")
+        .setTitle("Ayumu Alt Detector")
         .setDescription(`⚠ | Alt found`)
         .addField(`Information`, [
           `Alt's Name: ${member.user.username}`,
@@ -642,7 +642,7 @@ client.on("guildMemberAdd", async (member) => {
         ])
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
         .setColor("RANDOM")
-        .setFooter(`Alt Kicked | Aneo`)
+        .setFooter(`Alt Kicked | Ayumu`)
         .setTimestamp();
     });
   });

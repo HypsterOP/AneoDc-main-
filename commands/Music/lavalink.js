@@ -4,7 +4,7 @@ const prettyms = require('pretty-ms')
 module.exports = {
     name: 'lavalink',
     aliases: ['ll'],
-    description: 'Get to know the info about lavalink running on Aneo',
+    description: 'Get to know the info about lavalink running on Ayumu',
     usage: '',
     /** 
      * @param {Client} client 

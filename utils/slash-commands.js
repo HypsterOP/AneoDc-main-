@@ -58,7 +58,7 @@ var user = client.users.cache.get(user);
                        data: {
                            type: 4,
                            data: {
-                               content: "Aneo's Stats ⬇",
+                               content: "Ayumu's Stats ⬇",
                                embeds:[embed]
                            }
                        }

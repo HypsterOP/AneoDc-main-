@@ -17,11 +17,11 @@ module.exports = {
 
 	if(message.member.voice.selfDeaf) return message.channel.send(`${client.error} *You cannot use this command as you are deafend*`)
 
-	const aneo = message.guild.me.voice.channel;
+	const ayumu = message.guild.me.voice.channel;
 
 	const player = client.manager.players.get(message.guild.id);
 
-	if(!player || !aneo) return message.channel.send(`${client.error} There is no player for this guild, or the bot is not in the voice channel.`)
+	if(!player || !ayumu) return message.channel.send(`${client.error} There is no player for this guild, or the bot is not in the voice channel.`)
 
 	if(!player.queue || !player.queue.current) return message.channel.send(`${client.error} No music is being played.`)
 

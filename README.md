@@ -1,10 +1,10 @@
-[Aneo](https://dsc.gg/aneo) is a discord bot with many features such as Anti-Alt, AntiSwear, fun commands and many more!
+[ayumu](https://dsc.gg/ayumu) is a discord bot with many features such as Anti-Alt, AntiSwear, fun commands and many more!
 
 # Make your own bot!
 
 1. Clone the github repository
 ```cmd
-git clone https://github.com/Aneo-Development/Aneo
+git clone https://github.com/ayumu-Development/ayumu
 ```
 2. Change the .env.example file to a .env file
 

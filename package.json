@@ -1,5 +1,5 @@
 {
-  "name": "aneo",
+  "name": "ayumu",
   "version": "1.0.0",
   "engines": {
     "node": "14.x"
@@ -53,6 +53,7 @@
     "discord-ytdl-core": "^5.0.3",
     "discord.js": "^12.5.3",
     "discord.js-akinator": "^2.0.4",
+    "discord.js-helper": "^1.2.4",
     "discord.js-pagination": "^1.0.3",
     "distube": "^2.8.11",
     "dotenv": "^8.2.0",
@@ -115,12 +116,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HypsterOP/AneoDc-main-.git"
+    "url": "git+https://github.com/HypsterOP/ayumuDc-main-.git"
   },
   "bugs": {
-    "url": "https://github.com/HypsterOP/AneoDc-main-/issues"
+    "url": "https://github.com/HypsterOP/ayumuDc-main-/issues"
   },
-  "homepage": "https://github.com/HypsterOP/AneoDc-main-#readme",
+  "homepage": "https://github.com/HypsterOP/ayumuDc-main-#readme",
   "description": "",
   "devDependencies": {
     "eslint-config-google": "^0.14.0"

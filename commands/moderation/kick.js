@@ -11,8 +11,8 @@ module.exports = {
      */
     run: async(client, message, args) => {
       if(!message.member.permissions.has("KICK_MEMBERS")) return;
-      const aneo = message.guild.me;
-      if(!aneo.permissions.has("KICK_MEMBERS")) return message.channel.send(`I do not have permissions to kick members`)
+      const ayumu = message.guild.me;
+      if(!ayumu.permissions.has("KICK_MEMBERS")) return message.channel.send(`I do not have permissions to kick members`)
 
       let kickNoob = 
       message.mentions.members.first() ||
@@ -36,7 +36,7 @@ module.exports = {
         return message.channel.send(`You're role is not higher than the member's role.`)
       }
 
-      if(aneo.roles.highest.position <= kickNoob.roles.highest.position){
+      if(ayumu.roles.highest.position <= kickNoob.roles.highest.position){
         return message.channel.send(`My role is not above the member!`)
       }
 

@@ -43,7 +43,7 @@ setInterval(() => {
 
 	client.channels.cache.get('856822483206668318').send(
 		new dc.MessageEmbed()
-		.setTitle(`️↪ Aneo has Been restarted`)
+		.setTitle(`️↪ Ayumu has Been restarted`)
 		.setColor('#2F3136')
 		.addField(`Date`, `${time}`)
 		.addField(`Time`, `${timxd}`)

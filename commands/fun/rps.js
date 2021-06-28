@@ -13,7 +13,7 @@ module.exports = {
 	const random = Math.floor((Math.random() * acceptedReplies.length));
 	const result = acceptedReplies[random];
 	const embed = new Discord.MessageEmbed()
-		.setTitle('Rock Paper Scissors Against Aneo')
+		.setTitle('Rock Paper Scissors Against Ayumu')
 		.setDescription('React with 🗿 for stone\nReact with 📄 for paper\nReact with ✂️ for scissor')
 	message.channel.send(embed).then(m =>{
 		m.react('🗿');

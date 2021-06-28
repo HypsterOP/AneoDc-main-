@@ -46,7 +46,7 @@ run: async(client, message, args) => {
 
     const changed = new MessageEmbed()
     .setColor(client.color)
-    .setDescription(`<:aneoTick:842630449200889856> anti bot is now \`enabled\` with \`${user_punish}\` as the user punishment and \`${bot_punish}\` as the bot punishment`)
+    .setDescription(`<:ayumuTick:842630449200889856> anti bot is now \`enabled\` with \`${user_punish}\` as the user punishment and \`${bot_punish}\` as the bot punishment`)
 
     message.channel.send(changed);
 };

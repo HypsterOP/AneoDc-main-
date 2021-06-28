@@ -23,7 +23,7 @@ client.on('message', async (message) => {
 				new MessageEmbed()
 					.setTitle(`<:status_online:843174802683592714> Hello there!`)
 					.setDescription(
-						`My prefix in ${message.guild.name} is ${p}\nUse ${p}help to get started!\n[Invite](https://dsc.gg/aneo)・[Support Server](https://discord.gg/kR27E5WaQG)`
+						`My prefix in ${message.guild.name} is ${p}\nUse ${p}help to get started!\n[Invite](https://dsc.gg/ayumu)・[Support Server](https://discord.gg/kR27E5WaQG)`
 					)
 					.setThumbnail(client.user.displayAvatarURL())
 					.setColor('RANDOM')
@@ -70,7 +70,7 @@ client.on('message', async (message) => {
 			if (command) command.run(client, message, args, quick);
 		} else {
 			message.channel.send(
-				'You are blacklisted! Try contacting the developer in support server you will find the link of server here - https://aneo.ml'
+				'You are blacklisted! Try contacting the developer in support server you will find the link of server here - https://ayumu.ml'
 			);
 		}
 	});

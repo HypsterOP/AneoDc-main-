@@ -14,7 +14,7 @@ module.exports = {
     .setDescription(`Click on the below button to invite me!`)
     .setColor('RANDOM')
 
-    let linkingbutton = new MessageButton().setStyle("url").setLabel("Click Me!").setURL("https://dsc.gg/aneo")
+    let linkingbutton = new MessageButton().setStyle("url").setLabel("Click Me!").setURL("https://dsc.gg/ayumu")
 
     let row = new MessageActionRow()
     .addComponent(linkingbutton)
