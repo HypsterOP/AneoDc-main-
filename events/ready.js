@@ -60,11 +60,11 @@ setInterval(() => {
 		client.slash.commandsrun(interaction, client);
 		 }) 
 
-	client.user.setPresence({
-		status: 'online',
-		activity: {
-			name: `h!help | ${client.guilds.cache.size} Servers`,
-			type: 'WATCHING',
-		},
-	});
+	let arr = [`Over ${client.users.cache.size} | h!help`, `${client.guilds.cache.size} guilds | h!help`, `h!help`]
+
+	const rand =  Math.floor(Math.random() * (arr.length - 1) + 1);
+
+	setInterval(() => {
+		client.user.setActivity(arr[rand], { type: "WATCHING" })
+	}, 10000)
 });
