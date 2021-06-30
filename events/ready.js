@@ -13,7 +13,8 @@ const Schema1 = require('../models/blacklist-word');
 const { BlacklistedWords } = require('../Collection');
 const guildId = '814117890701787157';
 const quick = require('quick.db');
-client.on('ready', () => {
+client.on('ready', async() => {
+await client.discordVoice.start();
 client.manager.init(client.user.id)
 setInterval(() => {
 	api.postStats({

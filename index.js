@@ -372,6 +372,12 @@ client.categories = fs.readdirSync("./commands/");
   };
 });
 
+const DiscordVoice = require('discord-voice');
+
+const Voice = new DiscordVoice(client, process.env.MONGO_BOT);
+
+client.discordVoice = Voice;
+
 client.bal = (id) =>
   new Promise( (ful) => {
     const data = coinsSchemaa.findOne({ id });
