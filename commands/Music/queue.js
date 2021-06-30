@@ -1,40 +1,65 @@
-const { Client, Message, MessageEmbed } = require('discord.js');
-
+const { MessageEmbed } = require("discord.js");
+const ee = require('../../config.json')
 module.exports = {
-    name: 'queue',
-    aliases: ['que'],
-    description: 'Shows the current queue',
-    usage: '',
-    /** 
-     * @param {Client} client 
-     * @param {Message} message 
-     * @param {String[]} args 
-     */
-    run: async(client, message, args) => {
-const player = message.client.manager.get(message.guild.id);
-    if (!player) return message.reply("there is no player for this guild.");
+    name: "queue",
+    category: "Music",
+    aliases: ["qu"],
+    cooldown: 4,
+    description: "Shows the current queue",
+    run: async (client, message, args) => {
+    try{
+      const { channel } = message.member.voice; // { message: { member: { voice: { channel: { name: "Allgemein", members: [{user: {"username"}, {user: {"username"}] }}}}}
+      if(!channel)
+        return message.channel.send(new MessageEmbed()
+          .setColor(ee.wrongcolor)
+          .setFooter(ee.footertext, ee.footericon)
+          .setTitle(`Oops~ | Please join a Channel first`)
+        );
+      if(!client.distube.getQueue(message))
+        return message.channel.send(new MessageEmbed()
+          .setColor(ee.wrongcolor)
+          .setFooter(ee.footertext, ee.footericon)
+          .setTitle(`Oops~ | I am not playing anything!`)
+          .setDescription(`The Queue is empty`)
+        );
+      if(client.distube.getQueue(message) && channel.id !== message.guild.me.voice.channel.id)
+        return message.channel.send(new MessageEmbed()
+          .setColor(ee.wrongcolor)
+          .setFooter(ee.footertext, ee.footericon)
+          .setTitle(`Oops~ | Please join **my** Channel first`)
+          .setDescription(`I am in channel: \`${message.guild.me.voice.channel.name}\``)
+        );
+      let queue = client.distube.getQueue(message);
+      if(!queue)
+        return message.channel.send(new MessageEmbed()
+          .setColor(ee.wrongcolor)
+          .setFooter(ee.footertext, ee.footericon)
+          .setTitle(`Oops~ | I am not playing anything!`)
+          .setDescription(`The Queue is empty`)
+        );
 
-    const queue = player.queue;
-    const embed = new MessageEmbed()
-      .setAuthor(`Queue for ${message.guild.name}`);
-    const multiple = 10;
-    const page = args.length && Number(args[0]) ? Number(args[0]) : 1;
+        let embed = new MessageEmbed()
+          .setColor(ee.color)
+          .setFooter(ee.footertext,ee.footericon)
+          .setTitle(`Queue for ${message.guild.name}`)
 
-    const end = page * multiple;
-    const start = end - multiple;
+        let counter = 0;
+        for(let i = 0; i < queue.songs.length; i+=20){
+          if(counter >= 10) break;
+          let k = queue.songs;
+          let songs = k.slice(i, i + 20);
+          message.channel.send(embed.setDescription(songs.map((song, index) => `**${index + 1 + counter * 20}.** [${song.name}](${song.url}) - Duration ${song.formattedDuration}`)))
+          counter++;
+        }
 
-    const tracks = queue.slice(start, end);
-
-    if (queue.current) embed.addField("Current", `[${queue.current.title}](${queue.current.uri})`);
-
-    if (!tracks.length) embed.setDescription(`No tracks in ${page > 1 ? `page ${page}` : "the queue"}.`);
-    else embed.setDescription(tracks.map((track, i) => `${start + (++i)} - [${track.title}](${track.uri})`).join("\n"));
-
-    const maxPages = Math.ceil(queue.length / multiple);
-
-    embed.setFooter(`Page ${page > maxPages ? maxPages : page} of ${maxPages}`);
-    embed.setColor('2F3136');
-
-    return message.reply(embed);
+    } catch (e) {
+        console.log(String(e.stack).bgRed)
+        return message.channel.send(new MessageEmbed()
+            .setColor(ee.wrongcolor)
+            .setFooter(ee.footertext, ee.footericon)
+            .setTitle(`Oops~ | An error occurred`)
+            .setDescription(`\`\`\`${e.stack}\`\`\``)
+        );
     }
+  }
 }

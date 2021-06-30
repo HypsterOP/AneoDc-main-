@@ -1,15 +1,23 @@
 const Distube = require("distube");
 const { MessageEmbed } = require("discord.js");
+const config = require('../config.json')
+const https = require("https-proxy-agent");
+const proxy = "http://123.123.123.123:8080";
+const agent = https(proxy);
 module.exports = (client) => {
 
   client.distube = new Distube(client, {
     searchSongs: false,
     emitNewSongOnly: false,
+    requestOptions: {
+      agent
+    },
     highWaterMark: 1024*1024*64,
     leaveOnEmpty: true,
     leaveOnFinish: true,
     leaveOnStop: true,
     youtubeDL: true,
+    youtubeCookie: config.ytcookie,
     updateYouTubeDL: true,
     customFilters: {
       "clear": "dynaudnorm=f=200",
@@ -89,12 +97,12 @@ module.exports = (client) => {
                   .setURL(song.url)
                   .setColor(`RANDOM`)
                   .setDescription(`${result.map((song, i) => `**${++i}**. ${song.name} - \`${song.formattedDuration}\``).join("\n")}\n\n*Enter anything else or wait 60 seconds to cancel*`)
-                  .setFooter(`ayumu | Music`, client.user.displayAvatarURL())
+                  .setFooter(`Ayumu | Music`, client.user.displayAvatarURL())
           )
       )
       .on("searchCancel", (message) => message.channel.send(new MessageEmbed()
           .setColor('RANDOM')
-          .setFooter(`ayumu | Music`, client.user.displayAvatarURL())
+          .setFooter(`Ayumu | Music`, client.user.displayAvatarURL())
           .setTitle(`✖ | Search Cancelled`)
         )
       )
@@ -102,7 +110,7 @@ module.exports = (client) => {
           console.log(String(e.stack).bgRed)
           message.channel.send(new MessageEmbed()
               .setColor(`RANDOM`)
-              .setFooter(`ayumu | Music`, client.user.displayAvatarURL())
+              .setFooter(`Ayumu | Music`, client.user.displayAvatarURL())
               .setTitle(`✖ | An error occurred`)
               .setDescription(`\`\`\`${e.stack}\`\`\``)
           )

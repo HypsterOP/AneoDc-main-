@@ -1,13 +1,13 @@
 const { MessageEmbed } = require("discord.js");
 const ee = require("../../config.json");
-const { format, createBar } = require("../../handlers/functions")
+const { format } = require("../../handlers/functions")
 module.exports = {
-    name: "nowplaying",
+    name: "autoplay",
     category: "Music",
-    aliases: ["np"],
+    aliases: ["ap"],
     cooldown: 4,
-    useage: "nowplaying",
-    description: "Shows current Track information",
+    useage: "autoplay",
+    description: "Toggles Autoplay",
     run: async (client, message, args, cmduser, text, prefix) => {
     try{
       const { channel } = message.member.voice; // { message: { member: { voice: { channel: { name: "Allgemein", members: [{user: {"username"}, {user: {"username"}] }}}}}
@@ -29,21 +29,12 @@ module.exports = {
           .setColor(ee.wrongcolor)
           .setFooter(ee.footertext, ee.footericon)
           .setTitle(`Oops~ | Please join **my** Channel first`)
-          .setDescription(`Channelname: \`${message.guild.me.voice.channel.name}\``)
+          .setDescription(`I am in channel: \`${message.guild.me.voice.channel.name}\``)
         );
-      let queue = client.distube.getQueue(message);
-      let track = queue.songs[0];
-      console.log(track)
       message.channel.send(new MessageEmbed()
         .setColor(ee.color)
         .setFooter(ee.footertext,ee.footericon)
-        .setTitle(`Now playing :notes: ${track.name}`.substr(0, 256))
-        .setURL(track.url)
-        .setThumbnail(track.thumbnail)
-        .addField("Views", `▶ ${track.views.toLocaleString()}`,true)
-        .addField("Dislikes", `:thumbsdown: ${track.dislikes.toLocaleString()}`,true)
-        .addField("Likes", `:thumbsup: ${track.likes.toLocaleString()}`,true)
-        .addField("Duration: ", createBar(queue.currentTime))
+        .setTitle(`Successfully toggled Autoplay! It's now: ${client.distube.toggleAutoplay(message) ? "ON" : "OFF"}`)
       )
     } catch (e) {
         console.log(String(e.stack).bgRed)

@@ -1,28 +1,51 @@
-const { Client, Message, MessageEmbed } = require('discord.js');
-
+const { MessageEmbed } = require("discord.js");
+const ee = require("../../config.json");
 module.exports = {
-    name: 'skip',
-    aliases: ['sk'],
-    description: 'Skips the current song',
-    usage: '',
-    /** 
-     * @param {Client} client 
-     * @param {Message} message 
-     * @param {String[]} args 
-     */
-    run: async(client, message, args) => {
-const player = message.client.manager.get(message.guild.id);
-      if (!player) return message.reply("There is no player for this guild.");
-  
-      const { channel } = message.member.voice;
-      if (!channel) return message.reply("You need to join a voice channel.");
-      if (channel.id !== player.voiceChannel) return message.reply("You're not in the same voice channel.");
+    name: "skip",
+    category: "Music",
+    aliases: ["s"],
+    cooldown: 4,
+    useage: "skip",
+    description: "Skips a track",
+    run: async (client, message, args, cmduser, text, prefix) => {
+    try{
+      const { channel } = message.member.voice; // { message: { member: { voice: { channel: { name: "Allgemein", members: [{user: {"username"}, {user: {"username"}] }}}}}
+      if(!channel)
+        return message.channel.send(new MessageEmbed()
+          .setColor(ee.wrongcolor)
+          .setFooter(ee.footertext, ee.footericon)
+          .setTitle(`Oops~ | Please join a Channel first`)
+        );
+      if(!client.distube.getQueue(message))
+        return message.channel.send(new MessageEmbed()
+          .setColor(ee.wrongcolor)
+          .setFooter(ee.footertext, ee.footericon)
+          .setTitle(`Oops~ | I am not playing anything`)
+          .setDescription(`The Queue is empty`)
+        );
+      if(client.distube.getQueue(message) && channel.id !== message.guild.me.voice.channel.id)
+        return message.channel.send(new MessageEmbed()
+          .setColor(ee.wrongcolor)
+          .setFooter(ee.footertext, ee.footericon)
+          .setTitle(`Oops~ | Please join **my** Channel first`)
+          .setDescription(`I am in channel: \`${message.guild.me.voice.channel.name}\``)
+        );
 
-      if (!player.queue.current) return message.reply("There is no music playing.")
+      message.channel.send(new MessageEmbed()
+        .setColor(ee.color)
+        .setFooter(ee.footertext,ee.footericon)
+        .setTitle("⏭ Skipped the Current Track")
+      ).then(msg=>msg.delete({timeout: 4000}).catch(e=>console.log(e.message)))
 
-      const { title } = player.queue.current;
-
-      player.stop();
-      return message.reply(`${title} was skipped.`)
+      client.distube.skip(message);
+    } catch (e) {
+        console.log(String(e.stack).bgRed)
+        return message.channel.send(new MessageEmbed()
+            .setColor(ee.wrongcolor)
+            .setFooter(ee.footertext, ee.footericon)
+            .setTitle(`Oops~ | An error occurred`)
+            .setDescription(`\`\`\`${e.stack}\`\`\``)
+        );
     }
+  }
 }

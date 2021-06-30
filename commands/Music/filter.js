@@ -1,15 +1,38 @@
 const { MessageEmbed } = require("discord.js");
 const ee = require("../../config.json");
-const { format, createBar } = require("../../handlers/functions")
+const filters = [
+  "clear",
+  "lowbass",
+  "bassboost",
+  "purebass",
+  "8D",
+  "vaporwave",
+  "nightcore",
+  "phaser",
+  "tremolo",
+  "vibrato",
+  "reverse",
+  "treble",
+  "normalizer",
+  "surrounding",
+  "pulsator",
+  "subboost",
+  "karaoke",
+  "flanger",
+  "gate",
+  "haas",
+  "mcompand"
+]
 module.exports = {
-    name: "nowplaying",
+    name: "filter",
     category: "Music",
-    aliases: ["np"],
+    aliases: ["ap"],
     cooldown: 4,
-    useage: "nowplaying",
-    description: "Shows current Track information",
-    run: async (client, message, args, cmduser, text, prefix) => {
+    useage: "filter <Filtertype>",
+    description: "Changes the audio Filter",
+    run: async (client, message, args, cmduser, text) => {
     try{
+        let prefix = await client.prefix(message);
       const { channel } = message.member.voice; // { message: { member: { voice: { channel: { name: "Allgemein", members: [{user: {"username"}, {user: {"username"}] }}}}}
       if(!channel)
         return message.channel.send(new MessageEmbed()
@@ -29,22 +52,29 @@ module.exports = {
           .setColor(ee.wrongcolor)
           .setFooter(ee.footertext, ee.footericon)
           .setTitle(`Oops~ | Please join **my** Channel first`)
-          .setDescription(`Channelname: \`${message.guild.me.voice.channel.name}\``)
+          .setDescription(`I am in channel: \`${message.guild.me.voice.channel.name}\``)
         );
-      let queue = client.distube.getQueue(message);
-      let track = queue.songs[0];
-      console.log(track)
+      if(!args[0])
+        return message.channel.send(new MessageEmbed()
+          .setColor(ee.wrongcolor)
+          .setFooter(ee.footertext, ee.footericon)
+          .setTitle(`Oops~ | Please type a filter`)
+          .setDescription(`Usage: \`${prefix}filter <filtertype>\`\nFilter options:\n> \`${filters.join("`, `")}\``.substr(0, 2048))
+        );
+        if(!filters.join(" ").toLowerCase().split(" ").includes(args[0].toLowerCase()))
+          return message.channel.send(new MessageEmbed()
+            .setColor(ee.wrongcolor)
+            .setFooter(ee.footertext, ee.footericon)
+            .setTitle(`Oops~ | Not a valid filter type`)
+            .setDescription(`Usage: \`${prefix}filter <filtertype>\`\nFilter options:\n> \`${filters.join("`, `")}\``.substr(0, 2048))
+          );
+      client.distube.setFilter(message, args[0]);
+
       message.channel.send(new MessageEmbed()
         .setColor(ee.color)
         .setFooter(ee.footertext,ee.footericon)
-        .setTitle(`Now playing :notes: ${track.name}`.substr(0, 256))
-        .setURL(track.url)
-        .setThumbnail(track.thumbnail)
-        .addField("Views", `▶ ${track.views.toLocaleString()}`,true)
-        .addField("Dislikes", `:thumbsdown: ${track.dislikes.toLocaleString()}`,true)
-        .addField("Likes", `:thumbsup: ${track.likes.toLocaleString()}`,true)
-        .addField("Duration: ", createBar(queue.currentTime))
-      )
+        .setTitle(`Successfully set filter to: \`${args[0]}\``)
+      ).then(msg=>msg.delete({timeout: 4000}).catch(e=>console.log(e.message)))
     } catch (e) {
         console.log(String(e.stack).bgRed)
         return message.channel.send(new MessageEmbed()

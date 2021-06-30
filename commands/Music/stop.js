@@ -1,27 +1,51 @@
-const { Client, Message, MessageEmbed } = require('discord.js');
-
+const { MessageEmbed } = require("discord.js");
+const ee = require('../../config.json')
 module.exports = {
-    name: 'stop',
-    aliases: ['st', 'sto'],
-    description: 'stops the music',
-    usage: '',
-    /** 
-     * @param {Client} client 
-     * @param {Message} message 
-     * @param {String[]} args 
-     */
-    run: async(client, message, args) => {
+    name: "stop",
+    category: "Music",
+    aliases: ["leave"],
+    cooldown: 4,
+    usage: "stop",
+    description: "Stops a track",
+    run: async (client, message, args) => {
+    try{
+      const { channel } = message.member.voice;
+      if(!channel)
+        return message.channel.send(new MessageEmbed()
+          .setColor(ee.wrongcolor)
+          .setFooter(ee.footertext, ee.footericon)
+          .setTitle(`Oops~ | Please join a Channel first`)
+        );
+      if(!client.distube.getQueue(message))
+        return message.channel.send(new MessageEmbed()
+          .setColor(ee.wrongcolor)
+          .setFooter(ee.footertext, ee.footericon)
+          .setTitle(`Oops~ | I am not playing anything!`)
+          .setDescription(`The Queue is empty`)
+        );
+      if(client.distube.getQueue(message) && channel.id !== message.guild.me.voice.channel.id)
+        return message.channel.send(new MessageEmbed()
+          .setColor(ee.wrongcolor)
+          .setFooter(ee.footertext, ee.footericon)
+          .setTitle(`Oops~ | Please join **my** Channel first`)
+          .setDescription(`I am in channel: \`${message.guild.me.voice.channel.name}\``)
+        );
 
-		const player = message.client.manager.get(message.guild.id);
-		if (!player) return message.reply('There is no player for this guild.');
+      message.channel.send(new MessageEmbed()
+        .setColor(ee.color)
+        .setFooter(ee.footertext,ee.footericon)
+        .setTitle("⏹ Stopped playing Music and left your Channel")
+      ).then(msg=>msg.delete({timeout: 4000}).catch(e=>console.log(e.message)))
 
-		const { channel } = message.member.voice;
-
-		if (!channel) return message.reply('You need to join a voice channel.');
-		if (channel.id !== player.voiceChannel)
-			return message.reply("You are not in the same voice channel!");
-
-		player.destroy();
-		return message.lineReplyNoMention(`Player for ${message.guild.name} has been destroyed. Leaving the voice channel.`)
-	},
-};
+      client.distube.stop(message);
+    } catch (e) {
+        console.log(String(e.stack).bgRed)
+        return message.channel.send(new MessageEmbed()
+            .setColor(ee.wrongcolor)
+            .setFooter(ee.footertext, ee.footericon)
+            .setTitle(`Oops~ | An error occurred`)
+            .setDescription(`\`\`\`${e.stack}\`\`\``)
+        );
+    }
+  }
+}
