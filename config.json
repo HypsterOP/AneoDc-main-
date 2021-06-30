@@ -14,7 +14,7 @@
     "footericon": "https://i.imgur.com/fOyswmD.png",
     "clientID":"12465788042a4561a6816b9bd8e3252c",
     "clientSecret":"856f07ab97954eb7861a91ab42603826",
-    "host": "lava.sudhan.tech",
-	"port":1234,
-	"password":"CodingWithSudhan"
+    "host": "lava.link",
+	"port":80,
+	"password":"youshallnotpass"
 }
