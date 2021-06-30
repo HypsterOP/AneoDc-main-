@@ -109,6 +109,13 @@ module.exports = {
         .setColor(colr)
         .setFooter(`Page 14/28`);
 
+        const voiceLeveling = new MessageEmbed()
+          .setTitle(`**<:voice:859827123757907998> __Voice Leveling__`)
+          .addField(
+            `Commands`,
+            `toggle-voice-leveling, reset-voice-leveling, togglevoicemuted, togglebots, voice-leaderboard, voice-time`
+          );
+
       const mod = new MessageEmbed()
         .setTitle(`**⛏ __Moderation__**`)
         .addField(
