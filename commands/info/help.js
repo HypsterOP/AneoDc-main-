@@ -114,7 +114,9 @@ module.exports = {
           .addField(
             `Commands`,
             `toggle-voice-leveling, reset-voice-leveling, togglevoicemuted, togglebots, voice-leaderboard, voice-time`
-          );
+          )
+          .setColor(colr)
+          .setFooter(`Page 15/28`)
 
       const mod = new MessageEmbed()
         .setTitle(`**⛏ __Moderation__**`)
@@ -123,13 +125,13 @@ module.exports = {
           `anticaps-disable, antibot, antivc, ban, purge, remove-all-warns, hackban, kick, lock, lockdown, mod-nick, nick, nuke, reset, remove-warn, setup-anticaps, slowmode, unantivc, unban, unlock, warn, warns`
         )
         .setColor(colr)
-        .setFooter(`Page 15/28`);
+        .setFooter(`Page 16/28`);
 
       const modlogs = new MessageEmbed()
         .setTitle(`**💳 __Mod Logs__**`)
         .addField(`Commands`, `setlogchannel`)
         .setColor(colr)
-        .setFooter(`Page 16/28`);
+        .setFooter(`Page 17/28`);
 
       const music = new MessageEmbed()
         .setTitle(`**🎵 __Music__**`)
@@ -138,31 +140,31 @@ module.exports = {
           `bassboost, join, lavalink, leave, loop, nowplaying, pause, play, queue, resume, seek, skip, stop, volume`
         )
         .setColor(colr)
-        .setFooter(`Page 17/28`);
+        .setFooter(`Page 18/28`);
 
       const mute = new MessageEmbed()
         .setTitle(`**🤐 __Mute__**`)
         .addField(`Commands`, `mute, tempmute, unmute`)
         .setColor(colr)
-        .setFooter(`Page 18/28`);
+        .setFooter(`Page 19/28`);
 
       const prefix = new MessageEmbed()
         .setTitle(`**🖨 __Prefix__**`)
         .addField(`Commands`, `prefix, prefix-reset`)
         .setColor(colr)
-        .setFooter(`Page 19/28`);
+        .setFooter(`Page 20/28`);
 
       const ranks = new MessageEmbed()
         .setTitle(`**🔘 __Ranks__**`)
         .addField(`Commands`, `addrank, delrank, rank, ranks`)
-        .setFooter(`Page 20/28`)
+        .setFooter(`Page 21/28`)
         .setColor(colr);
 
       const reactionroels = new MessageEmbed()
         .setTitle(`**<:Hype_Role:821003023835987998> __Reaction Roles__**`)
         .addField(`Commands`, `rradd, rrremove`)
         .setColor(colr)
-        .setFooter(`Page 21/28`);
+        .setFooter(`Page 22/28`);
 
       const starboard = new MessageEmbed()
         .setTitle(`**⭐ __Starboard__**`)
@@ -171,7 +173,7 @@ module.exports = {
           `starboard-channel, starboard-disable, starboard-min`
         )
         .setColor(colr)
-        .setFooter(`Page 22/28`);
+        .setFooter(`Page 23/28`);
 
       const suggestion = new MessageEmbed()
         .setTitle(`**✅ __Suggestions__**`)
@@ -180,7 +182,7 @@ module.exports = {
           `accept-suggestion, deny-suggestion, setsuggest, suggest`
         )
         .setColor(colr)
-        .setFooter(`Page 23/28`);
+        .setFooter(`Page 24/28`);
 
       const tickets = new MessageEmbed()
         .setTitle(`**🎫 __Tickets__**`)
