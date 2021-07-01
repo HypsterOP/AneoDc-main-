@@ -29,7 +29,7 @@ module.exports = {
           .setColor(ee.wrongcolor)
           .setFooter(ee.footertext, ee.footericon)
           .setTitle(`Oops~ | Please join **my** Channel first`)
-          .setDescription(`Channelname: \`${message.guild.me.voice.channel.name}\``)
+          .setDescription(`I am in channel: \`${message.guild.me.voice.channel.name}\``)
         );
       let queue = client.distube.getQueue(message);
       let track = queue.songs[0];
@@ -43,7 +43,7 @@ module.exports = {
         .addField("Views", `▶ ${track.views.toLocaleString()}`,true)
         .addField("Dislikes", `:thumbsdown: ${track.dislikes.toLocaleString()}`,true)
         .addField("Likes", `:thumbsup: ${track.likes.toLocaleString()}`,true)
-        .addField("Duration: ", createBar(queue.currentTime))
+        .addField("Duration: ", createBar(queue.formattedDuration, queue.formattedCurrentTime))
       )
     } catch (e) {
         console.log(String(e.stack).bgRed)
