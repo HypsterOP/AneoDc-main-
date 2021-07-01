@@ -137,7 +137,7 @@ module.exports = {
         .setTitle(`**🎵 __Music__**`)
         .addField(
           `Commands`,
-          `bassboost, join, lavalink, leave, loop, nowplaying, pause, play, queue, resume, seek, skip, stop, volume`
+          `autoplay, filter, forward, loop, nowplaying, pause, play, queue, resume, rewind, seek, shuffle, skip, stop, volume`
         )
         .setColor(colr)
         .setFooter(`Page 18/28`);
