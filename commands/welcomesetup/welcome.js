@@ -1,11 +1,11 @@
 let client = require("../../index")
-const {MessageEmbed} = require("discord.js"),
- db = require("quick.db");
+const {MessageEmbed} = require("discord.js");
 module.exports = {
-        name: "welcome",
-        aliases: ["welcome"],
-    run: async (client, message, args) => {
-       try {
+  name: "welcome",
+  aliases: ["welcome"],
+  run: async (client, message, args) => {
+    try {
+         let db = client.db
         const p = await client.prefix(message)
       const msg = message;
    if (!msg.member.permissions.has("MANAGE_CHANNELS")) {
@@ -50,7 +50,7 @@ module.exports = {
       }
     } else if (args[0].toLowerCase() === "image") {
       //---------------------BACKGROUND-------------------------//
-      let chan = db.get(`welchannl1_${msg.guild.id}`);
+      let chan = await db.get(`welchannl1_${msg.guild.id}`);
       if (chan == null) {
         return msg.channel.send(
           new MessageEmbed()
@@ -85,7 +85,7 @@ module.exports = {
       //----------------------BACKGROUND END----------------------------//
     } else if (args[0].toLowerCase() === "imageremove") {
       //---------------------BACKGROUND REMOVE-------------------------//
-      let welback = db.get(`welback1_${msg.guild.id}`);
+      let welback = await db.get(`welback1_${msg.guild.id}`);
       if (welback == null) {
         return msg.channel.send(
           new MessageEmbed()
@@ -108,15 +108,15 @@ module.exports = {
       //---------------------BACKGROUND REMOVE END-----------------------//
     } else if (args[0].toLowerCase() === "test") {
       //------------------------TEST----------------------------//
-      let chan = db.get(`welchannl1_${msg.guild.id}`);
-      let welback = db.get(`welback1_${msg.guild.id}`);
-      let welmsg = db.get(`welmsg1_${msg.guild.id}`);
-      let welc = db.get(`welcolor1_${msg.guild.id}`);
-      let user = db.get(`usrcolor1_${msg.guild.id}`);
-      let autou = db.get(`urole_${msg.guild.id}`)
-      let autob = db.get(`brole_${msg.guild.id}`)
-      let dm = db.get(`weldm_${msg.guild.id}`)
-      let en = db.get(`emb_${msg.guild.id}`)
+      let chan = await db.get(`welchannl1_${msg.guild.id}`);
+      let welback = await db.get(`welback1_${msg.guild.id}`);
+      let welmsg = await db.get(`welmsg1_${msg.guild.id}`);
+      let welc = await db.get(`welcolor1_${msg.guild.id}`);
+      let user = await db.get(`usrcolor1_${msg.guild.id}`);
+      let autou = await db.get(`urole_${msg.guild.id}`)
+      let autob = await db.get(`brole_${msg.guild.id}`)
+      let dm = await db.get(`weldm_${msg.guild.id}`)
+      let en = await db.get(`emb_${msg.guild.id}`)
       if (chan == null) {
         return msg.channel.send(
           new MessageEmbed()
@@ -182,7 +182,7 @@ module.exports = {
       //----------------------TEST END-----------------------//
     } else if (args[0].toLowerCase() === "disable") {
       //--------------------DISABLE----------------------//
-      let chan = db.get(`welchannl1_${msg.guild.id}`);
+      let chan = await db.get(`welchannl1_${msg.guild.id}`);
       if (chan == null) {
         return msg.channel.send(
           new MessageEmbed()
@@ -246,7 +246,7 @@ module.exports = {
       }
       //--------------MESSAGE END---------------------//
     } else if (args[0].toLowerCase() === "messageremove") {
-      let msg1 = db.get(`welmsg1_${msg.guild.id}`);
+      let msg1 = await db.get(`welmsg1_${msg.guild.id}`);
       if (msg1 == null) {
         return msg.channel.send(
           new MessageEmbed()
@@ -344,7 +344,7 @@ module.exports = {
           .setTimestamp();
         return msg.channel.send(emb);
       } else if (args[1].toLowerCase() === "welcome") {
-        let welc = db.get(`welcolor1_${msg.guild.id}`);
+        let welc = await db.get(`welcolor1_${msg.guild.id}`);
         if (!welc) {
           const h = new MessageEmbed()
             .setColor("RED")
@@ -364,7 +364,7 @@ module.exports = {
           msg.channel.send(h2);
         }
       } else if (args[1].toLowerCase() === "user") {
-        let welc = db.get(`usrcolor1_${msg.guild.id}`);
+        let welc = await db.get(`usrcolor1_${msg.guild.id}`);
         if (!welc) {
           const h = new MessageEmbed()
             .setColor("RED")
@@ -391,7 +391,7 @@ module.exports = {
       .setTimestamp()
       msg.channel.send(gg)
     }else if(args[0].toLowerCase() === "embedremove"){
-      let embed = db.get(`emb_${msg.guild.id}`)
+      let embed = await db.get(`emb_${msg.guild.id}`)
       if(embed == null){
         let h = new MessageEmbed()
         .setColor("RED")

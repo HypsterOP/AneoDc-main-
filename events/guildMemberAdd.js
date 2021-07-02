@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const Canvas = require("canvas")
 const { centerText } = require("../modules/util")
 let client = require("../index")
-const db = require("quick.db")
+let db = client.db;
 var validator = require('validator');
 const { weirdToNormalChars } = require('weird-to-normal-chars');
 
@@ -17,10 +17,10 @@ Canvas.registerFont("assest/fonts/Captain.otf", {
 Canvas.registerFont("assest/fonts/bourbon.ttf", {
   family: "Bourbon"
 });
-let font = db.get(`font_${member.guild.id}`)
-  let welback = db.get(`welback1_${member.guild.id}`); //background
-  let welchannl = db.get(`welchannl1_${member.guild.id}`); //channel
-  let welmsg = db.get(`welmsg1_${member.guild.id}`); //message
+let font = await db.get(`font_${member.guild.id}`)
+  let welback = await db.get(`welback1_${member.guild.id}`); //background
+  let welchannl = await db.get(`welchannl1_${member.guild.id}`); //channel
+  let welmsg = await db.get(`welmsg1_${member.guild.id}`); //message
   if (!welchannl) return;
   if (welmsg) {
     welmsg = welmsg.replace(/{user}/g, member);
@@ -36,8 +36,8 @@ let font = db.get(`font_${member.guild.id}`)
       if (rep) welmsg = welmsg.replace(match, rep);
     }
   }
-  let welc = db.get(`welcolor1_${member.guild.id}`); //welcome color
-  let usrc = db.get(`usrcolor1_${member.guild.id}`);
+  let welc = await db.get(`welcolor1_${member.guild.id}`); //welcome color
+  let usrc = await db.get(`usrcolor1_${member.guild.id}`);
   const canvas = Canvas.createCanvas(883, 431);
   const ctx = canvas.getContext("2d");
   let choices = [
@@ -77,11 +77,11 @@ let font = db.get(`font_${member.guild.id}`)
   ctx.drawImage(avatar, 310, 30, 270, 270);
 
   const attach = new Discord.MessageAttachment(canvas.toBuffer(), "welcome.png");
-  let embed = db.get(`emb_${member.guild.id}`);
+  let embed = await db.get(`emb_${member.guild.id}`);
   if (embed == null) {
     client.channels.cache.get(welchannl).send(welmsg || "", attach);
   } else {
-let h = db.get(`ec_${member.guild.id}`);
+let h = await db.get(`ec_${member.guild.id}`);
 if(!h || !validator.isHexColor(h)) h = "#00FF00";
     const embed = new Discord.MessageEmbed()
       .setDescription(welmsg || "")
