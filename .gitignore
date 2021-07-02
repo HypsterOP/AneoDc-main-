@@ -1,6 +1,5 @@
 node_modules
 .idea
-json.sqlite
 logs
 .eslintrc.js
 .prettierrc.json
