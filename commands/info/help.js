@@ -227,7 +227,7 @@ module.exports = {
         .setColor(colr)
         .setFooter(`Page 29/29`);
 
-      let embedsarray = [AntiAlt, antilink, antiping, Antiswear, bio, birthhday, bot, cc, dt, Economy, Fun, gw, info, leveling, voiceLeveling, mod, modlogs, music, mute, prefix, ranks, reactionroels, starboard, suggestion, tickets, uno, util, welcomeLWESGO]
+      let embedsarray = [AntiAlt, antilink, antiping, Antiswear, bio, birthhday, bot, ytposter, cc, dt, Economy, Fun, gw, info, leveling, voiceLeveling, mod, modlogs, music, mute, prefix, ranks, reactionroels, starboard, suggestion, tickets, uno, util, welcomeLWESGO]
 
       let emoji = ['⬅', '➡']
 
