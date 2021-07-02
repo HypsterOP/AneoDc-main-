@@ -43,6 +43,26 @@ db21.on("ready", () => {
 
 client.db = db21;
 
+// ytp //
+
+const YoutubePoster = require("discord-yt-poster");
+const JoshMongo = require("@joshdb/mongo");
+  const options = {
+            loop_delays_in_min: 5, //don't go under 0!
+            provider: JoshMongo, 
+            providerOptions: {
+               collection: "YoutubePoster",
+               url: process.env.MONGO_BOT,
+            },
+        };
+  client.YTP = new YoutubePoster(client, options)
+
+  client.on('ready', () => {
+    client.YTP
+  })
+
+// ytp //
+
 const config = require("./config.json");
 
 const clientID = config.clientID;
