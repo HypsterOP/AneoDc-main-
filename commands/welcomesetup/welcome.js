@@ -138,7 +138,7 @@ module.exports = {
             ${
               chan
                 ? "<:ayumuTick:842630449200889856>"
-                : "<:ayumuError:842630488064917525>"
+                : "<:no:860411707242840064>"
             } **Welcome Channel: **${
               chan
                 ? `Welcome Channel Is Set As <#${chan}>`
@@ -146,7 +146,7 @@ module.exports = {
             }\n${
               welmsg
                 ? "<:ayumuTick:842630449200889856>"
-                : "<:ayumuError:842630488064917525>"
+                : "<:no:860411707242840064>"
             } **Welcome Message: **${
               welmsg
                 ? `Welcome Message Is Set`
@@ -154,25 +154,25 @@ module.exports = {
             }\n${
               welback
                 ? "<:ayumuTick:842630449200889856>"
-                : "<:ayumuError:842630488064917525>"
+                : "<:no:860411707242840064>"
             } **Welcome Image: **${
               welback
                 ? `Welcome Image Is Set`
                 : "No Welcome Image, `"+ p + "welcome Image` To Set One"
             }\n${
-              welc ? "<:ayumuTick:842630449200889856>" : "<:ayumuError:842630488064917525>"
+              welc ? "<:ayumuTick:842630449200889856>" : "<:no:860411707242840064>"
             } **Welcome Text Color:** ${
               welc
                 ? `Welcome Text Color Is Set`
                 : "No Welcome Text Is Set, `"+ p + "welcome color welcome` To Set One"
             }\n${
-              user ? "<:ayumuTick:842630449200889856>" : "<:ayumuError:842630488064917525>"
+              user ? "<:ayumuTick:842630449200889856>" : "<:no:860411707242840064>"
             } **User Text Color:** ${
               user
                 ? `User Text Color Is Set`
                 : "No User Text Is Set, `"+ p + "welcome color user` To Set One"
             }\n${
-              en ? "<:ayumuTick:842630449200889856>" : "<:ayumuError:842630488064917525>"
+              en ? "<:ayumuTick:842630449200889856>" : "<:no:860411707242840064>"
             } **Welcome Embed:** ${
               en ? "Welcome Embed Is Set" : "Welcome Embed Is Not Enabled, `"+ p + "welcome embed` To Set One."
             }`)

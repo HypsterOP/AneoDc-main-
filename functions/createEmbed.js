@@ -19,9 +19,9 @@ module.exports = (type, description, ...otherArgs) => {
     .setDescription(
       `${
         type === "success"
-          ? "<:ayumuTick:837567483422179358>"
+          ? "<:yes_tick:860411703607296001>"
           : type === "fail"
-          ? "<:ayumuError:842630488064917525>"
+          ? "<:no:860411707242840064>"
           : ""
       } ${description}`
     );

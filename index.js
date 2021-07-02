@@ -449,7 +449,7 @@ client.on("message", async (message) => {
           message.channel.send(
             new MessageEmbed()
               .setDescription(
-                `**<:ayumuError:842630488064917525> You can't ping \`${member.user.tag}\`**`
+                `**<:no:860411707242840064> You can't ping \`${member.user.tag}\`**`
               )
               .setColor("ORANGE")
           );
