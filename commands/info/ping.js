@@ -12,12 +12,12 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
-    let msg = message.channel.send({ content: "Reaching out to discord api..." });
 
-    (await msg).edit(
-      {
-        content: `Pong!\nAPI Latency: ${Date.now() - (await msg).createdAt}ms\nWS (Websocket) Ping: ${client.ws.ping}ms`
-      }
-    );
+    let embed = new MessageEmbed()
+    .setTitle(`Pong!`)
+    .addField(`WS (Websocket) Ping:`, `${client.ws.ping}`)
+    .setColor(`DARK_BUT_NOT_BLACK`)
+
+    message.channel.send({ embeds: [embed] })
   },
 };

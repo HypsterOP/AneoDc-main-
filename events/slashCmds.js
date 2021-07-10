@@ -1,6 +1,6 @@
 const client = require("../index");
 
-client.on("interaction", async (interaction) => {
+client.on("interactionCreate", async (interaction) => {
   if (interaction.isCommand()) {
     await interaction.defer().catch(() => {});
 
