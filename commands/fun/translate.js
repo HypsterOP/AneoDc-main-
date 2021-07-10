@@ -1,31 +1,36 @@
-const {Client, Message, MessageEmbed } = require ('discord.js');
-const translate = require('@iamtraction/google-translate')
+/* eslint-disable no-unused-vars */
+const { Client, Message, MessageEmbed } = require("discord.js");
+const translate = require("@iamtraction/google-translate");
 module.exports = {
-  name: 'translate',
+  name: "translate",
   /**
    * @param {Client} client
    * @param {Message} message
    * @param {String[]} args
    */
 
-  run: async(client , message , args) => {
+  run: async (client, message, args) => {
     try {
       const query = args.slice(1).join(" ");
-    if (!query) return message.reply("What should i translate? ex - h!translate french hello")
-const arg = args[0]
+      if (!query)
+        return message.reply({content:
+          "What should i translate? ex - h!translate french hello"
+        }
+        );
+      const arg = args[0];
 
-    const translated = await translate(query, {to: `${arg}`});
-    const embed = new MessageEmbed()
-    .setTitle("Translated!.")
-    .addField("Your Word", `\`\`\`fix\n${query}\`\`\``)
-    .addField('Selected Language', `\`\`\`fix\n${arg}\`\`\``)
-    .addField('Result', `\`\`\`fix\n${translated.text}\`\`\``)
-    .setColor("BLUE")
-    message.channel.send(embed)
-
+      const translated = await translate(query, { to: `${arg}` });
+      const embed = new MessageEmbed()
+        .setTitle("Translated!.")
+        .addField("Your Word", `\`\`\`fix\n${query}\`\`\``)
+        .addField("Selected Language", `\`\`\`fix\n${arg}\`\`\``)
+        .addField("Result", `\`\`\`fix\n${translated.text}\`\`\``)
+        .setColor("BLUE");
+      message.channel.send({ embeds: [embed] });
     } catch (error) {
-      return message.channel.send("Your question is invalid!")
-      .then(() => console.log(error));
+      return message.channel
+        .send({content: "Your question is invalid!"})
+        .then(() => console.log(error));
     }
-  }
-}
+  },
+};

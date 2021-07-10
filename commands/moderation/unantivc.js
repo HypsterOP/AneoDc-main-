@@ -1,26 +1,46 @@
-const { Client, Message, MessageEmbed, MessageReaction } = require("discord.js");
+/* eslint-disable */
+const {
+  Client,
+  Message,
+  MessageEmbed,
+  MessageReaction,
+  Permissions
+} = require("discord.js");
 
 module.exports = {
-  name: 'unantivc',
+  name: "unantivc",
   /**
    * @param {Client} client
    * @param {Message} message
    * @param {String[]} args
    */
   run: async (client, message, args) => {
-    if(!message.member.permissions.has('MANAGE_ROLES')) return;
-    
-    const target = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
-    if(!target) return message.reply('Please tell me the member who should not be prevented from joining the vc');
+    if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD)) return;
 
-    if(target.id === message.author.id) return message.reply("You cannot unantivc yourself!")
+    const target =
+      message.mentions.members.first() ||
+      message.guild.members.cache.get(args[0]);
+    if (!target)
+      return message.reply({content:
+        "Please tell me the member who should not be prevented from joining the vc"
+      }
+      );
 
-    let role = message.guild.roles.cache.find((role) => role.name.toLowerCase() === 'antivc');
-    if(!role) return message.reply("Anti-Vc role doesn't exist");
+    if (target.id === message.author.id)
+      return message.reply({content: "You cannot unantivc yourself!"});
 
-    if(!target.roles.cache.has(role.id)) return message.reply(`${target} was not event prevented from joining the vc in the first place.`);
+    let role = message.guild.roles.cache.find(
+      (role) => role.name.toLowerCase() === "antivc"
+    );
+    if (!role) return message.reply({content: "Anti-Vc role doesn't exist"});
 
-    target.roles.remove(role.id)
-    message.channel.send(`${target} will now be able to join vc\'s`)
-  }
-}
+    if (!target.roles.cache.has(role.id))
+      return message.reply({content:
+        `${target} was not event prevented from joining the vc in the first place.`
+      }
+      );
+
+    target.roles.remove(role.id);
+    message.channel.send({content: `${target} will now be able to join vc\'s`});
+  },
+};

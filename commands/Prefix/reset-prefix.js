@@ -1,23 +1,15 @@
-const prefixSchema = require('../../models/prefix')
-const prefix = require('../../config.json').prefix
-const { confirmation } = require('@reconlx/discord.js')
+/* eslint-disable no-unused-vars */
+const prefixSchema = require("../../models/prefix");
+const prefix = require("../../config.json").prefix;
+const { confirmation } = require("@reconlx/discord.js");
+const { Permissions } = require("discord.js");
 
 module.exports = {
-    name : 'prefix-reset',
-    run : async(client, message) => {
-        if(!message.member.permissions.has("ADMINISTRATOR")) return;
-        message.channel.send("Are you sure you want to reset the prefix?").then(async (msg) => {
-            const emoji = await confirmation(msg, message.author, ['✅', '❌'], 10000)
-            if(emoji === '✅') {
-                msg.delete()
-                await prefixSchema.findOneAndDelete({ Guild : message.guild.id })
-                message.channel.send(`The prefix has been reset to ${prefix}`)
-            }
-            if(emoji === '❌') {
-                msg.delete()
-                message.channel.send('reset prefix has been cancelled.')
-            }
-        })
-
-    }
-}
+  name: "prefix-reset",
+  run: async (client, message) => {
+    if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD)) return;
+    message.delete();
+    await prefixSchema.findOneAndDelete({ Guild: message.guild.id });
+    message.channel.send(`The prefix has been reset to ${prefix}`);
+  },
+};

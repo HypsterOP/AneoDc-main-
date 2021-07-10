@@ -1,22 +1,23 @@
-const { Client, Message, MessageEmbed } = require('discord.js');
+/* eslint-disable no-unused-vars */
+const { Client, Message, MessageEmbed } = require("discord.js");
 
 module.exports = {
-    name: 'spin',
-    aliases: ['spi'],
-    description: '',
-    usage: '',
-    /** 
-     * @param {Client} client 
-     * @param {Message} message 
-     * @param {String[]} args 
-     */
-    run: async(client, message, args) => {
-	    const user = message.mentions.members.first() || message.member;
-let avatarURL = (size, format, dynamic) => {
+  name: "spin",
+  aliases: ["spi"],
+  description: "",
+  usage: "",
+  /**
+   * @param {Client} client
+   * @param {Message} message
+   * @param {String[]} args
+   */
+  run: async (client, message, args) => {
+    const user = message.mentions.members.first() || message.member;
+    let avatarURL = (size, format, dynamic) => {
       return user.user.avatarURL({
         size: size === "Direct" ? 1024 : size,
         format,
-        dynamic
+        dynamic,
       });
     };
     let Canvas = require("canvas"),
@@ -25,6 +26,8 @@ let avatarURL = (size, format, dynamic) => {
     const width = 512,
       height = 512,
       numAngles = 50;
+
+    let msg = await message.channel.send({ content: "Please Wait..." });
     const canvas = Canvas.createCanvas(width, height);
 
     const ctx = canvas.getContext("2d");
@@ -69,13 +72,13 @@ let avatarURL = (size, format, dynamic) => {
 
     encoder.finish();
 
-    return message.channel.send({
+    return msg.delete() && message.channel.send({
       files: [
         {
           attachment: encoder.out.getData(),
-          name: "spin.gif"
-        }
-      ]
-})
-    }
-}
+          name: "spin.gif",
+        },
+      ],
+    });
+  },
+};

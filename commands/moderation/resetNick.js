@@ -1,4 +1,5 @@
-const { Client, Message, MessageEmbed } = require("discord.js");
+/* eslint-disable no-unused-vars */
+const { Client, Message, MessageEmbed, Permissions } = require("discord.js");
 
 module.exports = {
   name: "reset",
@@ -8,18 +9,21 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
-    if(!message.member.permissions.has('ADMINISTRATOR')) return;
+    if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_NICKNAMES)) return;
     const member = message.mentions.members.first();
 
-    if (!member) return message.reply("Please tell me the member");
+    if (!member) return message.reply({content: "Please tell me the member"});
 
-    if(message.member.roles.highest.position <= member.roles.highest.position) return message.channel.send("You're role is not higher than the member.")
+    if (message.member.roles.highest.position <= member.roles.highest.position)
+      return message.channel.send({content:"You're role is not higher than the member."});
 
     try {
       member.setNickname(null);
+      message.channel.send(`reset the nickname!`);
     } catch (err) {
-      message.reply(
+      message.reply({content:
         "I do not have permission to reset " + member.toString() + " nickname!"
+      }
       );
     }
   },

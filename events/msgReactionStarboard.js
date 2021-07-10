@@ -34,10 +34,10 @@ client.on("messageReactionAdd", async (reaction, user) => {
         .setTimestamp()
         .setColor("RANDOM");
 
-      channelto.send(
-        `:star: ${testcount} - ${reaction.message.channel}`,
-        embed
-      );
+      channelto.send({
+        content: `:star: ${testcount} - ${reaction.message.channel}`,
+        embeds: [embed],
+      });
     }
   } else {
     return;

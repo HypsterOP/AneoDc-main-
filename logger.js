@@ -1,13 +1,14 @@
+/* eslint-disable no-unused-vars */
 const Discord = require("discord.js");
 const fs = require("fs");
 const Guild = require("./models/log");
 const mongoose = require("mongoose");
-const client = require("./index")
-const chalk = require('chalk')
-module.exports = c => {
+const client = require("./index");
+const chalk = require("chalk");
+module.exports = (c) => {
   console.log(chalk.blueBright(`[LOGGER] Logger is loaded`));
   try {
-    c.on("channelCreate", function(channel) {
+    c.on("channelCreate", function (channel) {
       send_log(
         c,
         channel.guild,
@@ -16,7 +17,7 @@ module.exports = c => {
         `Channel Name: \`${channel.name}\`\nChannel Id: \`${channel.id}\`\nChannelTYPE: \`${channel.type}\``
       );
     });
-    c.on("channelDelete", function(channel) {
+    c.on("channelDelete", function (channel) {
       send_log(
         c,
         channel.guild,
@@ -25,7 +26,7 @@ module.exports = c => {
         `Channel Name: \`${channel.name}\`\nChannel Id: \`${channel.id}\`\nChannelTYPE: \`${channel.type}\``
       );
     });
-    c.on("channelPinsUpdate", function(channel, time) {
+    c.on("channelPinsUpdate", function (channel, time) {
       send_log(
         c,
         channel.guild,
@@ -35,7 +36,7 @@ module.exports = c => {
         "https://i.stack.imgur.com/d1JEp.png"
       );
     });
-    c.on("channelUpdate", function(oldChannel, newChannel) {
+    c.on("channelUpdate", function (oldChannel, newChannel) {
       let newCat = newChannel.parent ? newChannel.parent.name : "NO PARENT";
       let guildChannel = newChannel.guild;
       if (!guildChannel || !guildChannel.available) return;
@@ -46,7 +47,7 @@ module.exports = c => {
         null: "No Type",
         news: "News Channel",
         store: "Store Channel",
-        category: "Category"
+        category: "Category",
       };
 
       if (oldChannel.name != newChannel.name) {
@@ -82,7 +83,7 @@ module.exports = c => {
         );
       }
     });
-    c.on("emojiCreate", function(emoji) {
+    c.on("emojiCreate", function (emoji) {
       send_log(
         c,
         emoji.guild,
@@ -92,7 +93,7 @@ module.exports = c => {
       );
     });
 
-    c.on("emojiDelete", function(emoji) {
+    c.on("emojiDelete", function (emoji) {
       send_log(
         c,
         emoji.guild,
@@ -102,7 +103,7 @@ module.exports = c => {
       );
     });
 
-    c.on("emojiUpdate", function(oldEmoji, newEmoji) {
+    c.on("emojiUpdate", function (oldEmoji, newEmoji) {
       if (oldEmoji.name !== newEmoji.name) {
         send_log(
           c,
@@ -114,18 +115,18 @@ module.exports = c => {
       }
     });
 
-    c.on("guildBanAdd", function(guild, user) {
+    c.on("guildBanAdd", function (guild, user) {
       send_log(
         c,
         guild,
         "RED",
         "USER BANNED",
         `User: ${user} (\`${user.id}\`)\n\`${user.tag}\``,
-        client.user.displayAvatarURL({dynamic: true })
+        client.user.displayAvatarURL({ dynamic: true })
       );
     });
 
-    c.on("guildBanRemove", function(guild, user) {
+    c.on("guildBanRemove", function (guild, user) {
       send_log(
         c,
         guild,
@@ -136,7 +137,7 @@ module.exports = c => {
       );
     });
 
-    c.on("guildMemberAdd", function(member) {
+    c.on("guildMemberAdd", function (member) {
       send_log(
         member.guild,
         c,
@@ -147,7 +148,7 @@ module.exports = c => {
       );
     });
 
-    c.on("guildMemberRemove", function(member) {
+    c.on("guildMemberRemove", function (member) {
       send_log(
         c,
         member.guild,
@@ -158,7 +159,7 @@ module.exports = c => {
       );
     });
 
-    c.on("guildMembersChunk", function(members, guild) {
+    c.on("guildMembersChunk", function (members, guild) {
       send_log(
         guild,
         c,
@@ -169,8 +170,8 @@ module.exports = c => {
         )
       );
     });
-    
-    c.on("guildMemberUpdate", function(oldMember, newMember) {
+
+    c.on("guildMemberUpdate", function (oldMember, newMember) {
       let options = {};
 
       if (options[newMember.guild.id]) {
@@ -184,11 +185,11 @@ module.exports = c => {
       const oldMemberRoles = oldMember.roles.cache.keyArray();
       const newMemberRoles = newMember.roles.cache.keyArray();
       const oldRoles = oldMemberRoles
-        .filter(x => !options.excludedroles.includes(x))
-        .filter(x => !newMemberRoles.includes(x));
+        .filter((x) => !options.excludedroles.includes(x))
+        .filter((x) => !newMemberRoles.includes(x));
       const newRoles = newMemberRoles
-        .filter(x => !options.excludedroles.includes(x))
-        .filter(x => !oldMemberRoles.includes(x));
+        .filter((x) => !options.excludedroles.includes(x))
+        .filter((x) => !oldMemberRoles.includes(x));
       const rolechanged = newRoles.length || oldRoles.length;
 
       if (rolechanged) {
@@ -219,8 +220,7 @@ module.exports = c => {
       }
     });
 
-    c.on("messageDelete", function(message) {
-
+    c.on("messageDelete", function (message) {
       if (message.channel.type !== "text") return;
 
       send_log(
@@ -237,13 +237,12 @@ module.exports = c => {
 ${message.content}
 \`\`\`
 **Attachment URL : **
-${message.attachments.map(x => x.proxyURL)}
+${message.attachments.map((x) => x.proxyURL)}
 `
       );
     });
 
-    c.on("messageUpdate", function(oldMessage, newMessage) {
-
+    c.on("messageUpdate", function (oldMessage, newMessage) {
       if (oldMessage.channel.type !== "text") return;
       if (newMessage.channel.type !== "text") return;
 
@@ -267,7 +266,7 @@ ${newMessage.content.replace(/`/g, "'")}
       );
     });
 
-    c.on("roleCreate", function(role) {
+    c.on("roleCreate", function (role) {
       send_log(
         c,
         role.guild,
@@ -276,7 +275,7 @@ ${newMessage.content.replace(/`/g, "'")}
       );
     });
 
-    c.on("roleDelete", function(role) {
+    c.on("roleDelete", function (role) {
       send_log(
         c,
         role.guild,
@@ -285,39 +284,39 @@ ${newMessage.content.replace(/`/g, "'")}
       );
     });
 
-    c.on("roleUpdate", function(oldRole, newRole) {
+    c.on("roleUpdate", function (oldRole, newRole) {
       let perms = {
-        "1": "CREATE_INSTANT_INVITE",
-        "2": "KICK_MEMBERS",
-        "4": "BAN_MEMBERS",
-        "8": "ADMINISTRATOR",
-        "16": "MANAGE_CHANNELS",
-        "32": "MANAGE_GUILD",
-        "64": "ADD_REACTIONS",
-        "128": "VIEW_AUDIT_LOG",
-        "256": "PRIORITY_SPEAKER",
-        "1024": "VIEW_CHANNEL",
-        "1024": "READ_MESSAGES",
-        "2048": "SEND_MESSAGES",
-        "4096": "SEND_TTS_MESSAGES",
-        "8192": "MANAGE_MESSAGES",
-        "16384": "EMBED_LINKS",
-        "32768": "ATTACH_FILES",
-        "65536": "READ_MESSAGE_HISTORY",
-        "131072": "MENTION_EVERYONE",
-        "262144": "EXTERNAL_EMOJIS",
-        "262144": "USE_EXTERNAL_EMOJIS",
-        "1048576": "CONNECT",
-        "2097152": "SPEAK",
-        "4194304": "MUTE_MEMBERS",
-        "8388608": "DEAFEN_MEMBERS",
-        "16777216": "MOVE_MEMBERS",
-        "33554432": "USE_VAD",
-        "67108864": "CHANGE_NICKNAME",
-        "134217728": "MANAGE_NICKNAMES",
-        "268435456": "MANAGE_ROLES",
-        "268435456": "MANAGE_ROLES_OR_PERMISSIONS",
-        "536870912": "MANAGE_WEBHOOKS",
+        1: "CREATE_INSTANT_INVITE",
+        2: "KICK_MEMBERS",
+        4: "BAN_MEMBERS",
+        8: "ADMINISTRATOR",
+        16: "MANAGE_CHANNELS",
+        32: "MANAGE_GUILD",
+        64: "ADD_REACTIONS",
+        128: "VIEW_AUDIT_LOG",
+        256: "PRIORITY_SPEAKER",
+        1024: "VIEW_CHANNEL",
+        1024: "READ_MESSAGES",
+        2048: "SEND_MESSAGES",
+        4096: "SEND_TTS_MESSAGES",
+        8192: "MANAGE_MESSAGES",
+        16384: "EMBED_LINKS",
+        32768: "ATTACH_FILES",
+        65536: "READ_MESSAGE_HISTORY",
+        131072: "MENTION_EVERYONE",
+        262144: "EXTERNAL_EMOJIS",
+        262144: "USE_EXTERNAL_EMOJIS",
+        1048576: "CONNECT",
+        2097152: "SPEAK",
+        4194304: "MUTE_MEMBERS",
+        8388608: "DEAFEN_MEMBERS",
+        16777216: "MOVE_MEMBERS",
+        33554432: "USE_VAD",
+        67108864: "CHANGE_NICKNAME",
+        134217728: "MANAGE_NICKNAMES",
+        268435456: "MANAGE_ROLES",
+        268435456: "MANAGE_ROLES_OR_PERMISSIONS",
+        536870912: "MANAGE_WEBHOOKS",
         "1073741824 ": "MANAGE_EMOJIS",
         CREATE_INSTANT_INVITE: "CREATE_INSTANT_INVITE",
         KICK_MEMBERS: "KICK_MEMBERS",
@@ -350,7 +349,7 @@ ${newMessage.content.replace(/`/g, "'")}
         MANAGE_ROLES: "MANAGE_ROLES",
         MANAGE_ROLES_OR_PERMISSIONS: "MANAGE_ROLES_OR_PERMISSIONS",
         MANAGE_WEBHOOKS: "MANAGE_WEBHOOKS",
-        MANAGE_EMOJIS: "MANAGE_EMOJIS"
+        MANAGE_EMOJIS: "MANAGE_EMOJIS",
       };
       if (oldRole.name !== newRole.name) {
         send_log(
@@ -395,8 +394,8 @@ NEW PERMISSIONS: ${
         );
       }
     });
-   
-    c.on("userUpdate", function(oldUser, newUser) {
+
+    c.on("userUpdate", function (oldUser, newUser) {
       if (oldUser.username !== newUser.username) {
         send_log(
           newUser.guild,
@@ -420,15 +419,17 @@ async function send_log(c, guild, color, title, description, thumb) {
       .setDescription(description ? description.substr(0, 2048) : "\u200b")
       .setTitle(title ? title.substr(0, 256) : "\u200b")
       .setTimestamp()
-      .setThumbnail(thumb ? thumb : client.user.displayAvatarURL({ format: "png" }))
+      .setThumbnail(
+        thumb ? thumb : client.user.displayAvatarURL({ format: "png" })
+      )
       .setFooter(
-"powered by: Ayumu",
+        "powered by: Ayumu",
         client.user.displayAvatarURL({ format: "png" })
       );
     //GET THE CHANNEL
     const guilddb = await Guild.findOne(
       {
-        guildID: guild.id
+        guildID: guild.id,
       },
       (err, guild) => {
         if (err) console.error(err);
@@ -447,7 +448,7 @@ async function send_log(c, guild, color, title, description, thumb) {
       hook.send({
         username: guild.name,
         avatarURL: client.user.displayAvatarURL({ format: "png" }),
-        embeds: [LogEmbed]
+        embeds: [LogEmbed],
       });
     } catch {
       return;

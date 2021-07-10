@@ -1,4 +1,5 @@
-const { Client, Message, MessageEmbed } = require("discord.js");
+/*eslint-disable*/
+const { Client, Message, MessageEmbed, Permissions } = require("discord.js");
 
 module.exports = {
   name: 'antivc',
@@ -8,18 +9,18 @@ module.exports = {
    * @param {String[]} args
    */
   run: async (client, message, args) => {
-    if(!message.member.permissions.has("MANAGE_CHANNELS")) return;
+    if(!message.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD)) return;
     const target = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
-    if(!target) return message.reply('Please tell me the member who should be prevented from joining the vc');
+    if(!target) return message.reply({content: 'Please tell me the member who should be prevented from joining the vc'});
 
-    if(target.id === message.author.id) return message.reply('You cannot anti-vc yourself!')
+    if(target.id === message.author.id) return message.reply({content: 'You cannot anti-vc yourself!'})
 
-    if(message.member.roles.highest.position <= target.roles.highest.position) return message.channel.send("You're role is not higher than the member.")
+    if(message.member.roles.highest.position <= target.roles.highest.position) return message.channel.send({content: "You're role is not higher than the member."})
 
     let role = message.guild.roles.cache.find((role) => role.name.toLowerCase() === 'antivc');
     if(!role) {
         try {
-            message.channel.send('antivc role not found! Attempting to create one!');
+            message.channel.send({content: 'Anti VC role not found! Attempting to create one!'});
             role = await message.guild.roles.create({
                 data: {
                     name: 'antivc',
@@ -35,12 +36,12 @@ module.exports = {
                 })
             })
 
-            message.channel.send('Role Has been Created!')
+            message.channel.send({content: 'Role Has been Created!'})
         } catch (error) {
-            return message.channel.send(`Error Occured : \`${error.message}\``);
+            return message.channel.send({content: `Error Occured : \`${error.message}\``});
         }
     }
     await target.roles.add(role.id);
-    message.channel.send(`${target} will now be prevented from joining vc\'s`)
+    message.channel.send({content: `${target} will now be prevented from joining vc\'s`})
   }
 }

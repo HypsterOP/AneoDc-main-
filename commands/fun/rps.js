@@ -1,47 +1,58 @@
-const { Client, Message, MessageEmbed } = require('discord.js');
-const Discord = require("discord.js")
+/* eslint-disable no-unused-vars */
+const { Client, Message, MessageEmbed } = require("discord.js");
+
 module.exports = {
-    name: 'rockpaperscissors',
-    aliases: ['rps'],
-    /** 
-     * @param {Client} client 
-     * @param {Message} message 
-     * @param {String[]} args 
-     */
-    run: async(client, message, args) => {
-        const acceptedReplies = ['rock', 'paper', 'scissors'];
-	const random = Math.floor((Math.random() * acceptedReplies.length));
-	const result = acceptedReplies[random];
-	const embed = new Discord.MessageEmbed()
-		.setTitle('Rock Paper Scissors Against Ayumu')
-		.setDescription('React with 🗿 for stone\nReact with 📄 for paper\nReact with ✂️ for scissor')
-	message.channel.send(embed).then(m =>{
-		m.react('🗿');
-		m.react('📄');
-		m.react('✂️');
-		const filter = (reaction, user) => {
-			return ['🗿', '📄', '✂️'].includes(reaction.emoji.name) && user.id === message.author.id;
-		};
+  name: "rockpaperscissors",
+  aliases: ["rps"],
+  description: "",
+  usage: "",
+  /**
+   * @param {Client} client
+   * @param {Message} message
+   * @param {String[]} args
+   */
+  run: async (client, message, args) => {
+    let prefix = await client.prefix(message);
+    const acceptedReplies = ["rock", "paper", "scissors"];
+    const random = Math.floor(Math.random() * acceptedReplies.length);
+    const result = acceptedReplies[random];
 
-		m.awaitReactions(filter, { max: 1, time: 100000, errors: ['time'] })
-			.then(collected => {
-				const reaction = collected.first();
+    const choice = args[0];
+    if (!choice)
+      return message.channel.send({content:
+        `How to play: \`${prefix}rps <rock|paper|scissors>\``
+	  }
+      );
+    if (!acceptedReplies.includes(choice))
+      return message.channel.send({content:
+        `Only these responses are accepted: \`${acceptedReplies.join(", ")}\``
+	  }
+      );
 
-				if (reaction.emoji.name === '🗿') {
-					if (result === 'paper') return message.reply('I won! I choose ' + result);
-					else return message.reply('You won! I choose ' + result);
-				}
-				if(reaction.emoji.name === '📄') {
-					if (result === 'scissors') return message.reply('I won! I choose ' + result);
-					else return message.reply('You won! I choose ' + result);
-				}
-				else if (result === 'rock') {return message.reply('I won! I choose ' + result);}
-				else {return message.reply('You won! I choose ' + result);}
-			},
-			)
-			.catch(collected => {
-				message.reply('You were too late!');
-			});
-	});
+    console.log("Bot Result:", result);
+    if (result === choice)
+      return message.reply({content: "It's a tie! We both made the same choice!"});
+
+    switch (choice) {
+      case "rock": {
+        if (result === "paper") return message.reply({content: "i won!"});
+        else return message.reply({ content: "You won!" });
+      }
+      case "paper": {
+        if (result === "scissors") return message.reply({content: "i won!"});
+        else return message.reply({ content: "You won!" });
+      }
+      case "scissors": {
+        if (result === "rock") return message.reply({content: "i won!"});
+        else return message.reply({ content: "You won!" });
+      }
+      default: {
+        return message.channel.send({
+          content: `Only these responses are accepted: \`${acceptedReplies.join(
+            ", "
+          )}\``,
+        });
+      }
     }
-}
+  },
+};

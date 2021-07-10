@@ -4,6 +4,6 @@ let Schema = new mongoose.Schema({
   guildid: String,
   user: String,
   content: Array
-})
+});
 
-module.exports = mongoose.model('warns', Schema)
+module.exports = mongoose.model('warns', Schema);

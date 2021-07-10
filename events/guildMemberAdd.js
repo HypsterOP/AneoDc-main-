@@ -1,23 +1,23 @@
+/* eslint-disable no-unused-vars */
 const Discord = require("discord.js");
-const Canvas = require("canvas")
-const { centerText } = require("../modules/util")
-let client = require("../index")
+const Canvas = require("canvas");
+const { centerText } = require("../modules/util");
+let client = require("../index");
 let db = client.db;
-var validator = require('validator');
-const { weirdToNormalChars } = require('weird-to-normal-chars');
+var validator = require("validator");
+const { weirdToNormalChars } = require("weird-to-normal-chars");
 
-
-client.on("guildMemberAdd", async(member) => {
-Canvas.registerFont("assest/fonts/Geizer.otf", {
-  family: "Geizer"
-})
-Canvas.registerFont("assest/fonts/Captain.otf", {
-  family: "Captain"
-});
-Canvas.registerFont("assest/fonts/bourbon.ttf", {
-  family: "Bourbon"
-});
-let font = await db.get(`font_${member.guild.id}`)
+client.on("guildMemberAdd", async (member) => {
+  Canvas.registerFont("assest/fonts/Geizer.otf", {
+    family: "Geizer",
+  });
+  Canvas.registerFont("assest/fonts/Captain.otf", {
+    family: "Captain",
+  });
+  Canvas.registerFont("assest/fonts/bourbon.ttf", {
+    family: "Bourbon",
+  });
+  let font = await db.get(`font_${member.guild.id}`);
   let welback = await db.get(`welback1_${member.guild.id}`); //background
   let welchannl = await db.get(`welchannl1_${member.guild.id}`); //channel
   let welmsg = await db.get(`welmsg1_${member.guild.id}`); //message
@@ -31,7 +31,7 @@ let font = await db.get(`font_${member.guild.id}`)
     if (!matches) matches = welmsg;
     for (const match of matches) {
       const rep = await member.guild.emojis.cache.find(
-        emoji => emoji.name === match.substring(2, match.length - 1)
+        (emoji) => emoji.name === match.substring(2, match.length - 1)
       );
       if (rep) welmsg = welmsg.replace(match, rep);
     }
@@ -43,7 +43,7 @@ let font = await db.get(`font_${member.guild.id}`)
   let choices = [
     "https://media.discordapp.net/attachments/741712646361055333/743530826343514253/Best-HD-Backgrounds-Photos-Download.jpg?width=766&height=431",
     "https://media.discordapp.net/attachments/741712646361055333/743530817388806225/Best-PC-HD-Wallpapers-008.jpg?width=766&height=431",
-    "https://media.discordapp.net/attachments/741712646361055333/743530777160974397/images.jpg?width=766&height=431"
+    "https://media.discordapp.net/attachments/741712646361055333/743530777160974397/images.jpg?width=766&height=431",
   ];
   let response = choices[Math.floor(Math.random() * choices.length)];
   const background = await Canvas.loadImage(
@@ -73,22 +73,28 @@ let font = await db.get(`font_${member.guild.id}`)
   ctx.closePath();
   ctx.clip();
 
-  const avatar = await Canvas.loadImage(member.user.displayAvatarURL({ format: "jpg" }));
+  const avatar = await Canvas.loadImage(
+    member.user.displayAvatarURL({ format: "jpg" })
+  );
   ctx.drawImage(avatar, 310, 30, 270, 270);
 
-  const attach = new Discord.MessageAttachment(canvas.toBuffer(), "welcome.png");
+  const attach = new Discord.MessageAttachment(
+    canvas.toBuffer(),
+    "welcome.png"
+  );
   let embed = await db.get(`emb_${member.guild.id}`);
   if (embed == null) {
-    client.channels.cache.get(welchannl).send(welmsg || "", attach);
+    client.channels.cache.get(welchannl).send({content: welmsg || "", files: [attach]});
   } else {
-let h = await db.get(`ec_${member.guild.id}`);
-if(!h || !validator.isHexColor(h)) h = "#00FF00";
+    let h = await db.get(`ec_${member.guild.id}`);
+    if (!h || !validator.isHexColor(h)) h = "#00FF00";
     const embed = new Discord.MessageEmbed()
       .setDescription(welmsg || "")
       .setColor(h)
-      .attachFiles([new Discord.MessageAttachment(canvas.toBuffer(), "welcome.png")])
+      .attachFiles([
+        new Discord.MessageAttachment(canvas.toBuffer(), "welcome.png"),
+      ])
       .setImage("attachment://welcome.png");
     client.channels.cache.get(welchannl).send(embed);
   }
-
-})
+});

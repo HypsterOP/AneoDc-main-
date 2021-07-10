@@ -1,8 +1,14 @@
-const { Client, Message, MessageEmbed, MessageAttachment } = require("discord.js");
-const { Canvas } = require('canvacord')
+/* eslint-disable no-unused-vars */
+const {
+  Client,
+  Message,
+  MessageEmbed,
+  MessageAttachment,
+} = require("discord.js");
+const { Canvas } = require("canvacord");
 
 module.exports = {
-  name: 'changemymind',
+  name: "changemymind",
   /**
    * @param {Client} client
    * @param {Message} message
@@ -11,12 +17,16 @@ module.exports = {
   run: async (client, message, args) => {
     let text = args.join(" ");
 
-    if(!args) return message.channel.send('Provide some text like "Hypster Is the best" lmao')
+    if (!args)
+      return message.channel.send({content:
+        'Provide some text like "Hypster Is the best" lmao'
+      }
+      );
 
     let image = await Canvas.changemymind(text);
 
-    let changeMyMind = new MessageAttachment(image, "cmm.png")
+    let changeMyMind = new MessageAttachment(image, "cmm.png");
 
-    message.channel.send(changeMyMind);
-  }
-}
+    message.channel.send({files: [changeMyMind]});
+  },
+};

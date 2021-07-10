@@ -1,57 +1,33 @@
-const { MessageEmbed } = require('discord.js');
+/* eslint-disable no-unused-vars */
+const { Client, Message, MessageEmbed } = require("discord.js");
 
 module.exports = {
-    name: 'report-bug',
-    aliases: ['bug'],
-    run: async (client, message, args) => {
-        message.reply('Please Check Your dms!');
-        const questions = [
-            'What is your username and tag?',
-            'What is the title you want to give to that bug?',
-            'What is the bug?',
-            'What is the command',
-            "Do you have any idea, How can we fix the bug? (If you don't, Respond with (no))"
-        ];
+  name: "report-bug",
+  aliases: ["bug"],
+  description: "Report a bug",
+  usage: "<bug>",
+  /**
+   * @param {Client} client
+   * @param {Message} message
+   * @param {String[]} args
+   */
+  run: async (client, message, args) => {
+    const argsss = args.join(" ");
+    if (!argsss)
+      return message.reply({
+        content: "Please mention a bug.",
+        allowedMentions: { repliedUser: false },
+      });
 
-        let collectCounter = 0;
-        let endCounter = 0;
+    const chnl = client.channels.cache.get("861459299875029002");
 
-        const filter = m => m.author.id === message.author.id;
-        const appStart = await message.author.send(questions[collectCounter++]);
-        const channel = appStart.channel;
-
-        const collector = channel.createMessageCollector(filter);
-
-        collector.on('collect', () => {
-            if (collectCounter < questions.length) {
-                channel.send(questions[collectCounter++]);
-            } else {
-                channel.send(`Thanks For Your Feedback`);
-                collector.stop('fulfilled');
-            }
-        });
-        const appChannel = client.channels.cache.get('839563998507696139');
-        collector.on('end', (collected, reason) => {
-            if (reason === 'fulfilled') {
-                let index = 1;
-                const mapped = collected
-                    .map(msg => {
-                        return `**${index++})** | ${questions[endCounter++]}\n-> ${
-                            msg.content
-                        }`;
-                    })
-                    .join('\n\n');
-                appChannel.send(
-                    new MessageEmbed().setAuthor(
-                        message.author.tag,
-                        message.author.displayAvatarURL({ dynamic: true })
-                    ).setTitle`New Bug Reported`
-                        .setDescription(mapped)
-                        .setColor(client.color)
-                        .setTimestamp()
-                        .setFooter(`User Id: ${message.author.id}`)
-                );
-            }
-        });
-    }
+    chnl.send({ content: `\`\`\`fix
+New Bug has been reported: ${argsss}
+UserID: ${message.author.id}
+User Name: ${message.author.username}
+Reported Time: ${new Date}
+\`\`\`
+    ` });
+    message.reply({ content: "Thank you for reporting a bug. Ayumu will direct message you when the developers fix it or decline it." });
+  },
 };

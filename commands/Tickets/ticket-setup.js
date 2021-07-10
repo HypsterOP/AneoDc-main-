@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageCollector } = require('discord.js');
+const { MessageEmbed, MessageCollector, Permissions } = require('discord.js');
 const TicketData =  require("../../models/TicketData")
 const config = require("../../config.json")
 module.exports = {
@@ -11,8 +11,8 @@ module.exports = {
     run: async(client, message, args) => {
         try {
         let ticketData = await TicketData.findOne({ GuildID: message.guild.id });
-        if (!message.member.permissions.has('MANAGE_GUILD')) {
-            return message.channel.send('You are missing permissions! You must have the **MANAGE_SERVER** permission.');
+        if (!message.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD)) {
+            return message.channel.send({content: 'You are missing permissions! You must have the **MANAGE_SERVER** permission.'});
         }
         
         if (!ticketData) {
@@ -20,7 +20,7 @@ module.exports = {
                 .setTitle('Ticket System Setup | Part 1 of 4')
                 .setDescription('What do you want the embed description to be?')
                 .setColor('BLUE');
-            let firstMsg = await message.channel.send(firstEmbed);
+            let firstMsg = await message.channel.send({embeds: [firstEmbed]});
     
             const firstFilter = m => m.author.id === message.author.id;
             const firstCollector = new MessageCollector(message.channel, firstFilter, { max: 2 });
@@ -33,16 +33,16 @@ module.exports = {
                     .setTitle('Ticket System Setup | Part 2 of 4')
                     .setDescription('Where do you want to send this message so a user can create a ticket? Please mention a channel.')
                     .setColor('BLUE');
-                msg.channel.send(secondEmbed);
+                msg.channel.send({embeds: [secondEmbed]});
                 firstCollector.stop();
     
                 const secondFilter = m => m.author.id === message.author.id;
-                const secondCollector = new MessageCollector(message.channel, secondFilter, { max: 2 });
+                const secondCollector = new MessageCollector(message.channel, secondFilter, { max: 4 });
     
                 secondCollector.on('collect', async msg => {
                     let embedChannel = msg.mentions.channels.first();
                     if (!embedChannel) {
-                        msg.channel.send('That is not a correct channel! Please try again.');
+                        msg.channel.send({content: 'That is not a correct channel! Please try again.'});
                         secondCollector.stop();
                         return;
                     }
@@ -51,7 +51,7 @@ module.exports = {
                         .setTitle('Ticket System Setup | Part 3 of 4')
                         .setDescription('What roles can see thie ticket? Please provide a role name, mention, or ID.')
                         .setColor('BLUE');
-                    msg.channel.send(thirdEmbed);
+                    msg.channel.send({embeds: [thirdEmbed]});
                     secondCollector.stop();
     
                     const thirdFilter = m => m.author.id === message.author.id;
@@ -61,7 +61,7 @@ module.exports = {
                         let savedRole = message.mentions.roles.first() || message.guild.roles.cache.get(message.content) || message.guild.roles.cache.find(role => role.name.toLowerCase() === message.content.toLowerCase());
     
                         if (!savedRole) {
-                            msg.channel.send('That is not a valid role! Please try again.');
+                            msg.channel.send({content: 'That is not a valid role! Please try again.'});
                             thirdCollector.stop();
                             return;
                         }
@@ -70,7 +70,7 @@ module.exports = {
                             .setTitle('Ticket System Setup | Part 4 of 4')
                             .setDescription('The setup is now finished!')
                             .setColor('BLUE');
-                        await msg.channel.send(fourthEmbed);
+                        await msg.channel.send({embeds: [fourthEmbed]});
                         thirdCollector.stop();
     
                         await createTicketSystem(ticketData, embedDescription, embedChannel, message, savedRole)
@@ -81,10 +81,11 @@ module.exports = {
             await TicketData.findOneAndRemove({
                 GuildID: message.guild.id
             });
-            message.channel.send(`**Successfuly Reset the Ticket System on your Server!**\nuse the command to again to set it up!`);
+            message.channel.send({content: `**Successfuly Reset the Ticket System on your Server!**\nuse the command to again to set it up!`});
         }    
     } catch (e) {
-        return message.channel.send(`An error has occured, please try again.`)
+        message.channel.send({content: `An error has occured, please try again.`})
+        console.log(e);
     }
     }
 }
@@ -95,7 +96,7 @@ async function createTicketSystem(ticketData, embedDescription, embedChannel, me
         .setDescription(embedDescription)
         .setColor('RANDOM');
 
-    let msg = await embedChannel.send(sendEmbed);
+    let msg = await embedChannel.send({embeds: [sendEmbed]});
     await msg.react('🎟');
 
     const newData = new TicketData({

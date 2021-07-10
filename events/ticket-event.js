@@ -34,12 +34,12 @@ const {
 				deny: ['VIEW_CHANNEL'],
 			},],
 		});
-		await channel.createOverwrite(user, {
+		await channel.permissionOverwrites.edit(user, {
 			VIEW_CHANNEL: true,
 			SEND_MESSAGES: true,
 			SEND_TTS_MESSAGES: false
 		});
-		await channel.createOverwrite(data.WhitelistedRole, {
+		await channel.permissionOverwrites.edit(data.WhitelistedRole, {
 			VIEW_CHANNEL: true,
 			SEND_MESSAGES: true,
 			SEND_TTS_MESSAGES: false
@@ -49,7 +49,10 @@ const {
 			.setTitle(`Ticket #${'0'.repeat(4 - data.TicketNumber.toString().length)}${data.TicketNumber}`)
 			.setDescription(`Ticket created by: ${user.toString()}. Support Will be with you soon\nType \`done\` when you're finished.`)
 			.setColor('BLUE');
-		let successMsg = await channel.send(`${user.toString()}`, successEmbed);
+		let successMsg = await channel.send({
+			content: `${user.toString()}`,
+			embeds: [successEmbed]
+		});
 		await cooldown.add(user.id);
 		await checkIfClose(client, reaction, user, successMsg, channel);
 		setTimeout(function () {

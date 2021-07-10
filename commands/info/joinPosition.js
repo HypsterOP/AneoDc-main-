@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const { Client, Message, MessageEmbed } = require("discord.js");
 
 module.exports = {
@@ -9,7 +10,11 @@ module.exports = {
   run: async (client, message, args) => {
     const member = message.mentions.members.first();
 
-    if (!member) return message.reply("Please specify a member of whom you want to see the position!");
+    if (!member)
+      return message.reply({
+        content:
+          "Please specify a member of whom you want to see the position!",
+      });
 
     const members = message.guild.members.cache
       .sort((a, b) => a.joinedTimestamp - b.joinedTimestamp)
@@ -21,10 +26,14 @@ module.exports = {
       }
     });
 
-    message.channel.send(
-      new MessageEmbed()
-      .setColor("2F3136")
-      .setDescription(`${member} is the ${await position} member to join the server!`)
-    );
+    message.channel.send({
+      embeds: [
+        new MessageEmbed()
+          .setColor("2F3136")
+          .setDescription(
+            `${member} is the ${await position} member to join the server!`
+          ),
+      ],
+    });
   },
 };

@@ -13,14 +13,14 @@ module.exports = {
    */
   run: async (client, message, args) => {
     const emote = args[0];
-    if (!emote) return message.channel.send(`Please provide an emoji!`);
+    if (!emote) return message.channel.send({content: `Please provide an emoji!`});
     const regex = emote.replace(/^<a?:\w+:(\d+)>$/, "$1");
 
     const emoji = message.guild.emojis.cache.find(
       (emoj) => emoj.name === emote || emoj.id === regex
     );
     if (!emoji)
-      return message.channel.send(`${client.error} | Please provide an emoji!`);
+      return message.channel.send({content: `Please provide an emoji!`});
 
     const embed = new MessageEmbed()
       .setTitle(`${emoji.name} ${emoji}`)
@@ -40,6 +40,6 @@ module.exports = {
       .setThumbnail(emoji.url)
       .setColor("#2F3136");
 
-    message.channel.send(embed);
+    message.channel.send({embeds: [embed]});
   },
 };

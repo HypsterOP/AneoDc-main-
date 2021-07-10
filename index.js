@@ -1,5 +1,11 @@
 /* eslint-disable no-unused-vars */
-const { Collection, Client, Discord, MessageEmbed } = require("discord.js");
+const {
+  Collection,
+  Client,
+  Discord,
+  MessageEmbed,
+  Intents,
+} = require("discord.js");
 const fs = require("fs");
 const afk = new Collection();
 const db2 = require("quick.db");
@@ -8,13 +14,11 @@ const coinsSchemaa = require("./models/Economy");
 const moment = require("moment");
 module.exports = afk;
 const client = new Client({
-  disableEveryone: true,
-  partials: ["CHANNEL", "MESSAGE", "GUILD_MEMBER", "REACTION", "USER"],
+  intents: Intents.ALL,
+  allowedMentions: { parse: ["everyone"] },
+  partials: ["CHANNEL", "GUILD_MEMBER", "MESSAGE", "REACTION", "USER"],
 });
 require("dotenv").config();
-require("discord-reply");
-require("discord-buttons")(client);
-require("discord-slider")(client);
 module.exports = client;
 const mongoose = require("mongoose");
 
@@ -47,19 +51,19 @@ client.db = db21;
 
 const YoutubePoster = require("discord-yt-poster");
 const JoshMongo = require("@joshdb/mongo");
-  const options = {
-            loop_delays_in_min: 5, //don't go under 0!
-            provider: JoshMongo, 
-            providerOptions: {
-               collection: "YoutubePoster",
-               url: process.env.MONGO_BOT,
-            },
-        };
-  client.YTP = new YoutubePoster(client, options)
+const options = {
+  loop_delays_in_min: 5, //don't go under 0!
+  provider: JoshMongo,
+  providerOptions: {
+    collection: "YoutubePoster",
+    url: process.env.MONGO_BOT,
+  },
+};
+client.YTP = new YoutubePoster(client, options);
 
-  client.on('ready', () => {
-    client.YTP
-  })
+client.on("ready", () => {
+  client.YTP;
+});
 
 // ytp //
 
@@ -308,7 +312,7 @@ client.manager = new Manager({
       .setDescription(`[${track.title}](${track.uri})`)
       .addField(`Requested By : `, `${track.requester}`, true);
 
-    channel.send(embed);
+    channel.send({ embeds: [embed] });
   })
 
   .on("trackStuck", (player, track) => {
@@ -323,7 +327,7 @@ client.manager = new Manager({
       )
       .setDescription(`${track.title}`);
 
-    channel.send(embed);
+    channel.send({ embeds: embed });
   })
 
   .on("queueEnd", (player) => {
@@ -350,10 +354,11 @@ const prefix = config.prefix;
 const reconDB = require("./reconDB");
 const db = require("./reconDB");
 client.commands = new Collection();
+client.slashCommands = new Collection();
 client.aliases = new Collection();
 client.config = config;
 
-const { GiveawaysManager } = require("discord-giveaways");
+const { GiveawaysManager } = require("discord-giveaways-v13");
 client.giveawaysManager = new GiveawaysManager(client, {
   storage: "./give.json",
   updateCountdownEvery: 5000,
@@ -364,13 +369,15 @@ client.giveawaysManager = new GiveawaysManager(client, {
   },
 });
 
+client.membersData = require('./models/MemberModel');
+
 const { DiscordTogether } = require("discord-together");
 
 client.discordTogether = new DiscordTogether(client);
 
 const blacklistedWords = new Collection();
 client.categories = fs.readdirSync("./commands/");
-["command", "distube-handler"].forEach((handler) => {
+["command", "distube-handler", "slash"].forEach((handler) => {
   require(`./handlers/${handler}`)(client);
 
   /**
@@ -392,14 +399,14 @@ client.categories = fs.readdirSync("./commands/");
   };
 });
 
-const DiscordVoice = require('discord-voice');
+const DiscordVoice = require("discord-voice");
 
 const Voice = new DiscordVoice(client, process.env.MONGO_BOT);
 
 client.discordVoice = Voice;
 
 client.bal = (id) =>
-  new Promise( (ful) => {
+  new Promise((ful) => {
     const data = coinsSchemaa.findOne({ id });
     if (!data) return ful(0);
     ful(data.coins);
@@ -466,13 +473,13 @@ client.on("message", async (message) => {
       const member = message.mentions.members.first();
       if (member) {
         if (data1.Member.includes(member.id)) {
-          message.channel.send(
-            new MessageEmbed()
-              .setDescription(
-                `**<:no:860411707242840064> You can't ping \`${member.user.tag}\`**`
-              )
-              .setColor("ORANGE")
-          );
+          let embed = new MessageEmbed();
+          new MessageEmbed()
+            .setDescription(
+              `**<:no:860411707242840064> ${message.member.user.username} You can't ping \`${member.user.tag}\`**`
+            )
+            .setColor("ORANGE");
+          message.channel.send();
           message.delete();
         }
       }
@@ -562,10 +569,12 @@ client.on("messageReactionAdd", async (messageReaction, user) => {
       if (!role) return data.delete();
       const member = await message.guild.members.cache.get(user.id);
       await member.roles.add(role);
-      await member.send(
+      await member.send({embeds:[
         new MessageEmbed().setTitle(`Role Added`).setColor("GREEN")
           .setDescription(`You were given role 
 	  \`${role.name}\` because you reacted to ${emoji}`)
+      ]
+      }
       );
     }
   );
@@ -587,10 +596,12 @@ client.on("messageReactionRemove", async (messageReaction, user) => {
       if (!role) return data.delete();
       const member = await message.guild.members.cache.get(user.id);
       await member.roles.remove(role);
-      await member.send(
+      await member.send({embeds: [
         new MessageEmbed().setTitle(`Role Removed`).setColor("RED")
           .setDescription(`You lost a role 
 	  \`${role.name}\` by unreacting ${emoji}`)
+      ]
+      }
       );
     }
   );
@@ -630,7 +641,7 @@ client.on("guildMemberAdd", async (member) => {
           new MessageEmbed()
             .setTitle(`Ayumu Bot Alt Detector`)
             .setDescription(
-              `You have been kicked from ${member.guild.name} | This was because your account age is below the server's account age requirement.`
+              `You have been kicked from ${member.guild.name} | client was because your account age is below the server's account age requirement.`
             )
             .setColor("RANDOM")
             .setFooter(`Ayumu | The Discord Bot`)

@@ -1,22 +1,18 @@
-const createEmbed = require("../../functions/createEmbed")
+const createEmbed = require("../../functions/createEmbed");
 const prem = require("../../models/premium");
 const premKey = require("../../models/premiumKey");
-const { prems } = require("../../Collection/premiumServers")
+const { prems } = require("../../Collection/premiumServers");
 
 module.exports = {
   name: "premium",
   usage: "<code>",
-    category: "config",
-    description: "Activate premium on the server",
-    run: async(client, message, args) => {
+  category: "config",
+  description: "Activate premium on the server",
+  run: async (client, message, args) => {
     let key = args[0];
     if (!key) return message.channel.send(createEmbed("fail", "No key given"));
     if (key === "create") {
-      if (
-        !require("../../config.json").owners.includes(
-          message.author.id
-        )
-      )
+      if (!require("../../config.json").owners.includes(message.author.id))
         return message.channel.send(
           createEmbed("fail", "You cannot create keys")
         );

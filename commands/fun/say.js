@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const { Client, Message, MessageEmbed } = require("discord.js");
 
 module.exports = {
@@ -9,13 +10,16 @@ module.exports = {
    */
   run: async (client, message, args) => {
     const sayEmbed = new MessageEmbed()
-        .setAuthor(message.author.tag, message.author.displayAvatarURL({ dyanmic: true }))
-        .setDescription(args.join(" "))
-        .setTimestamp()
-        .setColor("RANDOM")
+      .setAuthor(
+        message.author.tag,
+        message.author.displayAvatarURL({ dyanmic: true })
+      )
+      .setDescription(args.join(" "))
+      .setTimestamp()
+      .setColor("RANDOM");
 
-    message.channel.send(sayEmbed)
+    message.channel.send({embeds :[sayEmbed]});
 
-    message.delete()
+    message.delete();
   },
 };
