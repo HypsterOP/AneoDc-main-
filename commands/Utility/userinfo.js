@@ -18,8 +18,8 @@ module.exports = {
       message.guild.members.cache.get(args[0]) ||
       message.member;
 
-    let durumm;
-    let durum = user.presence.status;
+    let userStatm;
+    let userStat = user.presence.status;
 
     let userRoles = user.roles.cache
       .map((x) => x)
@@ -37,11 +37,11 @@ module.exports = {
       safe = "`Suspicious` <:AD_IconStatusDND:862184549949112340>";
     }
 
-    if (durum === "online") durumm = `Online <:Online:863277900543033414> `;
-    if (durum === "offline") durumm = `Offline <:Offline:863278308644225036> `;
-    if (durum === "idle") durumm = `Idle <:Idle:863278184896528384>`;
-    if (durum === "dnd")
-      durumm = `Do not disturb <:discorddnd:757485967266545704>`;
+    if (userStat === "online") userStatm = `Online <:Online:863277900543033414> `;
+    if (userStat === "offline") userStatm = `Offline <:Offline:863278308644225036> `;
+    if (userStat === "idle") userStatm = `Idle <:Idle:863278184896528384>`;
+    if (userStat === "dnd")
+      userStatm = `Do not disturb <:discorddnd:757485967266545704>`;
 
     let nitroBadge = user.user.avatarURL({ dynamic: true });
     let flags = user.user.flags.toArray().join(``);

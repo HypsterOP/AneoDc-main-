@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 const Meme = require("memer-api");
-const memer = new Meme("bAYACGHpC1o");
+const memer = new Meme(process.env.MEMER);
 const {
   Client,
   Message,
