@@ -26,9 +26,7 @@ module.exports = {
     if (json.description) return message.reply({content: "Invalid color!"});
     let embed = new MessageEmbed()
       .setTitle(json.name)
-      .addField("Rgb(red green blue)", json.rgb, true)
-      .addField("Brightness", json.brightness, true)
-      .addField("Hex", json.hex, true)
+      .setDescription(`${json.rgb}\n\nBrightness ${json.brightness}\n\nHex ${json.hex}`)
       .setThumbnail(json.image)
       .setImage(json.image_gradient, true)
       .setColor(json.hex);
