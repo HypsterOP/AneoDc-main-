@@ -26,6 +26,7 @@ node .
 
 # FAQ | Hosting
 We host our bot on Google Cloud's VM's you can can join our server for more info! [Click Here](https://discord.gg/RHRgmAmYnf)
+status-currently not hosted
 
 # FAQ | Support
 if you need any help then [Join our discord server](https://discord.gg/RHRgmAmYnf)
