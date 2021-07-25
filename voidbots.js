@@ -1,3 +1,4 @@
+//voidsbot.js
 const discord = require("discord.js")
 const VoidBotsClient = require("voidbots")
 const client = require("./index")
