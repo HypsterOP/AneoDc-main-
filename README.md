@@ -1,5 +1,6 @@
 [ayumu](https://dsc.gg/ayumu) is a discord bot with many features such as Anti-Alt, AntiSwear, fun commands and many more!
 
+The bot is discontinued,please use michiaki bot instead,do not ask any kind of help related to this source code
 # Make your own bot!
 
 1. Clone the github repository
